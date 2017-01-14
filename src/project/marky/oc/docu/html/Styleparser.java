@@ -217,22 +217,4 @@ public class Styleparser
 	{
 		return content.replaceAll("\\@br", "<br>");
 	}
-
-	public static void main(String[] args)
-	{
-		ArrayList<String> examples = new ArrayList<String>();
-		examples.add("bla {@b this one should be bold} blu");
-		examples.add("{@i this one should be cursive}");
-		examples.add("{@c code here {@b and bold}}");
-		examples.add("{@link link}");
-		examples.add("{@code code example}");
-		examples.add("{@b this contains {@i {@c a crazy {@b compilation} of}}multiple} tags");
-		examples.add("text with list stuff:@br-blub@br-bla{@i blu} bli");
-		examples.add("{@c code\nwith multi\nline} blub");
-		
-		for (final String ex : examples)
-		{
-			ApplicationLogger.getLogger().info(parse(ex, null, null, null));
-		}
-	}
 }
