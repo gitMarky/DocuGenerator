@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import project.marky.oc.docu.C4FileParser;
+import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.c4script.C4DocuParser;
 import project.marky.oc.docu.c4script.C4FuncParser;
 import project.marky.oc.docu.c4script.C4TypeDef;
@@ -95,7 +95,7 @@ public class DocuPage
 		_fparam = function.getFunctionParameters();
 	}
 	
-	private void buildFunctionDescription(final C4FileParser filemanager, final File root_folder, final File own_location)
+	private void buildFunctionDescription(final DocuGenerator filemanager, final File root_folder, final File own_location)
 	{
 		if (_returns == null && _parameters == null && _visibility == null) return;
 		
@@ -192,7 +192,7 @@ public class DocuPage
 
 	}
 
-	public void convertToHtml(final C4FileParser filemanager, final File root_folder, final File own_location, final String css_location)
+	public void convertToHtml(final DocuGenerator filemanager, final File root_folder, final File own_location, final String css_location)
 	{
 		if (_html == null)
 		{
@@ -231,7 +231,7 @@ public class DocuPage
 			_html.p().b().write(description + ": ")._b().write(item)._p().newline();
 	}
 	
-	private void docuBodyParagraph(String description, String content, final C4FileParser filemanager, final File root_folder, final File own_location)
+	private void docuBodyParagraph(String description, String content, final DocuGenerator filemanager, final File root_folder, final File own_location)
 	{
 		if (content != null)
 		{
@@ -245,7 +245,7 @@ public class DocuPage
 		_html.saveToFile(outputFolder);
 	}
 
-	private String styleparse(String content, final C4FileParser filemanager, final File root_folder, final File own_location)
+	private String styleparse(String content, final DocuGenerator filemanager, final File root_folder, final File own_location)
 	{
 		return Styleparser.parse(content, filemanager, root_folder, own_location);
 	}

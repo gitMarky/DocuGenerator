@@ -2,7 +2,7 @@ package project.marky.oc.docu.scripts;
 
 import java.io.File;
 
-import project.marky.oc.docu.C4FileParser;
+import project.marky.oc.docu.DocuGenerator;
 
 /**
  * Generates the docu for a specific project.
@@ -18,7 +18,7 @@ public class ProjectOCLibraryShooter
 	
 	public static void main(String[] args)
 	{
-		C4FileParser parser = new C4FileParser();
+		DocuGenerator parser = new DocuGenerator();
 		parser.run(_workspace, _outputFolder, _stylesheet, "Library: Shooter");
 	}
 }

@@ -6,13 +6,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import project.marky.oc.docu.ApplicationLogger;
-import project.marky.oc.docu.C4FileParser;
+import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.logic.StdNamespace;
 import project.marky.oc.docu.util.RelFilePath;
 
 public class Styleparser
 {
-	public static String parse(final String content, final C4FileParser filemanager, final File root_folder, final File origin)
+	public static String parse(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
 		String text = parseBlock(content, filemanager, root_folder, origin);
 		return text;
@@ -54,7 +54,7 @@ public class Styleparser
 
 
 	
-	private static String parseBlock(String content, C4FileParser filemanager, final File root_folder, File origin)
+	private static String parseBlock(String content, DocuGenerator filemanager, final File root_folder, File origin)
 	{
 		//ApplicationLogger.getLogger().info("parseBlock " + content);
 		final String regex = "\\{(.+)\\}";

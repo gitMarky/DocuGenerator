@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import project.marky.oc.docu.C4FileParser;
+import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.html.StdHtmlFile;
 import project.marky.oc.docu.logic.DocuPage;
 import project.marky.oc.docu.logic.StdNamespace;
@@ -25,9 +25,9 @@ public class HtmlHelpContents extends StdHtmlFile
 	private static final String PARAM_NAME_LOCAL_VALUE = "     <param name=\"Local\" value=\"";
 	private static final String PARAM_NAME_NAME_VALUE = "     <param name=\"Name\" value=\"";
 	private static final String LI_OBJECT_TYPE_TEXT_SITEMAP = "<LI> <OBJECT type=\"text/sitemap\">";
-	final C4FileParser _parser;
+	final DocuGenerator _parser;
 
-	public HtmlHelpContents(final C4FileParser c4FileParser)
+	public HtmlHelpContents(final DocuGenerator c4FileParser)
 	{
 		_parser = c4FileParser;
 	}

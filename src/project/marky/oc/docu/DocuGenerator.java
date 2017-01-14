@@ -20,15 +20,29 @@ import project.marky.oc.docu.logic.StdNamespace;
 import project.marky.oc.docu.logic.StdNamespaceManager;
 import project.marky.oc.docu.util.RelFilePath;
 
-public class C4FileParser
+
+/**
+ * The class that generates the html files and the project files for html help.
+ */
+public class DocuGenerator
 {
 	private final StdNamespaceManager _namespaces;
 	
-	public C4FileParser()
+
+	public DocuGenerator()
 	{
 		_namespaces = new StdNamespaceManager();
 	}
-	
+
+
+	/**
+	 * Creates the documentation files.
+	 * 
+	 * @param inputFolderProject this is the folder that contains the script files.
+	 * @param outputFolderProject the generated filed will be created in this folder.
+	 * @param cssStyleSheet this is a css style sheet that defines how the documentation will look like.
+	 * @param title this is the title of the documentation project in html help.
+	 */
 	public void run(final File inputFolderProject, final File outputFolderProject, final File cssStyleSheet, final String title)
 	{
 		parseScriptsAndDefcore(inputFolderProject);
@@ -42,7 +56,8 @@ public class C4FileParser
 		createProjectFile(outputFolderProject, contents, index, title, null);
 	}
 
-	private ArrayList<File> parseScriptsAndDefcore(File sourceFolder)
+	
+	private void parseScriptsAndDefcore(File sourceFolder)
 	{
 		ArrayList<File> defCoreFiles = new ArrayList<File>();
 		ArrayList<File> scriptFiles = new ArrayList<File>();
@@ -73,10 +88,9 @@ public class C4FileParser
 			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
 			parseScriptFile(file, false);
 		}
-		
-		return null;
 	}
 	
+
 	private void parseScriptFile(File file, final boolean addDocuToDocuNamespace)
 	{
 		C4ScriptFileParser parsedScript = C4ScriptFileParser.parseFile(file);
@@ -85,9 +99,8 @@ public class C4FileParser
 		
 		if (space == null)
 		{
-			System.err.println(" * > cannot add to namespace with origin '" + parsedScript.getOrigin() + "'");
+			ApplicationLogger.getLogger().warning(" * > cannot add to namespace with origin '" + parsedScript.getOrigin() + "'");
 		}
-
 
 		for (final C4DocuParser docu : parsedScript.getHeaderList())
 		{
@@ -124,13 +137,21 @@ public class C4FileParser
 		}
 	}
 	
+
 	private void addPageToNamespace(final DocuPage page, final StdNamespace space, final String identifier)
 	{
 		space.add(page);
 		ApplicationLogger.getLogger().info(" * > added " + space.getIdentifier() + "#" + identifier);
 	}
 
-	@SuppressWarnings ("resource") private void parseDefcore(File file)
+	
+	/**
+	 * Parses a DefCore file.
+	 * 
+	 * @param file the file.
+	 */
+	@SuppressWarnings ("resource")
+	private void parseDefcore(File file)
 	{
 		try
 		{
@@ -178,6 +199,7 @@ public class C4FileParser
 		}
 	}
 
+
 	private void parseFolder(File sourceFolder, ArrayList<File> defCoreFiles, ArrayList<File> docuFiles, ArrayList<File> scriptFiles)
 	{
 		if (sourceFolder.isFile())
@@ -208,6 +230,7 @@ public class C4FileParser
 		}
 	}
 	
+
 	private void createHtmlFiles(File outputFolderProject, File cssStyleSheet)
 	{
 		for (final StdNamespace namespace : _namespaces.getNamespaces())
@@ -227,13 +250,15 @@ public class C4FileParser
 			}
 		}
 	}
-	
+
+
 	private void createProjectFile(File outputFolderProject, final File contents, final File index, final String title, final File defaultFile)
 	{
 		HtmlHelpProject file = new HtmlHelpProject(contents, index, title, defaultFile);
 		file.saveToFile(new File(outputFolderProject, "project.hhp"));
 	}
-	
+
+
 	private File createIndexFile(File outputFolderProject)
 	{
 		HashMap<String, File> map = new HashMap<String, File>();
@@ -263,7 +288,8 @@ public class C4FileParser
 		index.saveToFile(output);
 		return output;
 	}
-	
+
+
 	private File createContentsFile(File outputFolderProject, File defaultFile, String title)
 	{		
 		final HtmlHelpContents index = new HtmlHelpContents(this);
@@ -273,18 +299,21 @@ public class C4FileParser
 		index.saveToFile(output);
 		return output;
 	}
-	
+
+
 	public File getOutputFile(File outputFolder, String namespace, String identifier)
 	{
 		final File namespaceFolder = new File(outputFolder, namespace);
 		return new File(namespaceFolder, identifier + ".html");
 	}
-	
+
+
 	public StdNamespaceManager getNameSpaces()
 	{
 		return _namespaces;
 	}
-	
+
+
 	public StdNamespace getNamespace(final String identifier)
 	{
 		return _namespaces.getNamespace(identifier);
