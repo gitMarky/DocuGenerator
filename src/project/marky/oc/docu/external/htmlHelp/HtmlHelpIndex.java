@@ -1,4 +1,4 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.external.htmlHelp;
 
 import static project.marky.oc.docu.StringConstants.TAB_STRING;
 
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import project.marky.oc.docu.RelFilePath;
 import project.marky.oc.docu.html.StdHtmlFile;
 
 /**

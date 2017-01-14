@@ -9,6 +9,10 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import project.marky.oc.docu.external.htmlHelp.HtmlHelpContents;
+import project.marky.oc.docu.external.htmlHelp.HtmlHelpIndex;
+import project.marky.oc.docu.external.htmlHelp.HtmlHelpProject;
+
 //import static project.marky.oc.docu.StringConstants.*;
 
 public class C4FileParser

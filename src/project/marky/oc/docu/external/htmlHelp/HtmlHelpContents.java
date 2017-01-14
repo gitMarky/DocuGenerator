@@ -1,4 +1,4 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.external.htmlHelp;
 
 
 import java.io.File;
@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import project.marky.oc.docu.C4FileParser;
+import project.marky.oc.docu.DocuPage;
+import project.marky.oc.docu.StdNamespace;
+import project.marky.oc.docu.StringConstants;
 import project.marky.oc.docu.html.StdHtmlFile;
 
 /**

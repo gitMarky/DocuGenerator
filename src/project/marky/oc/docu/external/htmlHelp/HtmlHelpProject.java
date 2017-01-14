@@ -1,4 +1,4 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.external.htmlHelp;
 
 import java.io.File;
 import java.io.FileWriter;
