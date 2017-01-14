@@ -4,6 +4,8 @@ import static project.marky.oc.docu.util.StringConstants.*;
 
 import java.util.HashMap;
 
+import project.marky.oc.docu.ApplicationLogger;
+
 public class C4FuncParser
 {
 	public static final String VISIBILITY_PRIVATE = "private";
@@ -73,7 +75,7 @@ public class C4FuncParser
 		}
 		else
 		{
-			System.out.println("... parsing " + _text);
+			ApplicationLogger.getLogger().info("... parsing " + _text);
 		}
 	}
 
@@ -151,7 +153,7 @@ public class C4FuncParser
 			_functionVisibility = VISIBILITY_PUBLIC;
 		}
 		
-		System.out.println(" * > parsed function: " + _functionVisibility + " " + _functionName + "()");
+		ApplicationLogger.getLogger().info(" * > parsed function: " + _functionVisibility + " " + _functionName + "()");
 	}
 
 	private void parseFunction(String line)
@@ -208,8 +210,8 @@ public class C4FuncParser
 
 	public void printText()
 	{
-////		System.out.println("\n" + _text + "\n");
-//		//System.out.println(">>> " + _parameterText + "\n");
+////		ApplicationLogger.getLogger().info("\n" + _text + "\n");
+//		//ApplicationLogger.getLogger().info(">>> " + _parameterText + "\n");
 //		
 //		Iterator<String> iter = _parameters.keySet().iterator();
 //		
@@ -219,7 +221,7 @@ public class C4FuncParser
 //			
 //			C4TypeDef type = _parameters.get(parameter);
 //			
-//			System.out.println("* " + type.getString() + " " + parameter);
+//			ApplicationLogger.getLogger().info("* " + type.getString() + " " + parameter);
 //		}
 	}
 

@@ -202,7 +202,7 @@ public class C4DocuParser
 		
 		if (_currentTag == null)
 		{
-			//System.out.println(">>> Cannot finish parsing 'null': " + _functionDocu);
+			//ApplicationLogger.getLogger().info(">>> Cannot finish parsing 'null': " + _functionDocu);
 			return;
 		}
 		
@@ -272,10 +272,10 @@ public class C4DocuParser
 
 	public void printText()
 	{
-//		System.out.println("Function docu:");
-//		System.out.println("" + _functionDocu);
+//		ApplicationLogger.getLogger().info("Function docu:");
+//		ApplicationLogger.getLogger().info("" + _functionDocu);
 //		
-//		System.out.println("Parameters + Docu:");
+//		ApplicationLogger.getLogger().info("Parameters + Docu:");
 //		
 //		Iterator<String> iter = _parameterMap.keySet().iterator();
 //		
@@ -285,7 +285,7 @@ public class C4DocuParser
 //			
 //			String docu = _parameterMap.get(name);
 //			
-//			System.out.println("" + name + " : " + docu);
+//			ApplicationLogger.getLogger().info("" + name + " : " + docu);
 //		}
 	}
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import project.marky.oc.docu.ApplicationLogger;
 import project.marky.oc.docu.C4FileParser;
 import project.marky.oc.docu.logic.StdNamespace;
 import project.marky.oc.docu.util.RelFilePath;
@@ -55,7 +56,7 @@ public class Styleparser
 	
 	private static String parseBlock(String content, C4FileParser filemanager, final File root_folder, File origin)
 	{
-		//System.out.println("parseBlock " + content);
+		//ApplicationLogger.getLogger().info("parseBlock " + content);
 		final String regex = "\\{(.+)\\}";
 		
 		Pattern pattern = Pattern.compile(regex);
@@ -231,7 +232,7 @@ public class Styleparser
 		
 		for (final String ex : examples)
 		{
-			System.out.println(parse(ex, null, null, null));
+			ApplicationLogger.getLogger().info(parse(ex, null, null, null));
 		}
 	}
 }

@@ -50,27 +50,27 @@ public class C4FileParser
 		
 		parseFolder(sourceFolder, defCoreFiles, docuFiles, scriptFiles);
 		
-		System.out.println("DefCore Files:");
+		ApplicationLogger.getLogger().info("DefCore Files:");
 		
 		for (final File file : defCoreFiles)
 		{
-			System.out.println(" * " + file.getAbsolutePath());
+			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
 			parseDefcore(file);
 		}
 		
-		System.out.println("Docu Files:");
+		ApplicationLogger.getLogger().info("Docu Files:");
 		
 		for (final File file : docuFiles)
 		{
-			System.out.println(" * " + file.getAbsolutePath());
+			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
 			parseScriptFile(file, true);
 		}
 		
-		System.out.println("Script Files:");
+		ApplicationLogger.getLogger().info("Script Files:");
 		
 		for (final File file : scriptFiles)
 		{
-			System.out.println(" * " + file.getAbsolutePath());
+			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
 			parseScriptFile(file, false);
 		}
 		
@@ -127,7 +127,7 @@ public class C4FileParser
 	private void addPageToNamespace(final DocuPage page, final StdNamespace space, final String identifier)
 	{
 		space.add(page);
-		System.out.println(" * > added " + space.getIdentifier() + "#" + identifier);
+		ApplicationLogger.getLogger().info(" * > added " + space.getIdentifier() + "#" + identifier);
 	}
 
 	@SuppressWarnings ("resource") private void parseDefcore(File file)
@@ -136,7 +136,7 @@ public class C4FileParser
 		{
 			String content = new Scanner(file).useDelimiter("\\Z").next();
 			
-			//System.out.println(content);
+			//ApplicationLogger.getLogger().info(content);
 			
 			Pattern patternID = Pattern.compile("id=(.+)");
 			Matcher matcherID = patternID.matcher(content);
@@ -162,14 +162,14 @@ public class C4FileParser
 					name = name.substring(0, name.lastIndexOf("."));
 				}
 				
-				System.out.println(" * > adding namespace '" + definition + "'");
+				ApplicationLogger.getLogger().info(" * > adding namespace '" + definition + "'");
 				
 				StdNamespace namespace = new StdNamespace(definition, name, file.getParentFile());
 				_namespaces.addNamespace(namespace);
 			}
 			else
 			{
-			    System.out.println(" * > no ID found");
+			    ApplicationLogger.getLogger().info(" * > no ID found");
 			}
 		}
 		catch (FileNotFoundException e)
@@ -212,11 +212,11 @@ public class C4FileParser
 	{
 		for (final StdNamespace namespace : _namespaces.getNamespaces())
 		{
-			System.out.println("## " + namespace.getIdentifier());
+			ApplicationLogger.getLogger().info("## " + namespace.getIdentifier());
 			
 			for (final DocuPage page : namespace.getPages())
 			{
-				System.out.println("##### " + page.getIdentifier());
+				ApplicationLogger.getLogger().info("##### " + page.getIdentifier());
 				
 				final File outputFolderFile = getOutputFile(outputFolderProject, namespace.getIdentifier(), page.getIdentifier());
 
