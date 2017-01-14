@@ -1,4 +1,4 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.c4script;
 
 public enum C4FileTypes
 {

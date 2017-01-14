@@ -9,10 +9,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import project.marky.oc.docu.C4DocuParser;
 import project.marky.oc.docu.C4FileParser;
-import project.marky.oc.docu.C4FuncParser;
-import project.marky.oc.docu.C4TypeDef;
+import project.marky.oc.docu.c4script.C4DocuParser;
+import project.marky.oc.docu.c4script.C4FuncParser;
+import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.html.StdHtmlFile;
 import project.marky.oc.docu.html.Styleparser;
 

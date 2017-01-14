@@ -1,4 +1,4 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.c4script;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,7 +34,7 @@ public class C4ScriptFileParser
 	private C4DocuParser _parserJDoc;
 	private C4FuncParser _parserFunctions;
 	
-	static C4ScriptFileParser parseFile(final File input)
+	public static C4ScriptFileParser parseFile(final File input)
 	{
 		_filename = input.getParentFile().getName();
 		

@@ -6,7 +6,7 @@ import static project.marky.oc.docu.util.StringConstants.SPACE_STRING;
 import java.io.File;
 import java.io.IOException;
 
-import project.marky.oc.docu.C4FileTypes;
+import project.marky.oc.docu.c4script.C4FileTypes;
 
 
 public class Helper
