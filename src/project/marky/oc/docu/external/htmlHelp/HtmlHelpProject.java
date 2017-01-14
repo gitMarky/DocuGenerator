@@ -1,8 +1,6 @@
 package project.marky.oc.docu.external.htmlHelp;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import project.marky.oc.docu.html.StdHtmlFile;
 import static project.marky.oc.docu.util.StringConstants.*;

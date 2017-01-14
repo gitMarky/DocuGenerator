@@ -37,7 +37,7 @@ public class C4ScriptFileParser
 	public static C4ScriptFileParser parseFile(final File input)
 	{
 		_filename = input.getParentFile().getName();
-		
+
 		if (input.getName().equalsIgnoreCase("docu.c"))
 		{
 			int dummy = 0;

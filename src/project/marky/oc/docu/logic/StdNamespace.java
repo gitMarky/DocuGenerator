@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class StdNamespace
 {
 	private final File _parentfile;
-	private final String _name;
+//	private final String _name;
 	private final String _namespace;
 	
 	public static final String NAMESPACE_GLOBAL = "global";
@@ -16,14 +16,14 @@ public class StdNamespace
 	
 	StdNamespace()
 	{
-		_name = "Script";
+//		_name = "Script";
 		_namespace = NAMESPACE_GLOBAL;
 		_parentfile = null;
 	}
 	
 	public StdNamespace(final String definition, final String name, final File path)
 	{
-		_name = name;
+//		_name = name;
 		_namespace = definition;
 		_parentfile = path;
 	}
