@@ -15,12 +15,12 @@ public class C4FileParser
 {
 	private final StdNamespaceManager _namespaces;
 	
-	C4FileParser()
+	public C4FileParser()
 	{
 		_namespaces = new StdNamespaceManager();
 	}
 	
-	void run(final File inputFolderProject, final File outputFolderProject, final File cssStyleSheet, final String title)
+	public void run(final File inputFolderProject, final File outputFolderProject, final File cssStyleSheet, final String title)
 	{
 		parseScriptsAndDefcore(inputFolderProject);
 		
