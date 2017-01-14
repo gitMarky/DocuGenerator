@@ -1,6 +1,5 @@
 package project.marky.oc.docu.logic;
 
-//import static project.marky.oc.docu.StringConstants.EMPTY_STRING;
 import static project.marky.oc.docu.util.StringConstants.IDENTIFIER_PAR_CLOSE;
 import static project.marky.oc.docu.util.StringConstants.IDENTIFIER_PAR_OPEN;
 import static project.marky.oc.docu.util.StringConstants.SPACE_STRING;

@@ -214,26 +214,11 @@ public class Styleparser
 
 	private static String parseSingleTags(String content)
 	{
-		//System.out.println("Parsing single tags: " + content + ", " + content.contains("@br"));
 		return content.replaceAll("\\@br", "<br>");
 	}
 
 	public static void main(String[] args)
 	{
-//		final String regex = "\\{(.+)\\}";
-//		final String content = "{@c code\n}with multi\nline} blub";
-//		
-//		Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
-//		Matcher matcher = pattern.matcher(content);
-//
-//		System.out.println("" + matcher.find());
-//		System.out.println(content.replaceAll(regex, "$1"));
-//		System.out.println("" + matcher.group(0));
-
-		
-		
-		
-		
 		ArrayList<String> examples = new ArrayList<String>();
 		examples.add("bla {@b this one should be bold} blu");
 		examples.add("{@i this one should be cursive}");

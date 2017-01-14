@@ -20,8 +20,6 @@ import project.marky.oc.docu.logic.StdNamespace;
 import project.marky.oc.docu.logic.StdNamespaceManager;
 import project.marky.oc.docu.util.RelFilePath;
 
-//import static project.marky.oc.docu.StringConstants.*;
-
 public class C4FileParser
 {
 	private final StdNamespaceManager _namespaces;
