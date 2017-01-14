@@ -1,4 +1,4 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.logic;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class StdNamespace
 		_parentfile = null;
 	}
 	
-	StdNamespace(final String definition, final String name, final File path)
+	public StdNamespace(final String definition, final String name, final File path)
 	{
 		_name = name;
 		_namespace = definition;

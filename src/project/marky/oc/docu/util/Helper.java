@@ -1,10 +1,12 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.util;
 
-import static project.marky.oc.docu.StringConstants.EMPTY_STRING;
-import static project.marky.oc.docu.StringConstants.SPACE_STRING;
+import static project.marky.oc.docu.util.StringConstants.EMPTY_STRING;
+import static project.marky.oc.docu.util.StringConstants.SPACE_STRING;
 
 import java.io.File;
 import java.io.IOException;
+
+import project.marky.oc.docu.C4FileTypes;
 
 
 public class Helper

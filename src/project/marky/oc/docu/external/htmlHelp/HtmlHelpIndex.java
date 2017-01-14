@@ -1,14 +1,14 @@
 package project.marky.oc.docu.external.htmlHelp;
 
-import static project.marky.oc.docu.StringConstants.TAB_STRING;
+import static project.marky.oc.docu.util.StringConstants.TAB_STRING;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import project.marky.oc.docu.RelFilePath;
 import project.marky.oc.docu.html.StdHtmlFile;
+import project.marky.oc.docu.util.RelFilePath;
 
 /**
  * HtmlHelp index.

@@ -1,4 +1,4 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.util;
 
 public class StringConstants
 {

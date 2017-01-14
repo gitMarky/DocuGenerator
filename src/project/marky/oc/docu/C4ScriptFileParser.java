@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-import static project.marky.oc.docu.StringConstants.*; 
+import static project.marky.oc.docu.util.StringConstants.*;
 
 public class C4ScriptFileParser
 {

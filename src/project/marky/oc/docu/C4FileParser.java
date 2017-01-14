@@ -12,6 +12,10 @@ import java.util.regex.Pattern;
 import project.marky.oc.docu.external.htmlHelp.HtmlHelpContents;
 import project.marky.oc.docu.external.htmlHelp.HtmlHelpIndex;
 import project.marky.oc.docu.external.htmlHelp.HtmlHelpProject;
+import project.marky.oc.docu.logic.DocuPage;
+import project.marky.oc.docu.logic.StdNamespace;
+import project.marky.oc.docu.logic.StdNamespaceManager;
+import project.marky.oc.docu.util.RelFilePath;
 
 //import static project.marky.oc.docu.StringConstants.*;
 

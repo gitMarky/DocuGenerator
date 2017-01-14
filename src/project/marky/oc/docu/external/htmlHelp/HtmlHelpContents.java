@@ -7,10 +7,10 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import project.marky.oc.docu.C4FileParser;
-import project.marky.oc.docu.DocuPage;
-import project.marky.oc.docu.StdNamespace;
-import project.marky.oc.docu.StringConstants;
 import project.marky.oc.docu.html.StdHtmlFile;
+import project.marky.oc.docu.logic.DocuPage;
+import project.marky.oc.docu.logic.StdNamespace;
+import project.marky.oc.docu.util.StringConstants;
 
 /**
  * HtmlHelp table of contents.

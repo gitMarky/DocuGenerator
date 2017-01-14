@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import project.marky.oc.docu.html.StdHtmlFile;
-import static project.marky.oc.docu.StringConstants.*;
+import static project.marky.oc.docu.util.StringConstants.*;
 
 /**
  * HtmlHelp project file.

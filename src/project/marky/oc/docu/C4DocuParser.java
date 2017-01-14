@@ -1,8 +1,10 @@
 package project.marky.oc.docu;
 
-import static project.marky.oc.docu.StringConstants.*; 
+import static project.marky.oc.docu.util.StringConstants.*;
 
 import java.util.HashMap;
+
+import project.marky.oc.docu.util.Helper;
 
 public class C4DocuParser
 {

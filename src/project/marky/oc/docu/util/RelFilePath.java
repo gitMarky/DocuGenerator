@@ -1,8 +1,8 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.util;
 
 import java.io.File;
 
-import static project.marky.oc.docu.StringConstants.*;
+import static project.marky.oc.docu.util.StringConstants.*;
 
 public class RelFilePath
 {

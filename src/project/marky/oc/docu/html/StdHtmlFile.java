@@ -5,8 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
-import project.marky.oc.docu.Helper;
-import project.marky.oc.docu.StringConstants;
+import project.marky.oc.docu.util.Helper;
+import project.marky.oc.docu.util.StringConstants;
 
 public class StdHtmlFile
 {

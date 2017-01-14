@@ -1,4 +1,4 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.logic;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class StdNamespaceManager
 	final private StdNamespace _globalspace;
 	final private StdNamespace _docuspace;
 	
-	StdNamespaceManager()
+	public StdNamespaceManager()
 	{
 		_globalspace = new StdNamespace();
 		_docuspace = StdNamespace.DocuNamespace();

@@ -1,14 +1,18 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.logic;
 
 //import static project.marky.oc.docu.StringConstants.EMPTY_STRING;
-import static project.marky.oc.docu.StringConstants.IDENTIFIER_PAR_CLOSE;
-import static project.marky.oc.docu.StringConstants.IDENTIFIER_PAR_OPEN;
-import static project.marky.oc.docu.StringConstants.SPACE_STRING;
+import static project.marky.oc.docu.util.StringConstants.IDENTIFIER_PAR_CLOSE;
+import static project.marky.oc.docu.util.StringConstants.IDENTIFIER_PAR_OPEN;
+import static project.marky.oc.docu.util.StringConstants.SPACE_STRING;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import project.marky.oc.docu.C4DocuParser;
+import project.marky.oc.docu.C4FileParser;
+import project.marky.oc.docu.C4FuncParser;
+import project.marky.oc.docu.C4TypeDef;
 import project.marky.oc.docu.html.StdHtmlFile;
 import project.marky.oc.docu.html.Styleparser;
 

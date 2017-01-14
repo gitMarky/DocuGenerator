@@ -6,8 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import project.marky.oc.docu.C4FileParser;
-import project.marky.oc.docu.RelFilePath;
-import project.marky.oc.docu.StdNamespace;
+import project.marky.oc.docu.logic.StdNamespace;
+import project.marky.oc.docu.util.RelFilePath;
 
 public class Styleparser
 {
