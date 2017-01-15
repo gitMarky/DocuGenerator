@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -45,8 +46,15 @@ public class DocuGenerator
 	 */
 	public void run(final File inputFolderProject, final File outputFolderProject, final File cssStyleSheet, final String title)
 	{
-		parseScriptsAndDefcore(inputFolderProject);
+		final List<File> defCoreFiles = new ArrayList<File>();
 		
+		final List<File> scriptFiles = new ArrayList<File>();
+		final List<File> docuFiles = new ArrayList<File>();
+		parseFolder(inputFolderProject, defCoreFiles, docuFiles, scriptFiles);
+		
+		parseDefcoreFiles(defCoreFiles);
+		parseScriptFiles(scriptFiles, docuFiles);
+
 		createHtmlFiles(outputFolderProject, cssStyleSheet);
 		
 		final File defaultFile = getOutputFile(outputFolderProject, _namespaces.getNamespaceDocu().getIdentifier(), "index");
@@ -57,14 +65,8 @@ public class DocuGenerator
 	}
 
 	
-	private void parseScriptsAndDefcore(File sourceFolder)
+	private void parseDefcoreFiles(final List<File> defCoreFiles)
 	{
-		ArrayList<File> defCoreFiles = new ArrayList<File>();
-		ArrayList<File> scriptFiles = new ArrayList<File>();
-		ArrayList<File> docuFiles = new ArrayList<File>();
-		
-		parseFolder(sourceFolder, defCoreFiles, docuFiles, scriptFiles);
-		
 		ApplicationLogger.getLogger().info("DefCore Files:");
 		
 		for (final File file : defCoreFiles)
@@ -72,7 +74,12 @@ public class DocuGenerator
 			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
 			parseDefcore(file);
 		}
-		
+	}
+
+	
+	private void parseScriptFiles(final List<File> scriptFiles, final List<File> docuFiles)
+	{
+
 		ApplicationLogger.getLogger().info("Docu Files:");
 		
 		for (final File file : docuFiles)
@@ -200,7 +207,7 @@ public class DocuGenerator
 	}
 
 
-	private void parseFolder(File sourceFolder, ArrayList<File> defCoreFiles, ArrayList<File> docuFiles, ArrayList<File> scriptFiles)
+	private void parseFolder(final File sourceFolder, final List<File> defCoreFiles, final List<File> docuFiles, final List<File> scriptFiles)
 	{
 		if (sourceFolder.isFile())
 		{
