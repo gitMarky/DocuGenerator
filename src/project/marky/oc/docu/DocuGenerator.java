@@ -51,21 +51,24 @@ public class DocuGenerator
 	public void run(final File inputFolderProject, final File outputFolderProject, final File cssStyleSheet, final String title)
 	{
 		final List<File> defCoreFiles = new ArrayList<File>();
-
 		final List<File> scriptFiles = new ArrayList<File>();
 		final List<File> docuFiles = new ArrayList<File>();
+
+		// Read all relevant files in the input folder
 		parseFolder(inputFolderProject, defCoreFiles, docuFiles, scriptFiles);
 
+		// Parse the individual files for docu
 		parseDefcoreFiles(defCoreFiles);
 		parseScriptFiles(scriptFiles, docuFiles);
 
+		// Create the HtmlHelpProject
 		createHtmlFiles(outputFolderProject, cssStyleSheet);
 
 		final File defaultFile = getOutputFile(outputFolderProject, _namespaces.getNamespaceDocu().getIdentifier(), "index");
 
 		final File index = createIndexFile(outputFolderProject);
 		final File contents = createContentsFile(outputFolderProject, defaultFile, title);
-		createProjectFile(outputFolderProject, contents, index, title, null);
+		createProjectFile(outputFolderProject, contents, index, title, defaultFile);
 	}
 
 
