@@ -7,21 +7,24 @@ import java.util.HashMap;
 public class StdNamespaceManager
 {
 	final private HashMap<File, StdNamespace> _namespaces = new HashMap<File, StdNamespace>();
-	
+
 	final private StdNamespace _globalspace;
 	final private StdNamespace _docuspace;
-	
+
+
 	public StdNamespaceManager()
 	{
 		_globalspace = new StdNamespace();
 		_docuspace = StdNamespace.DocuNamespace();
 	}
-	
+
+
 	public void addNamespace(final StdNamespace namespace)
 	{
 		_namespaces.put(namespace.getFile(), namespace);
 	}
-	
+
+
 	public StdNamespace getNamespace(final File file)
 	{
 		final StdNamespace found = _namespaces.get(file);
@@ -34,28 +37,31 @@ public class StdNamespaceManager
 			return _globalspace;
 		}
 	}
-	
+
 
 	public StdNamespace getNamespaceDocu()
 	{
 		return _docuspace;
 	}
-	
+
+
 	public StdNamespace getNamespaceGlobal()
 	{
 		return _globalspace;
 	}
 
+
 	public ArrayList<StdNamespace> getNamespaces()
 	{
-		ArrayList<StdNamespace> spaces = new ArrayList<StdNamespace>();
-		
+		final ArrayList<StdNamespace> spaces = new ArrayList<StdNamespace>();
+
 		spaces.add(_docuspace);
 		spaces.add(_globalspace);
 		spaces.addAll(_namespaces.values());
-		
+
 		return spaces;
 	}
+
 
 	public StdNamespace getNamespace(final String identifier)
 	{
@@ -66,7 +72,7 @@ public class StdNamespaceManager
 				return space;
 			}
 		}
-		
+
 		return null;
 	}
 }

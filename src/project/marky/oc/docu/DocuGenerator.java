@@ -21,14 +21,13 @@ import project.marky.oc.docu.logic.StdNamespace;
 import project.marky.oc.docu.logic.StdNamespaceManager;
 import project.marky.oc.docu.util.RelFilePath;
 
-
 /**
  * The class that generates the html files and the project files for html help.
  */
 public class DocuGenerator
 {
 	private final StdNamespaceManager _namespaces;
-	
+
 
 	public DocuGenerator()
 	{
@@ -39,36 +38,41 @@ public class DocuGenerator
 	/**
 	 * Creates the documentation files.
 	 * 
-	 * @param inputFolderProject this is the folder that contains the script files.
-	 * @param outputFolderProject the generated filed will be created in this folder.
-	 * @param cssStyleSheet this is a css style sheet that defines how the documentation will look like.
-	 * @param title this is the title of the documentation project in html help.
+	 * @param inputFolderProject
+	 *            this is the folder that contains the script files.
+	 * @param outputFolderProject
+	 *            the generated filed will be created in this folder.
+	 * @param cssStyleSheet
+	 *            this is a css style sheet that defines how the documentation
+	 *            will look like.
+	 * @param title
+	 *            this is the title of the documentation project in html help.
 	 */
 	public void run(final File inputFolderProject, final File outputFolderProject, final File cssStyleSheet, final String title)
 	{
 		final List<File> defCoreFiles = new ArrayList<File>();
-		
+
 		final List<File> scriptFiles = new ArrayList<File>();
 		final List<File> docuFiles = new ArrayList<File>();
 		parseFolder(inputFolderProject, defCoreFiles, docuFiles, scriptFiles);
-		
+
 		parseDefcoreFiles(defCoreFiles);
 		parseScriptFiles(scriptFiles, docuFiles);
 
 		createHtmlFiles(outputFolderProject, cssStyleSheet);
-		
+
 		final File defaultFile = getOutputFile(outputFolderProject, _namespaces.getNamespaceDocu().getIdentifier(), "index");
-		
+
 		final File index = createIndexFile(outputFolderProject);
 		final File contents = createContentsFile(outputFolderProject, defaultFile, title);
 		createProjectFile(outputFolderProject, contents, index, title, null);
 	}
 
-	
+
 	private void parseDefcoreFiles(final List<File> defCoreFiles)
 	{
 		ApplicationLogger.getLogger().info("DefCore Files:");
-		
+
 		for (final File file : defCoreFiles)
 		{
 			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
@@ -76,34 +80,34 @@ public class DocuGenerator
 		}
 	}
 
-	
+
 	private void parseScriptFiles(final List<File> scriptFiles, final List<File> docuFiles)
 	{
 
 		ApplicationLogger.getLogger().info("Docu Files:");
-		
+
 		for (final File file : docuFiles)
 		{
 			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
 			parseScriptFile(file, true);
 		}
-		
+
 		ApplicationLogger.getLogger().info("Script Files:");
-		
+
 		for (final File file : scriptFiles)
 		{
 			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
 			parseScriptFile(file, false);
 		}
 	}
-	
 
-	private void parseScriptFile(File file, final boolean addDocuToDocuNamespace)
+
+	private void parseScriptFile(final File file, final boolean addDocuToDocuNamespace)
 	{
-		C4ScriptFileParser parsedScript = C4ScriptFileParser.parseFile(file);
-				
-		StdNamespace space = _namespaces.getNamespace(parsedScript.getOrigin());
-		
+		final C4ScriptFileParser parsedScript = C4ScriptFileParser.parseFile(file);
+
+		final StdNamespace space = _namespaces.getNamespace(parsedScript.getOrigin());
+
 		if (space == null)
 		{
 			ApplicationLogger.getLogger().warning(" * > cannot add to namespace with origin '" + parsedScript.getOrigin() + "'");
@@ -111,10 +115,10 @@ public class DocuGenerator
 
 		for (final C4DocuParser docu : parsedScript.getHeaderList())
 		{
-			DocuPage page = new DocuPage(docu);
-			
+			final DocuPage page = new DocuPage(docu);
+
 			final String identifier = "temp"; // TODO
-						
+
 			if (space == null || addDocuToDocuNamespace)
 			{
 				addPageToNamespace(page, _namespaces.getNamespaceDocu(), identifier);
@@ -124,12 +128,12 @@ public class DocuGenerator
 				addPageToNamespace(page, space, identifier);
 			}
 		}
-		
+
 		for (final Entry<C4DocuParser, C4FuncParser> entry : parsedScript.getFunctionList().entrySet())
 		{
-			C4FuncParser function = entry.getValue();
-			DocuPage page = new DocuPage(entry.getKey(), function);
-			
+			final C4FuncParser function = entry.getValue();
+			final DocuPage page = new DocuPage(entry.getKey(), function);
+
 			if (function.getFunctionVisibility() != null && function.getFunctionVisibility().equals(StdNamespace.NAMESPACE_GLOBAL))
 			{
 				addPageToNamespace(page, _namespaces.getNamespaceGlobal(), function.getFunctionName());
@@ -143,7 +147,7 @@ public class DocuGenerator
 			}
 		}
 	}
-	
+
 
 	private void addPageToNamespace(final DocuPage page, final StdNamespace space, final String identifier)
 	{
@@ -151,33 +155,34 @@ public class DocuGenerator
 		ApplicationLogger.getLogger().info(" * > added " + space.getIdentifier() + "#" + identifier);
 	}
 
-	
+
 	/**
 	 * Parses a DefCore file.
 	 * 
-	 * @param file the file.
+	 * @param file
+	 *            the file.
 	 */
-	@SuppressWarnings ("resource")
-	private void parseDefcore(File file)
+	@SuppressWarnings("resource")
+	private void parseDefcore(final File file)
 	{
 		try
 		{
-			String content = new Scanner(file).useDelimiter("\\Z").next();
-			
-			//ApplicationLogger.getLogger().info(content);
-			
-			Pattern patternID = Pattern.compile("id=(.+)");
-			Matcher matcherID = patternID.matcher(content);
-			
+			final String content = new Scanner(file).useDelimiter("\\Z").next();
+
+			// ApplicationLogger.getLogger().info(content);
+
+			final Pattern patternID = Pattern.compile("id=(.+)");
+			final Matcher matcherID = patternID.matcher(content);
+
 			if (matcherID.find())
 			{
 				final String definition = matcherID.group(0).replace("id=", "");
-			    
-				Pattern patternName = Pattern.compile("Name=(.+)");
-				Matcher matcherName = patternName.matcher(content);
-				
+
+				final Pattern patternName = Pattern.compile("Name=(.+)");
+				final Matcher matcherName = patternName.matcher(content);
+
 				String name = "";
-				
+
 				if (matcherName.find())
 				{
 					name = matcherName.group(0).replace("Name=", "");
@@ -185,22 +190,22 @@ public class DocuGenerator
 				else
 				{
 					name = file.getParentFile().getName();
-					
+
 					// remove file endings
 					name = name.substring(0, name.lastIndexOf("."));
 				}
-				
+
 				ApplicationLogger.getLogger().info(" * > adding namespace '" + definition + "'");
-				
-				StdNamespace namespace = new StdNamespace(definition, name, file.getParentFile());
+
+				final StdNamespace namespace = new StdNamespace(definition, name, file.getParentFile());
 				_namespaces.addNamespace(namespace);
 			}
 			else
 			{
-			    ApplicationLogger.getLogger().info(" * > no ID found");
+				ApplicationLogger.getLogger().info(" * > no ID found");
 			}
 		}
-		catch (FileNotFoundException e)
+		catch (final FileNotFoundException e)
 		{
 			e.printStackTrace();
 		}
@@ -215,7 +220,7 @@ public class DocuGenerator
 			{
 				scriptFiles.add(sourceFolder);
 			}
-			else  if (sourceFolder.getName().endsWith(".c"))
+			else if (sourceFolder.getName().endsWith(".c"))
 			{
 				docuFiles.add(sourceFolder);
 			}
@@ -227,31 +232,31 @@ public class DocuGenerator
 		else if (sourceFolder.isDirectory())
 		{
 			if (sourceFolder.getName().endsWith(".ocs") || sourceFolder.getName().endsWith(".c4s")) return;
-			
-			File[] subFiles = sourceFolder.listFiles();
-			
+
+			final File[] subFiles = sourceFolder.listFiles();
+
 			for (final File file : subFiles)
 			{
 				parseFolder(file, defCoreFiles, docuFiles, scriptFiles);
 			}
 		}
 	}
-	
 
-	private void createHtmlFiles(File outputFolderProject, File cssStyleSheet)
+
+	private void createHtmlFiles(final File outputFolderProject, final File cssStyleSheet)
 	{
 		for (final StdNamespace namespace : _namespaces.getNamespaces())
 		{
 			ApplicationLogger.getLogger().info("## " + namespace.getIdentifier());
-			
+
 			for (final DocuPage page : namespace.getPages())
 			{
 				ApplicationLogger.getLogger().info("##### " + page.getIdentifier());
-				
+
 				final File outputFolderFile = getOutputFile(outputFolderProject, namespace.getIdentifier(), page.getIdentifier());
 
 				final String css_location = RelFilePath.fromTo(outputFolderFile, cssStyleSheet);
-				
+
 				page.convertToHtml(this, outputFolderProject, outputFolderFile, css_location);
 				page.saveHtmlFile(outputFolderFile);
 			}
@@ -259,56 +264,56 @@ public class DocuGenerator
 	}
 
 
-	private void createProjectFile(File outputFolderProject, final File contents, final File index, final String title, final File defaultFile)
+	private void createProjectFile(final File outputFolderProject, final File contents, final File index, final String title, final File defaultFile)
 	{
-		HtmlHelpProject file = new HtmlHelpProject(contents, index, title, defaultFile);
+		final HtmlHelpProject file = new HtmlHelpProject(contents, index, title, defaultFile);
 		file.saveToFile(new File(outputFolderProject, "project.hhp"));
 	}
 
 
-	private File createIndexFile(File outputFolderProject)
+	private File createIndexFile(final File outputFolderProject)
 	{
-		HashMap<String, File> map = new HashMap<String, File>();
-		
+		final HashMap<String, File> map = new HashMap<String, File>();
+
 		for (final StdNamespace namespace : _namespaces.getNamespaces())
 		{
 			for (final DocuPage page : namespace.getPages())
 			{
 				final File outputFolderFile = getOutputFile(outputFolderProject, namespace.getIdentifier(), page.getIdentifier());
 				final String identifier = page.getIdentifier();
-				
+
 				String name = identifier;
-				
+
 				for (int i = 2; map.keySet().contains(name); i++)
 				{
 					name = identifier + " (#" + i + ")";
 				}
-				
+
 				map.put(name, outputFolderFile);
 			}
 		}
-		
+
 		final HtmlHelpIndex index = new HtmlHelpIndex(map);
 		index.createContent(outputFolderProject);
-		
+
 		final File output = new File(outputFolderProject, "index.hhk");
 		index.saveToFile(output);
 		return output;
 	}
 
 
-	private File createContentsFile(File outputFolderProject, File defaultFile, String title)
-	{		
+	private File createContentsFile(final File outputFolderProject, final File defaultFile, final String title)
+	{
 		final HtmlHelpContents index = new HtmlHelpContents(this);
 		index.createContent(outputFolderProject, defaultFile, title);
-		
+
 		final File output = new File(outputFolderProject, "contents.hhc");
 		index.saveToFile(output);
 		return output;
 	}
 
 
-	public File getOutputFile(File outputFolder, String namespace, String identifier)
+	public File getOutputFile(final File outputFolder, final String namespace, final String identifier)
 	{
 		final File namespaceFolder = new File(outputFolder, namespace);
 		return new File(namespaceFolder, identifier + ".html");

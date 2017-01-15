@@ -11,9 +11,9 @@ import project.marky.oc.docu.util.StringConstants;
 public class StdHtmlFile
 {
 	String _content;
-	
+
 	File _location;
-	
+
 	private static final String HTML_TAG_HTML = "html";
 	private static final String HTML_TAG_BODY = "body";
 	private static final String HTML_TAG_H1 = "h1";
@@ -24,81 +24,92 @@ public class StdHtmlFile
 	private static final String HTML_TAG_SPAN = "span";
 	private static final String HTML_TAG_HEAD = "head";
 	private static final String HTML_TAG_TITLE = "title";
-	
+
 	private int _indent = 0;
-	
+
+
 	public StdHtmlFile()
 	{
 		_content = "";
 	}
-	
+
 	public class StdHtmlTag
 	{
 		final String _type;
 		String _attributes;
-		
+
+
 		public StdHtmlTag(final String type)
 		{
 			_type = type;
 			_attributes = null;
 		}
-		
+
+
 		public StdHtmlTag(final String type, final String attr)
 		{
 			_type = type;
 			_attributes = attr;
 		}
-		
+
+
 		public String open()
 		{
 			String value = "<" + _type;
-			
+
 			if (_attributes != null)
 			{
 				value += " " + _attributes.toString();
 			}
-			
+
 			value += ">";
-			
+
 			return value;
 		}
-		
+
+
 		public String close()
 		{
 			return "</" + _type + ">";
 		}
 	}
-	
+
 	public class StdHtmlAttributes
 	{
 		final HashMap<String, String> _attributes = new HashMap<String, String>();
-		
+
+
 		public StdHtmlAttributes()
 		{
-			
+
 		}
 	}
-	
+
+
 	private void openTag(final String type)
 	{
 		_content += new StdHtmlTag(type).open();
 	}
-	
+
+
 	private void openTag(final String type, final String attributes)
 	{
 		_content += new StdHtmlTag(type, attributes).open();
 	}
-	
+
+
 	private void closeTag(final String type)
 	{
 		_content += new StdHtmlTag(type).close();
 	}
-	
+
+
 	public StdHtmlFile write(final String text)
 	{
 		_content += text;
 		return this;
 	}
+
 
 	public StdHtmlFile html()
 	{
@@ -107,7 +118,8 @@ public class StdHtmlFile
 		newline();
 		return this;
 	}
-	
+
+
 	public StdHtmlFile _html()
 	{
 		closeTag(HTML_TAG_HTML);
@@ -115,13 +127,13 @@ public class StdHtmlFile
 		newline();
 		return this;
 	}
-	
 
 
-	private void indent(int i)
+	private void indent(final int i)
 	{
 		_indent = Math.max(0, _indent + i);
 	}
+
 
 	public StdHtmlFile body()
 	{
@@ -130,7 +142,8 @@ public class StdHtmlFile
 		newline();
 		return this;
 	}
-	
+
+
 	public StdHtmlFile _body()
 	{
 		closeTag(HTML_TAG_BODY);
@@ -139,36 +152,42 @@ public class StdHtmlFile
 		return this;
 	}
 
-	public StdHtmlFile h1(String string)
+
+	public StdHtmlFile h1(final String string)
 	{
 		openTag(HTML_TAG_H1, string);
 		return this;
 	}
-	
+
+
 	public StdHtmlFile _h1()
 	{
 		closeTag(HTML_TAG_H1);
 		return this;
 	}
 
+
 	public StdHtmlFile h2()
 	{
 		openTag(HTML_TAG_H2);
 		return this;
 	}
-	
+
+
 	public StdHtmlFile _h2()
 	{
 		closeTag(HTML_TAG_H2);
 		return this;
 	}
-	
+
+
 	public StdHtmlFile newline()
 	{
 		_content += "\n";
 		doIndent();
 		return this;
 	}
+
 
 	private void doIndent()
 	{
@@ -178,23 +197,27 @@ public class StdHtmlFile
 		}
 	}
 
+
 	public StdHtmlFile p()
 	{
 		openTag(HTML_TAG_P);
 		return this;
 	}
 
+
 	public StdHtmlFile _p()
 	{
 		closeTag(HTML_TAG_P);
 		return this;
 	}
-	
+
+
 	public StdHtmlFile b()
 	{
 		openTag(HTML_TAG_B);
 		return this;
 	}
+
 
 	public StdHtmlFile _b()
 	{
@@ -203,11 +226,12 @@ public class StdHtmlFile
 	}
 
 
-	public StdHtmlFile div(String string)
+	public StdHtmlFile div(final String string)
 	{
 		openTag(HTML_TAG_DIV, string);
 		return this;
 	}
+
 
 	public StdHtmlFile _div()
 	{
@@ -216,60 +240,67 @@ public class StdHtmlFile
 	}
 
 
-	public StdHtmlFile span(String string)
+	public StdHtmlFile span(final String string)
 	{
 		openTag(HTML_TAG_SPAN, string);
 		return this;
 	}
+
 
 	public StdHtmlFile _span()
 	{
 		closeTag(HTML_TAG_SPAN);
 		return this;
 	}
-	
+
+
 	public StdHtmlFile head()
 	{
 		openTag(HTML_TAG_HEAD);
 		return this;
 	}
 
+
 	public StdHtmlFile _head()
 	{
 		closeTag(HTML_TAG_HEAD);
 		return this;
 	}
-	
+
+
 	public StdHtmlFile title()
 	{
 		openTag(HTML_TAG_TITLE);
 		return this;
 	}
 
+
 	public StdHtmlFile _title()
 	{
 		closeTag(HTML_TAG_TITLE);
 		return this;
 	}
-	
-	public StdHtmlFile link(String attributes)
+
+
+	public StdHtmlFile link(final String attributes)
 	{
 		_content += "<link " + attributes + "/>";
 		return this;
 	}
 
-	public void saveToFile(File outputFile)
+
+	public void saveToFile(final File outputFile)
 	{
 		Helper.ensureCreateFile(outputFile);
-		
+
 		FileWriter writer = null;
-		
+
 		try
 		{
 			writer = new FileWriter(outputFile);
 			writer.write(_content);
 		}
-		catch (IOException e)
+		catch (final IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -282,13 +313,14 @@ public class StdHtmlFile
 					writer.close();
 				}
 			}
-			catch (IOException e)
+			catch (final IOException e)
 			{
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
+
 
 	protected void writeLine(final String line)
 	{

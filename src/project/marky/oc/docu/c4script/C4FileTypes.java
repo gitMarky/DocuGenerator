@@ -9,12 +9,14 @@ public enum C4FileTypes
 	C4Player(".c4p");
 
 	private final String _extension;
-	
+
+
 	C4FileTypes(final String extension)
 	{
 		_extension = extension;
 	}
-	
+
+
 	public String getExtension()
 	{
 		return _extension;

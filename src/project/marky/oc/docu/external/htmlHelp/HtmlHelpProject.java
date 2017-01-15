@@ -7,7 +7,7 @@ import static project.marky.oc.docu.util.StringConstants.*;
 
 /**
  * HtmlHelp project file.
- *
+ * 
  */
 public class HtmlHelpProject extends StdHtmlFile
 {
@@ -15,8 +15,9 @@ public class HtmlHelpProject extends StdHtmlFile
 	private final File _indexFile;
 	private final String _title;
 	private final File _defaultFile;
-	
-	public HtmlHelpProject(File contents, File index, final String title, final File defaultFile)
+
+
+	public HtmlHelpProject(final File contents, final File index, final String title, final File defaultFile)
 	{
 		super();
 
@@ -27,16 +28,17 @@ public class HtmlHelpProject extends StdHtmlFile
 
 		writeHeader();
 	}
-	
+
+
 	protected void writeHeader()
 	{
 		writeLine("[OPTIONS]");
 		writeLine("Contents file=" + _contentsFile.getAbsolutePath());
 		writeLine("Index file=" + _indexFile.getAbsolutePath());
-		
-		if (_title != null)			writeLine("Title=" + _title);
-		if (_defaultFile != null)	writeLine("Default topic=" + _defaultFile.getAbsolutePath());
-		
+
+		if (_title != null) writeLine("Title=" + _title);
+		if (_defaultFile != null) writeLine("Default topic=" + _defaultFile.getAbsolutePath());
+
 		writeLine(EMPTY_STRING);
 		writeLine("[FILES]");
 	}

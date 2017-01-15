@@ -13,7 +13,7 @@ import static project.marky.oc.docu.util.StringConstants.*;
 
 public class C4ScriptFileParser
 {
-	
+
 	private enum ParseMode
 	{
 		INACTIVE,
@@ -21,59 +21,63 @@ public class C4ScriptFileParser
 		JAVADOC,
 		FUNC;
 	}
-	
+
 	private ParseMode _mode;
-	
+
 	private File _origin;
-	
+
 	private static String _filename;
-	
+
 	private final ArrayList<C4DocuParser> _headerList;
 	private final HashMap<C4DocuParser, C4FuncParser> _funcList;
-	
+
 	private C4DocuParser _parserJDoc;
 	private C4FuncParser _parserFunctions;
-	
+
+
 	public static C4ScriptFileParser parseFile(final File input)
 	{
 		_filename = input.getParentFile().getName();
 
 		if (input.getName().equalsIgnoreCase("docu.c"))
 		{
-			int dummy = 0;
+			final int dummy = 0;
 		}
-		
+
 		try
-		{			
-			@SuppressWarnings ("resource") BufferedReader reader = new BufferedReader(new FileReader(input));
-			
-			C4ScriptFileParser handler = new C4ScriptFileParser();
-			
-				Stream<String> lines = reader.lines();
-				
-				Iterator<String> iter= lines.iterator();
-				
-				while (iter.hasNext())
-				{
-					String line = iter.next();
-					
-					handler.feed(line); // this guy is hungry for code
-				}
-				
-				handler.done();
-				
-				handler._origin = input.getParentFile();
-				
+		{
+			@SuppressWarnings("resource")
+			final
+			BufferedReader reader = new BufferedReader(new FileReader(input));
+
+			final C4ScriptFileParser handler = new C4ScriptFileParser();
+
+			final Stream<String> lines = reader.lines();
+
+			final Iterator<String> iter = lines.iterator();
+
+			while (iter.hasNext())
+			{
+				final String line = iter.next();
+
+				handler.feed(line); // this guy is hungry for code
+			}
+
+			handler.done();
+
+			handler._origin = input.getParentFile();
+
 			return handler;
 		}
-		catch (FileNotFoundException e)
+		catch (final FileNotFoundException e)
 		{
 			e.printStackTrace();
 		}
 
 		return null;
 	}
-	
+
+
 	public C4ScriptFileParser()
 	{
 		_mode = ParseMode.INACTIVE;
@@ -82,13 +86,15 @@ public class C4ScriptFileParser
 		_headerList = new ArrayList<C4DocuParser>();
 		_funcList = new HashMap<C4DocuParser, C4FuncParser>();
 	}
-	
+
+
 	/**
 	 * Feeds a line to the parse handler.
 	 * 
-	 * @param line the line that should be parsed.
+	 * @param line
+	 *            the line that should be parsed.
 	 */
-	public void feed(String line)
+	public void feed(final String line)
 	{
 		switch (_mode)
 		{
@@ -107,6 +113,7 @@ public class C4ScriptFileParser
 		}
 	}
 
+
 	private void tryMergeFunctionAndDoc()
 	{
 		if (_parserFunctions != null && _parserJDoc != null)
@@ -117,12 +124,14 @@ public class C4ScriptFileParser
 			_parserFunctions = null;
 		}
 	}
-	
+
+
 	public void done()
 	{
 		addHeader();
 	}
-	
+
+
 	private void addHeader()
 	{
 		if (_parserJDoc != null)
@@ -133,13 +142,14 @@ public class C4ScriptFileParser
 		}
 	}
 
-	private void tryStartParsing(String line)
+
+	private void tryStartParsing(final String line)
 	{
 		if (line.contains(IDENTIFIER_JDOC_START))
 		{
 			// docu and another docu? must be a header
 			addHeader();
-			
+
 			_mode = ParseMode.JAVADOC;
 			feed(line);
 		}
@@ -150,21 +160,21 @@ public class C4ScriptFileParser
 		}
 		else
 		{
-	 	    // docu and a new line? must be a header
+			// docu and a new line? must be a header
 			addHeader();
 		}
 	}
-	
 
-	private void tryParsingJavaDoc(String line)
+
+	private void tryParsingJavaDoc(final String line)
 	{
 		if (_parserJDoc == null)
 		{
 			_parserJDoc = new C4DocuParser();
 		}
-		
+
 		_parserJDoc.feed(line);
-		
+
 		if (line.contains(IDENTIFIER_JDOC_CLOSE))
 		{
 			_mode = ParseMode.INACTIVE;
@@ -172,7 +182,8 @@ public class C4ScriptFileParser
 		}
 	}
 
-	private void tryParsingFunction(String line)
+
+	private void tryParsingFunction(final String line)
 	{
 		if (_parserFunctions == null)
 		{
@@ -180,32 +191,36 @@ public class C4ScriptFileParser
 		}
 
 		_parserFunctions.feed(line);
-		
+
 		if (_parserFunctions.isFunctionEnd())
 		{
 			_mode = ParseMode.INACTIVE;
-			
-			// delete function parser, this should remove the error that the wrong documentation is displayed.
+
+			// delete function parser, this should remove the error that the
+			// wrong documentation is displayed.
 			if (_parserJDoc == null)
 			{
 				_parserFunctions = null;
 			}
 		}
 	}
-	
+
+
 	public HashMap<C4DocuParser, C4FuncParser> getFunctionList()
 	{
 		return _funcList;
 	}
-	
+
+
 	public ArrayList<C4DocuParser> getHeaderList()
 	{
 		return _headerList;
 	}
-	
+
+
 	public File getOrigin()
 	{
 		return _origin;
 	}
-	
+
 }

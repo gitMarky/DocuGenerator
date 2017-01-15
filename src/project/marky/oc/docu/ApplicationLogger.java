@@ -18,8 +18,8 @@ public class ApplicationLogger
 {
 	private static final String DOCU_GENERATOR_LOG = "DocuGenerator.log";
 	private static Logger _logger = null;
-	
-	
+
+
 	private ApplicationLogger() throws OperationNotSupportedException
 	{
 		throw new OperationNotSupportedException("This is a utility class, it should not be instantiated.");

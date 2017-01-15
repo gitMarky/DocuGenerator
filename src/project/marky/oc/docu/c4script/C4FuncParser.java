@@ -14,32 +14,31 @@ public class C4FuncParser
 	public static final String VISIBILITY_PUBLIC = "public";
 	private String _text;
 	private String _parameterText;
-	
+
 	private boolean _isParsed;
 	private boolean _parsesParameters;
-	
+
 	private String _functionVisibility;
 	private String _functionName;
-	
-	
+
 	private final HashMap<String, C4TypeDef> _parameters;
-	
-	
+
+
 	public C4FuncParser()
 	{
 		_text = EMPTY_STRING;
 		_parameterText = EMPTY_STRING;
 		_isParsed = false;
 		_parsesParameters = false;
-		
+
 		_parameters = new HashMap<String, C4TypeDef>();
 	}
-	
-	public void feed(String line)
+
+
+	public void feed(final String line)
 	{
 		if (line == null) return;
-		
-		
+
 		if (line.startsWith(SPACE_STRING))
 		{
 			feed(line.replaceFirst(SPACE_STRING, EMPTY_STRING));
@@ -60,7 +59,7 @@ public class C4FuncParser
 		{
 			parseFunction(line);
 		}
-		
+
 		if (_isParsed)
 		{
 			if (!_parameterText.equals(EMPTY_STRING))
@@ -79,91 +78,93 @@ public class C4FuncParser
 		}
 	}
 
+
 	private void parseParameters()
 	{
-		String[] pairsOfTypeAndParameter = _parameterText.split(",");
-		
+		final String[] pairsOfTypeAndParameter = _parameterText.split(",");
+
 		for (int i = 0; i < pairsOfTypeAndParameter.length; i++)
 		{
-			String[] split = pairsOfTypeAndParameter[i].split(SPACE_STRING);
-			
+			final String[] split = pairsOfTypeAndParameter[i].split(SPACE_STRING);
+
 			String type = null;
 			String parameter = null;
-			
-			C4TypeDef c4type = C4TypeDef.C4V_Any; 
-			
+
+			C4TypeDef c4type = C4TypeDef.C4V_Any;
+
 			for (int j = 0; j < split.length; j++)
 			{
 				if (split[j].equals(EMPTY_STRING) || split[j].equals(SPACE_STRING))
 				{
 					continue;
 				}
-				
+
 				if (type == null)
 				{
 					type = split[j];
 					continue;
 				}
-				
+
 				if (parameter == null)
 				{
 					parameter = split[j];
 					break;
 				}
 			}
-			
+
 			if (type != null && parameter == null)
 			{
 				parameter = type;
 				type = null;
 			}
-			
-			if (type != null ) //&& c4type == null)
+
+			if (type != null) // && c4type == null)
 			{
 				c4type = C4TypeDef.fromString(type);
 			}
-			
+
 			_parameters.put(parameter, c4type);
 		}
 	}
-	
+
+
 	private void parseFunctionString()
 	{
 		final String[] split = _text.split(SPACE_STRING);
-		
-		for(String entry : split)
+
+		for (final String entry : split)
 		{
-			if (entry.equals(EMPTY_STRING) || entry.equals("func"))
-				continue;
-			
+			if (entry.equals(EMPTY_STRING) || entry.equals("func")) continue;
+
 			if (_functionVisibility == null && (entry.equals(VISIBILITY_GLOBAL) || entry.equals(VISIBILITY_PUBLIC) || entry.equals(VISIBILITY_PROTECTED) || entry.equals(VISIBILITY_PRIVATE)))
 			{
 				_functionVisibility = entry;
 				continue;
 			}
-			
+
 			if (_functionName == null)
 			{
 				_functionName = entry;
 			}
 		}
-		
+
 		if (_functionVisibility == null)
 		{
 			_functionVisibility = VISIBILITY_PUBLIC;
 		}
-		
+
 		ApplicationLogger.getLogger().info(" * > parsed function: " + _functionVisibility + " " + _functionName + "()");
 	}
 
-	private void parseFunction(String line)
-	{		
+
+	private void parseFunction(final String line)
+	{
 		if (_text.equals(EMPTY_STRING) && _parameterText.equals(EMPTY_STRING))
 		{
 			if (line.contains(IDENTIFIER_PAR_OPEN))
 			{
-				String[] divide = line.split("\\" + IDENTIFIER_PAR_OPEN);
-				
+				final String[] divide = line.split("\\" + IDENTIFIER_PAR_OPEN);
+
 				switch (divide.length)
 				{
 					case 0:
@@ -176,70 +177,78 @@ public class C4FuncParser
 					case 2:
 					default:
 						_text = divide[0];
-						//_parameterText = divide[1];
+						// _parameterText = divide[1];
 						_parsesParameters = true;
-						//parseLine(EMPTY_STRING);
+						// parseLine(EMPTY_STRING);
 						parseFunction(divide[1]);
 						return;
-//					default:
-//						throw new IllegalStateException("This is not possible/handled");
+						// default:
+						// throw new
+						// IllegalStateException("This is not possible/handled");
 				}
 			}
 		}
-		
+
 		if (!_parsesParameters && _text.equals(EMPTY_STRING))
 		{
 			_text += line;
 		}
-		
+
 		if (_parsesParameters)
 		{
-			int index = line.indexOf(IDENTIFIER_PAR_CLOSE);
-			
+			final int index = line.indexOf(IDENTIFIER_PAR_CLOSE);
+
 			String text = line;
 			if (index >= 0) text = line.substring(0, index);
-			
-			_parameterText += text; //line.replace(IDENTIFIER_PAR_CLOSE, EMPTY_STRING);
+
+			_parameterText += text; // line.replace(IDENTIFIER_PAR_CLOSE,
+			// EMPTY_STRING);
 		}
-		
+
 		if (line.contains(IDENTIFIER_PAR_CLOSE))
 		{
 			_isParsed = true;
 		}
 	}
 
+
 	public void printText()
 	{
-////		ApplicationLogger.getLogger().info("\n" + _text + "\n");
-//		//ApplicationLogger.getLogger().info(">>> " + _parameterText + "\n");
-//		
-//		Iterator<String> iter = _parameters.keySet().iterator();
-//		
-//		while (iter.hasNext())
-//		{
-//			String parameter = iter.next();
-//			
-//			C4TypeDef type = _parameters.get(parameter);
-//			
-//			ApplicationLogger.getLogger().info("* " + type.getString() + " " + parameter);
-//		}
+		// // ApplicationLogger.getLogger().info("\n" + _text + "\n");
+		// //ApplicationLogger.getLogger().info(">>> " + _parameterText + "\n");
+		//
+		// Iterator<String> iter = _parameters.keySet().iterator();
+		//
+		// while (iter.hasNext())
+		// {
+		// String parameter = iter.next();
+		//
+		// C4TypeDef type = _parameters.get(parameter);
+		//
+		// ApplicationLogger.getLogger().info("* " + type.getString() + " " +
+		// parameter);
+		// }
 	}
+
 
 	public boolean isFunctionEnd()
 	{
 		return _isParsed;
 	}
-	
+
+
 	public String getFunctionName()
 	{
 		return _functionName;
 	}
-	
+
+
 	public String getFunctionVisibility()
 	{
 		return _functionVisibility;
 	}
-	
+
+
 	public HashMap<String, C4TypeDef> getFunctionParameters()
 	{
 		return _parameters;
