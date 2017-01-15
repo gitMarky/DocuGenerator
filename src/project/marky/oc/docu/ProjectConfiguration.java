@@ -2,6 +2,8 @@ package project.marky.oc.docu;
 
 import java.io.File;
 
+import project.marky.library.xml.BasicXmlFile;
+
 
 /**
  * Data structure that handles the project configuration.
@@ -57,6 +59,27 @@ public class ProjectConfiguration
 		_workspace = docuSource;
 		_outputFolder = docuOutput;
 		_stylesheet = stylesheet;
+	}
+
+
+	public static ProjectConfiguration loadFromXml(final File xml)
+	{
+		final BasicXmlFile content = new BasicXmlFile(xml);
+
+		if (!content.getRoot().getName().equals("docuProject"))
+		{
+			throw new IllegalArgumentException("Invalid input file: " + xml.getAbsolutePath());
+		}
+
+		final String source = content.getRoot().getChildText("source");
+		final String output = content.getRoot().getChildText("output");
+		final String sheet = content.getRoot().getChildText("stylesheet");
+		final String title = content.getRoot().getChildText("title");
+
+		final File docuSource = new File(source);
+		final File docuOutput = new File(output);
+		final File stylesheet = new File(sheet);
+		return new ProjectConfiguration(title, docuSource, docuOutput, stylesheet);
 	}
 
 

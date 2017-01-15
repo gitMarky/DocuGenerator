@@ -1,0 +1,6 @@
+<docuProject>
+	<title>Title of test project</title>
+	<source>tests\project\marky\oc\docu\resources\dir1</source>
+	<output>tests\project\marky\oc\docu\resources\dir2</output>
+	<stylesheet>tests\project\marky\oc\docu\resources\dir3\style.css</stylesheet>
+</docuProject>
