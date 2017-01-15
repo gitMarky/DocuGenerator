@@ -8,7 +8,7 @@ import project.marky.library.xml.BasicXmlFile;
 /**
  * Data structure that handles the project configuration.
  */
-public class ProjectConfiguration
+public class ProjectConfiguration implements IProjectConfiguration
 {
 	private final File _workspace;
 	private final File _outputFolder;
@@ -83,25 +83,29 @@ public class ProjectConfiguration
 	}
 
 
-	File getSource()
+	@Override
+	public File getSource()
 	{
 		return _workspace;
 	}
 
 
-	File getOutput()
+	@Override
+	public File getOutput()
 	{
 		return _outputFolder;
 	}
 
 
-	File getStylesheet()
+	@Override
+	public File getStylesheet()
 	{
 		return _stylesheet;
 	}
 
 
-	String getTitle()
+	@Override
+	public String getTitle()
 	{
 		return _title;
 	}

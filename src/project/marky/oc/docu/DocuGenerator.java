@@ -40,7 +40,7 @@ public class DocuGenerator
 	 * 
 	 * @param configuration the configuration.
 	 */
-	public void run(final ProjectConfiguration configuration)
+	public void run(final IProjectConfiguration configuration)
 	{
 		run(configuration.getSource(), configuration.getOutput(), configuration.getStylesheet(), configuration.getTitle());
 	}
