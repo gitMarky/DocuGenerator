@@ -43,6 +43,13 @@ public class ProjectPanel extends JPanel
 		this.add(assembleButtonRow("Source", dir()));
 		this.add(assembleButtonRow("Output", dir()));
 		this.add(assembleButtonRow("Stylesheet", css()));
+		this.add(assembleGenerateButton());
+	}
+
+
+	private Component assembleGenerateButton()
+	{
+		return new GenerateProjectButton();
 	}
 
 
