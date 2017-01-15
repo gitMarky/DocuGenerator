@@ -39,12 +39,6 @@ public class DocuGui
 
 				new DocuGui();
 
-				//				ApplicationLogger.getLogger().info(Constants.HLINE);
-				//				ApplicationLogger.getLogger().info("Setup");
-				//				ApplicationLogger.getLogger().info(Constants.HLINE);
-				//
-				//GUI.getMenuSelectionPanel().onCreatureSelected();
-
 				ApplicationLogger.getLogger().info(Constants.HLINE);
 				ApplicationLogger.getLogger().info("Preparation phase is over, from here on the user takes over.");
 				ApplicationLogger.getLogger().info(Constants.HLINE);
@@ -80,51 +74,10 @@ public class DocuGui
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////7
 	//
-	// Internal classes
-
-	private final class GuiUpdateThread implements Runnable
-	{
-		private long lastUpdate = 0;
-		private final long updateInterval = 500;
-		private final DocuGui target;
-
-		private GuiUpdateThread(final DocuGui target)
-		{
-			this.target = target;
-		}
-
-
-		@Override
-		public void run()
-		{
-			while (target != null)
-			{
-				if (System.currentTimeMillis() > (lastUpdate + updateInterval))
-				{
-					doUpdate();
-				}
-			}
-		}
-
-		private void doUpdate()
-		{
-			lastUpdate = System.currentTimeMillis();
-
-			if (target != null)
-			{
-				target.updateView();
-			}
-		}
-	}
-
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////7
-	//
 	// Actual class
 
 
 	private final JFrame _frame = new JFrame();
-	private final GuiUpdateThread _guiUpdate;
 
 
 	private DocuGui()
@@ -140,9 +93,6 @@ public class DocuGui
 
 		_frame.pack();
 		_frame.setVisible(true);
-
-		_guiUpdate = new GuiUpdateThread(this);
-		new Thread(_guiUpdate).start();
 	}
 
 
