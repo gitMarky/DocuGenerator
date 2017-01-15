@@ -5,10 +5,12 @@ import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import project.marky.oc.docu.gui.fileChoosers.FileChooserCssFile;
 import project.marky.oc.docu.gui.fileChoosers.FileChooserDirectory;
 import project.marky.oc.docu.util.StyleConstants;
 
@@ -20,6 +22,7 @@ import project.marky.oc.docu.util.StyleConstants;
 public class ProjectPanel extends JPanel
 {
 	private final FileChooserDirectory _dir = new FileChooserDirectory(null);
+	private final FileChooserCssFile _css = new FileChooserCssFile(null);
 	final JTextField _titleField = new JTextField();
 
 
@@ -37,8 +40,9 @@ public class ProjectPanel extends JPanel
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		this.add(assembleTitleRow());
-		this.add(assembleButtonRow("Source"));
-		this.add(assembleButtonRow("Output"));
+		this.add(assembleButtonRow("Source", dir()));
+		this.add(assembleButtonRow("Output", dir()));
+		this.add(assembleButtonRow("Stylesheet", css()));
 	}
 
 
@@ -52,13 +56,13 @@ public class ProjectPanel extends JPanel
 	}
 
 
-	private Component assembleButtonRow(final String title)
+	private Component assembleButtonRow(final String title, final JFileChooser fileChooser)
 	{
 		final JLabel label = createLabel(title);
 
 		final JPanel panel = subPanel();
 		panel.add(label);
-		panel.add(new BrowseFilePanel(dir()));
+		panel.add(new BrowseFilePanel(fileChooser));
 		return panel;
 	}
 
@@ -82,6 +86,12 @@ public class ProjectPanel extends JPanel
 	private FileChooserDirectory dir()
 	{
 		return _dir;
+	}
+
+
+	private FileChooserCssFile css()
+	{
+		return _css;
 	}
 
 
