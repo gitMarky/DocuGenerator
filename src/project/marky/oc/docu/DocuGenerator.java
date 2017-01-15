@@ -96,52 +96,56 @@ public class DocuGenerator
 	 * @param file
 	 *            the file.
 	 */
-	@SuppressWarnings("resource")
 	private void parseDefcore(final File file)
 	{
-		try
+		final String content = getFileContent(file);
+
+		final Pattern patternID = Pattern.compile("id=(.+)");
+		final Matcher matcherID = patternID.matcher(content);
+
+		if (matcherID.find())
 		{
-			final String content = new Scanner(file).useDelimiter("\\Z").next();
+			final String definition = matcherID.group(0).replace("id=", "");
 
-			// ApplicationLogger.getLogger().info(content);
+			final Pattern patternName = Pattern.compile("Name=(.+)");
+			final Matcher matcherName = patternName.matcher(content);
 
-			final Pattern patternID = Pattern.compile("id=(.+)");
-			final Matcher matcherID = patternID.matcher(content);
+			String name = "";
 
-			if (matcherID.find())
+			if (matcherName.find())
 			{
-				final String definition = matcherID.group(0).replace("id=", "");
-
-				final Pattern patternName = Pattern.compile("Name=(.+)");
-				final Matcher matcherName = patternName.matcher(content);
-
-				String name = "";
-
-				if (matcherName.find())
-				{
-					name = matcherName.group(0).replace("Name=", "");
-				}
-				else
-				{
-					name = file.getParentFile().getName();
-
-					// remove file endings
-					name = name.substring(0, name.lastIndexOf("."));
-				}
-
-				ApplicationLogger.getLogger().info(" * > adding namespace '" + definition + "'");
-
-				final StdNamespace namespace = new StdNamespace(definition, name, file.getParentFile());
-				_namespaces.addNamespace(namespace);
+				name = matcherName.group(0).replace("Name=", "");
 			}
 			else
 			{
-				ApplicationLogger.getLogger().info(" * > no ID found");
+				name = file.getParentFile().getName();
+
+				// remove file endings
+				name = name.substring(0, name.lastIndexOf("."));
 			}
+
+			ApplicationLogger.getLogger().info(" * > adding namespace '" + definition + "'");
+
+			final StdNamespace namespace = new StdNamespace(definition, name, file.getParentFile());
+			_namespaces.addNamespace(namespace);
+		}
+		else
+		{
+			ApplicationLogger.getLogger().info(" * > no ID found");
+		}
+	}
+
+
+	private String getFileContent(final File file)
+	{
+		try
+		{
+			return new Scanner(file).useDelimiter("\\Z").next();
 		}
 		catch (final FileNotFoundException e)
 		{
-			e.printStackTrace();
+			ApplicationLogger.getLogger().throwing("File not found", "Will return empty string", e);
+			return "";
 		}
 	}
 
@@ -219,8 +223,6 @@ public class DocuGenerator
 		space.add(page);
 		ApplicationLogger.getLogger().info(" * > added " + space.getIdentifier() + "#" + identifier);
 	}
-
-
 
 
 	private void parseFolder(final File sourceFolder, final List<File> defCoreFiles, final List<File> docuFiles, final List<File> scriptFiles)
