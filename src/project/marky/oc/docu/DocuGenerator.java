@@ -36,6 +36,17 @@ public class DocuGenerator
 
 
 	/**
+	 * Creates the documentation from a given configuration.
+	 * 
+	 * @param configuration the configuration.
+	 */
+	public void run(final ProjectConfiguration configuration)
+	{
+		run(configuration.getSource(), configuration.getOutput(), configuration.getStylesheet(), configuration.getTitle());
+	}
+
+
+	/**
 	 * Creates the documentation files.
 	 * 
 	 * @param inputFolderProject
@@ -48,7 +59,7 @@ public class DocuGenerator
 	 * @param title
 	 *            this is the title of the documentation project in html help.
 	 */
-	public void run(final File inputFolderProject, final File outputFolderProject, final File cssStyleSheet, final String title)
+	private void run(final File inputFolderProject, final File outputFolderProject, final File cssStyleSheet, final String title)
 	{
 		final List<File> defCoreFiles = new ArrayList<File>();
 		final List<File> scriptFiles = new ArrayList<File>();

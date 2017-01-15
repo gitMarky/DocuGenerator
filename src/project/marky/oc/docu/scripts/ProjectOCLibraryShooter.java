@@ -3,6 +3,7 @@ package project.marky.oc.docu.scripts;
 import java.io.File;
 
 import project.marky.oc.docu.DocuGenerator;
+import project.marky.oc.docu.ProjectConfiguration;
 
 /**
  * Generates the docu for a specific project.
@@ -21,6 +22,6 @@ public class ProjectOCLibraryShooter
 	public static void main(final String[] args)
 	{
 		final DocuGenerator parser = new DocuGenerator();
-		parser.run(_workspace, _outputFolder, _stylesheet, "Library: Shooter");
+		parser.run(new ProjectConfiguration("Library: Shooter", _workspace, _outputFolder, _stylesheet));
 	}
 }
