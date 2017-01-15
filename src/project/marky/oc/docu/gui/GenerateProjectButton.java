@@ -7,22 +7,25 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import project.marky.oc.docu.ApplicationLogger;
+import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.IProjectConfiguration;
 
 
 @SuppressWarnings("serial") // No serialization intended
 public class GenerateProjectButton extends JButton
 {
+	private final IProjectConfiguration _config;
 	private GenerateProjectState _currentState = null;
 	private GenerateProjectState _lastState = null;
 
 
-	public GenerateProjectButton()
+	public GenerateProjectButton(final IProjectConfiguration config)
 	{
 		final String dist = "          ";
 		setText(dist + "Generate HtmlHelp project!" + dist);
 		setCurrentState(GenerateProjectState.NEEDS_CONFIG);
 		addActionListener(new GenerateProjectListener(this));
+		_config = config;
 	}
 
 
@@ -63,7 +66,8 @@ public class GenerateProjectButton extends JButton
 
 	private void onFinishedProjectGeneration()
 	{
-		ApplicationLogger.getLogger().info("Finished project generation (this is a dummy at the moment");
+		ApplicationLogger.getLogger().info("Finished project generation");
+		checkProjectStatus(true);
 	}
 
 
@@ -117,7 +121,7 @@ public class GenerateProjectButton extends JButton
 		public void run()
 		{
 			_button.setCurrentState(GenerateProjectState.GENERATING);
-			_button.setEnabled(false);
+			new DocuGenerator().run(_config);
 			_button.onFinishedProjectGeneration();
 		}
 
@@ -132,17 +136,23 @@ public class GenerateProjectButton extends JButton
 	}
 
 
-	public void checkProjectStatus(final IProjectConfiguration config)
+	public void checkProjectStatus()
 	{
-		if (getCurrentState().equals(GenerateProjectState.GENERATING))
+		checkProjectStatus(false);
+	}
+
+
+	private void checkProjectStatus(final boolean forceUpdate)
+	{
+		if (GenerateProjectState.GENERATING.equals(getCurrentState()) && !forceUpdate)
 		{
 			return;
 		}
 
-		final boolean hasTitle = config.getTitle() != null;
-		final boolean hasSource = config.getSource() != null && config.getSource().isDirectory();
-		final boolean hasOutput = config.getOutput() != null && config.getOutput().isDirectory();
-		final boolean hasStyle = config.getStylesheet() != null && config.getStylesheet().isFile();
+		final boolean hasTitle = _config.getTitle() != null;
+		final boolean hasSource = _config.getSource() != null && _config.getSource().isDirectory();
+		final boolean hasOutput = _config.getOutput() != null && _config.getOutput().isDirectory();
+		final boolean hasStyle = _config.getStylesheet() != null && _config.getStylesheet().isFile();
 
 		if (hasTitle && hasSource && hasOutput && hasStyle)
 		{

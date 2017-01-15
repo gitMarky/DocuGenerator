@@ -22,8 +22,8 @@ import project.marky.oc.docu.util.StyleConstants;
 // no serialization intended
 public class ProjectPanel extends JPanel implements IProjectConfiguration, IFileSelectionListener
 {
-	private final FileChooserDirectory _dir = new FileChooserDirectory(null);
-	private final FileChooserCssFile _css = new FileChooserCssFile(null);
+	private final FileChooserDirectory _dir = new FileChooserDirectory(new File("projects"));
+	private final FileChooserCssFile _css = new FileChooserCssFile(new File("projects"));
 	final JTextField _titleField = new JTextField();
 
 	final BrowseFilePanel _source;
@@ -35,19 +35,13 @@ public class ProjectPanel extends JPanel implements IProjectConfiguration, IFile
 	{
 		super();
 
-		// set default file for chooser
-		if (dir().getSelectedFile() == null)
-		{
-			dir().setCurrentDirectory(new File(""));
-		}
-
 		this.setBorder(BorderFactory.createTitledBorder("Project"));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		_source = new BrowseFilePanel(dir());
 		_output = new BrowseFilePanel(dir());
 		_stylesheet = new BrowseFilePanel(css());
-		_generateButton = new GenerateProjectButton();
+		_generateButton = new GenerateProjectButton(this);
 
 		_source.addFileSelectionListener(this);
 		_output.addFileSelectionListener(this);
@@ -157,6 +151,15 @@ public class ProjectPanel extends JPanel implements IProjectConfiguration, IFile
 	@Override
 	public void onFileSelection(final ActionEvent e)
 	{
-		_generateButton.checkProjectStatus(this);
+		if (e.getSource() == _source || e.getSource() == _output)
+		{
+			css().setCurrentDirectory(dir().getCurrentDirectory());
+		}
+		if (e.getSource() == _stylesheet)
+		{
+			dir().setCurrentDirectory(css().getCurrentDirectory());
+		}
+
+		_generateButton.checkProjectStatus();
 	}
 }

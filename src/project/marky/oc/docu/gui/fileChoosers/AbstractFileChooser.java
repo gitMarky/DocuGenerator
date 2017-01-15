@@ -9,15 +9,20 @@ public class AbstractFileChooser extends JFileChooser
 {
 	/**
 	 * Creates a file chooser with a default directory.
+	 */
+	AbstractFileChooser()
+	{
+		super(new File(""));
+	}
+
+
+	/**
+	 * Creates a file chooser with a default directory.
 	 * 
 	 * @param defaultDirectory the directory.
 	 */
 	AbstractFileChooser(final File defaultDirectory)
 	{
-		super();
-
-		final boolean useDefault = (defaultDirectory == null || defaultDirectory.isDirectory());
-
-		this.setCurrentDirectory(useDefault ? new File("") : defaultDirectory);
+		super(defaultDirectory);
 	}
 }
