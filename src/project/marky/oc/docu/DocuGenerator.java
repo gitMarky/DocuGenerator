@@ -62,6 +62,12 @@ public class DocuGenerator
 		parseScriptFiles(scriptFiles, docuFiles);
 
 		// Create the HtmlHelpProject
+		createHtmlHelpProject(outputFolderProject, cssStyleSheet, title);
+	}
+
+
+	private void createHtmlHelpProject(final File outputFolderProject, final File cssStyleSheet, final String title)
+	{
 		createHtmlFiles(outputFolderProject, cssStyleSheet);
 
 		final File defaultFile = getOutputFile(outputFolderProject, _namespaces.getNamespaceDocu().getIdentifier(), "index");
@@ -80,6 +86,62 @@ public class DocuGenerator
 		{
 			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
 			parseDefcore(file);
+		}
+	}
+
+
+	/**
+	 * Parses a DefCore file. This is necessary to get the namespaces for docu links.
+	 * 
+	 * @param file
+	 *            the file.
+	 */
+	@SuppressWarnings("resource")
+	private void parseDefcore(final File file)
+	{
+		try
+		{
+			final String content = new Scanner(file).useDelimiter("\\Z").next();
+
+			// ApplicationLogger.getLogger().info(content);
+
+			final Pattern patternID = Pattern.compile("id=(.+)");
+			final Matcher matcherID = patternID.matcher(content);
+
+			if (matcherID.find())
+			{
+				final String definition = matcherID.group(0).replace("id=", "");
+
+				final Pattern patternName = Pattern.compile("Name=(.+)");
+				final Matcher matcherName = patternName.matcher(content);
+
+				String name = "";
+
+				if (matcherName.find())
+				{
+					name = matcherName.group(0).replace("Name=", "");
+				}
+				else
+				{
+					name = file.getParentFile().getName();
+
+					// remove file endings
+					name = name.substring(0, name.lastIndexOf("."));
+				}
+
+				ApplicationLogger.getLogger().info(" * > adding namespace '" + definition + "'");
+
+				final StdNamespace namespace = new StdNamespace(definition, name, file.getParentFile());
+				_namespaces.addNamespace(namespace);
+			}
+			else
+			{
+				ApplicationLogger.getLogger().info(" * > no ID found");
+			}
+		}
+		catch (final FileNotFoundException e)
+		{
+			e.printStackTrace();
 		}
 	}
 
@@ -159,60 +221,6 @@ public class DocuGenerator
 	}
 
 
-	/**
-	 * Parses a DefCore file.
-	 * 
-	 * @param file
-	 *            the file.
-	 */
-	@SuppressWarnings("resource")
-	private void parseDefcore(final File file)
-	{
-		try
-		{
-			final String content = new Scanner(file).useDelimiter("\\Z").next();
-
-			// ApplicationLogger.getLogger().info(content);
-
-			final Pattern patternID = Pattern.compile("id=(.+)");
-			final Matcher matcherID = patternID.matcher(content);
-
-			if (matcherID.find())
-			{
-				final String definition = matcherID.group(0).replace("id=", "");
-
-				final Pattern patternName = Pattern.compile("Name=(.+)");
-				final Matcher matcherName = patternName.matcher(content);
-
-				String name = "";
-
-				if (matcherName.find())
-				{
-					name = matcherName.group(0).replace("Name=", "");
-				}
-				else
-				{
-					name = file.getParentFile().getName();
-
-					// remove file endings
-					name = name.substring(0, name.lastIndexOf("."));
-				}
-
-				ApplicationLogger.getLogger().info(" * > adding namespace '" + definition + "'");
-
-				final StdNamespace namespace = new StdNamespace(definition, name, file.getParentFile());
-				_namespaces.addNamespace(namespace);
-			}
-			else
-			{
-				ApplicationLogger.getLogger().info(" * > no ID found");
-			}
-		}
-		catch (final FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-	}
 
 
 	private void parseFolder(final File sourceFolder, final List<File> defCoreFiles, final List<File> docuFiles, final List<File> scriptFiles)
