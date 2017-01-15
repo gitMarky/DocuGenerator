@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import project.marky.oc.docu.gui.ProjectPanel;
 import project.marky.oc.docu.util.Constants;
 import project.marky.oc.docu.util.StyleConstants;
 
@@ -135,16 +136,16 @@ public class DocuGui
 		_frame.add(panel);
 		_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		assembleGui();
+		assembleGui(panel);
 
 		_guiUpdate = new GuiUpdateThread(this);
 		new Thread(_guiUpdate).start();
 	}
 
 
-	private void assembleGui()
+	private void assembleGui(final JPanel mainPanel)
 	{
-		// TODO Auto-generated method stub
+		mainPanel.add(new ProjectPanel());
 	}
 
 
