@@ -1,6 +1,7 @@
 package project.marky.oc.docu.gui;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -19,7 +20,7 @@ import project.marky.oc.docu.util.StyleConstants;
  */
 @SuppressWarnings("serial")
 // no serialization intended
-public class ProjectPanel extends JPanel implements IProjectConfiguration
+public class ProjectPanel extends JPanel implements IProjectConfiguration, IFileSelectionListener
 {
 	private final FileChooserDirectory _dir = new FileChooserDirectory(null);
 	private final FileChooserCssFile _css = new FileChooserCssFile(null);
@@ -28,6 +29,7 @@ public class ProjectPanel extends JPanel implements IProjectConfiguration
 	final BrowseFilePanel _source;
 	final BrowseFilePanel _output;
 	final BrowseFilePanel _stylesheet;
+	private final GenerateProjectButton _generateButton;
 
 	public ProjectPanel()
 	{
@@ -45,6 +47,11 @@ public class ProjectPanel extends JPanel implements IProjectConfiguration
 		_source = new BrowseFilePanel(dir());
 		_output = new BrowseFilePanel(dir());
 		_stylesheet = new BrowseFilePanel(css());
+		_generateButton = new GenerateProjectButton();
+
+		_source.addFileSelectionListener(this);
+		_output.addFileSelectionListener(this);
+		_stylesheet.addFileSelectionListener(this);
 
 		this.add(assembleTitleRow());
 		this.add(assembleButtonRow("Source", _source));
@@ -56,7 +63,7 @@ public class ProjectPanel extends JPanel implements IProjectConfiguration
 
 	private Component assembleGenerateButton()
 	{
-		return new GenerateProjectButton();
+		return _generateButton;
 	}
 
 
@@ -144,5 +151,12 @@ public class ProjectPanel extends JPanel implements IProjectConfiguration
 	public File getStylesheet()
 	{
 		return _stylesheet.getFile();
+	}
+
+
+	@Override
+	public void onFileSelection(final ActionEvent e)
+	{
+		_generateButton.checkProjectStatus(this);
 	}
 }

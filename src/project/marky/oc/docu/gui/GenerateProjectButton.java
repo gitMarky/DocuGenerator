@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import project.marky.oc.docu.ApplicationLogger;
+import project.marky.oc.docu.IProjectConfiguration;
 
 
 @SuppressWarnings("serial") // No serialization intended
@@ -90,14 +91,14 @@ public class GenerateProjectButton extends JButton
 		{
 			if (_thread != null)
 			{
-				_thread = new Thread(new GenerateProjectTask(_button));
-				_thread.run();
-			}
-			else
-			{
 				ApplicationLogger.getLogger().warning("Thread was unintentionally still alive");
 				_thread.interrupt();
 				_thread = null;
+			}
+			else
+			{
+				_thread = new Thread(new GenerateProjectTask(_button));
+				_thread.run();
 			}
 		}
 	}
@@ -128,5 +129,28 @@ public class GenerateProjectButton extends JButton
 		NEEDS_CONFIG,
 		READY,
 		GENERATING;
+	}
+
+
+	public void checkProjectStatus(final IProjectConfiguration config)
+	{
+		if (getCurrentState().equals(GenerateProjectState.GENERATING))
+		{
+			return;
+		}
+
+		final boolean hasTitle = config.getTitle() != null;
+		final boolean hasSource = config.getSource() != null && config.getSource().isDirectory();
+		final boolean hasOutput = config.getOutput() != null && config.getOutput().isDirectory();
+		final boolean hasStyle = config.getStylesheet() != null && config.getStylesheet().isFile();
+
+		if (hasTitle && hasSource && hasOutput && hasStyle)
+		{
+			setCurrentState(GenerateProjectState.READY);
+		}
+		else
+		{
+			setCurrentState(GenerateProjectState.NEEDS_CONFIG);
+		}
 	}
 }

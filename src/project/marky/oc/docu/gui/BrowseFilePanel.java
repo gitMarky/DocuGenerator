@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,6 +21,8 @@ public class BrowseFilePanel extends JPanel implements ActionListener
 	private final JButton _button = new JButton("Browse");
 	private File _file;
 	private final JTextField _text = new JTextField();
+
+	private final List<IFileSelectionListener> _listeners = new ArrayList<IFileSelectionListener>();
 
 	public BrowseFilePanel(final JFileChooser chooser)
 	{
@@ -55,10 +59,23 @@ public class BrowseFilePanel extends JPanel implements ActionListener
 	{
 		_file = file == null ? new File("") : file;
 		_text.setText(getFile().getAbsolutePath());
+
+		final ActionEvent e = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "File selected");
+
+		for (final IFileSelectionListener listener : _listeners)
+		{
+			listener.onFileSelection(e);
+		}
 	}
 
 	public File getFile()
 	{
 		return _file;
+	}
+
+
+	public void addFileSelectionListener(final IFileSelectionListener listener)
+	{
+		_listeners.add(listener);
 	}
 }

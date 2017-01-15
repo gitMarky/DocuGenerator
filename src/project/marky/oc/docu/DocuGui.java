@@ -138,6 +138,9 @@ public class DocuGui
 
 		assembleGui(panel);
 
+		_frame.pack();
+		_frame.setVisible(true);
+
 		_guiUpdate = new GuiUpdateThread(this);
 		new Thread(_guiUpdate).start();
 	}
@@ -151,8 +154,6 @@ public class DocuGui
 
 	private void updateView()
 	{
-		ApplicationLogger.getLogger().info("Update view");
-		_frame.pack();
-		_frame.setVisible(true);
+		// does nothing at the moment
 	}
 }
