@@ -62,7 +62,7 @@ public class ProjectConfiguration implements IProjectConfiguration
 		}
 		else if (!stylesheet.isFile())
 		{
-			throw new IllegalArgumentException("Stylesheet must be a file: " + stylesheet.getAbsolutePath());
+			ApplicationLogger.getLogger().warning("Stylesheet must be a file: " + stylesheet.getAbsolutePath());
 		}
 
 		_title = title;
