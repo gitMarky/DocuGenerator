@@ -1,8 +1,8 @@
 package project.marky.oc.docu;
 
+import java.awt.BorderLayout;
 import java.io.File;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -99,7 +99,6 @@ public class DocuGui
 		ApplicationLogger.getLogger().info(Constants.HLINE);
 
 		final JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setBorder(StyleConstants.DEFAULT_EMPTY_BORDER);
 
 		_frame.add(panel);
@@ -116,8 +115,16 @@ public class DocuGui
 
 	private void assembleGui(final JPanel mainPanel)
 	{
-		mainPanel.add(new SaveLoadPanel(this));
-		mainPanel.add(_project);
+		final SaveLoadPanel saveLoadPanel = new SaveLoadPanel(this);
+		//saveLoadPanel.setPreferredSize(_project.getPreferredSize());
+
+		//mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		mainPanel.setLayout(new BorderLayout());
+		//mainPanel.add(saveLoadPanel);
+		mainPanel.add(saveLoadPanel, BorderLayout.PAGE_START);
+		mainPanel.add(_project, BorderLayout.PAGE_END);
+		//_frame.pack();
+		//saveLoadPanel.setPreferredSize(_project.getSize());
 	}
 
 
