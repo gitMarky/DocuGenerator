@@ -2,11 +2,16 @@ package project.marky.oc.docu.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+
+import project.marky.oc.docu.gui.fileChoosers.FileChooserXmlFile;
+import project.marky.oc.docu.util.Constants;
 
 /**
  * Panel that holds the project settings and generate-button.
@@ -16,6 +21,7 @@ public class SaveLoadPanel extends JPanel
 {
 	private final JButton _loadButton = new JButton("Load Project");
 	private final JButton _saveButton = new JButton("Save Project");
+	private final FileChooserXmlFile _dir = new FileChooserXmlFile(Constants.PROJECTS);
 
 	public SaveLoadPanel()
 	{
@@ -41,11 +47,38 @@ public class SaveLoadPanel extends JPanel
 			if (action.getSource() == _saveButton)
 			{
 				// do something
+				final int choice = _dir.showSaveDialog(SaveLoadPanel.this);
+
+				if (choice == JFileChooser.APPROVE_OPTION)
+				{
+					final File file = _dir.getSelectedFile();
+					saveProject(file);
+				}
 			}
 			else if (action.getSource() == _loadButton)
 			{
 				// do something else
+				final int choice = _dir.showOpenDialog(SaveLoadPanel.this);
+
+				if (choice == JFileChooser.APPROVE_OPTION)
+				{
+					final File file = _dir.getSelectedFile();
+					loadProject(file);
+				}
+
 			}
+		}
+
+		private void saveProject(final File file)
+		{
+			// TODO Auto-generated method stub
+
+		}
+
+		private void loadProject(final File file)
+		{
+			// TODO Auto-generated method stub
+
 		}
 	}
 }
