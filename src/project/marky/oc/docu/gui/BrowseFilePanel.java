@@ -45,6 +45,11 @@ public class BrowseFilePanel extends JPanel implements ActionListener
 	{
 		if (event.getSource() == _button)
 		{
+			if (_file != null && _file.exists())
+			{
+				_dir.setCurrentDirectory(_file);
+			}
+
 			final int choice = _dir.showOpenDialog(this);
 
 			if (choice == JFileChooser.APPROVE_OPTION)
