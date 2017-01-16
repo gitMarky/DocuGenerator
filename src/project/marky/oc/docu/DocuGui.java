@@ -15,6 +15,8 @@ import project.marky.oc.docu.util.StyleConstants;
  */
 public class DocuGui
 {
+	private static DocuGui GUI;
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////7
 	//
 	// Main method
@@ -37,7 +39,7 @@ public class DocuGui
 				ApplicationLogger.getLogger().info("Initializing");
 				ApplicationLogger.getLogger().info(Constants.HLINE);
 
-				new DocuGui();
+				GUI = new DocuGui();
 
 				ApplicationLogger.getLogger().info(Constants.HLINE);
 				ApplicationLogger.getLogger().info("Preparation phase is over, from here on the user takes over.");
@@ -53,6 +55,11 @@ public class DocuGui
 				ApplicationLogger.getLogger().info(Constants.HLINE);
 				ApplicationLogger.getLogger().info("Shutting down");
 				ApplicationLogger.getLogger().info(Constants.HLINE);
+
+				if (GUI != null)
+				{
+					GUI.saveLatestProject();
+				}
 			}
 		};
 
@@ -82,6 +89,10 @@ public class DocuGui
 
 	private DocuGui()
 	{
+		ApplicationLogger.getLogger().info(Constants.HLINE);
+		ApplicationLogger.getLogger().info("Setup: Creating GUI");
+		ApplicationLogger.getLogger().info(Constants.HLINE);
+
 		final JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setBorder(StyleConstants.DEFAULT_EMPTY_BORDER);
@@ -93,6 +104,8 @@ public class DocuGui
 
 		_frame.pack();
 		_frame.setVisible(true);
+
+		loadLatestProject();
 	}
 
 
@@ -102,8 +115,14 @@ public class DocuGui
 	}
 
 
-	private void updateView()
+	private void loadLatestProject()
 	{
-		// does nothing at the moment
+		ApplicationLogger.getLogger().info("Loading project from previous session");
+	}
+
+
+	private void saveLatestProject()
+	{
+		ApplicationLogger.getLogger().info("Saving project");
 	}
 }
