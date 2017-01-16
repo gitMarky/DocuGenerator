@@ -88,7 +88,7 @@ public class DocuGui
 	// Actual class
 
 
-	private final JFrame _frame = new JFrame();
+	private final JFrame _frame = new JFrame("Marky's Docu Generator");
 	private final ProjectPanel _project = new ProjectPanel();
 
 
