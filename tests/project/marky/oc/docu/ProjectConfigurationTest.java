@@ -13,7 +13,7 @@ public class ProjectConfigurationTest
 	public void testLoadFromXml()
 	{
 		final File root = new File("tests\\project\\marky\\oc\\docu\\resources");
-		final ProjectConfiguration testObject = ProjectConfiguration.loadFromXml(new File(root, "project_test.xml"));
+		final IProjectConfiguration testObject = ProjectConfiguration.loadFromXml(new File(root, "project_test.xml"));
 
 		assertEquals("Title of test project", testObject.getTitle());
 		assertEquals(new File(root, "dir1"), testObject.getSource());

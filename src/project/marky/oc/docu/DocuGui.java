@@ -85,6 +85,7 @@ public class DocuGui
 
 
 	private final JFrame _frame = new JFrame();
+	private final ProjectPanel _project = new ProjectPanel();
 
 
 	private DocuGui()
@@ -111,18 +112,36 @@ public class DocuGui
 
 	private void assembleGui(final JPanel mainPanel)
 	{
-		mainPanel.add(new ProjectPanel());
+		mainPanel.add(_project);
 	}
 
 
 	private void loadLatestProject()
 	{
 		ApplicationLogger.getLogger().info("Loading project from previous session");
+
+		if (_project != null && Constants.LAST_SESSION.isFile())
+		{
+			_project.loadConfigFile(Constants.LAST_SESSION);
+		}
+		else
+		{
+			ApplicationLogger.getLogger().warning("Skip loading the previous session, because the file is missing");
+		}
 	}
 
 
 	private void saveLatestProject()
 	{
 		ApplicationLogger.getLogger().info("Saving project");
+
+		if (_project != null)
+		{
+			_project.saveConfigFile(Constants.LAST_SESSION);
+		}
+		else
+		{
+			ApplicationLogger.getLogger().info("Skip saving the project, because the information is missing");
+		}
 	}
 }

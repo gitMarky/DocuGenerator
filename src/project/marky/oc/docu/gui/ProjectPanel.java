@@ -10,7 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import project.marky.oc.docu.ApplicationLogger;
 import project.marky.oc.docu.IProjectConfiguration;
+import project.marky.oc.docu.ProjectConfiguration;
 import project.marky.oc.docu.gui.fileChoosers.FileChooserCssFile;
 import project.marky.oc.docu.gui.fileChoosers.FileChooserDirectory;
 import project.marky.oc.docu.util.StyleConstants;
@@ -134,6 +136,12 @@ public class ProjectPanel extends JPanel implements IProjectConfiguration, IFile
 	}
 
 
+	private void setSource(final File file)
+	{
+		_source.setFile(file);
+	}
+
+
 	@Override
 	public File getOutput()
 	{
@@ -141,10 +149,22 @@ public class ProjectPanel extends JPanel implements IProjectConfiguration, IFile
 	}
 
 
+	private void setOutput(final File file)
+	{
+		_output.setFile(file);
+	}
+
+
 	@Override
 	public File getStylesheet()
 	{
 		return _stylesheet.getFile();
+	}
+
+
+	private void setStylesheet(final File file)
+	{
+		_stylesheet.setFile(file);
 	}
 
 
@@ -161,5 +181,24 @@ public class ProjectPanel extends JPanel implements IProjectConfiguration, IFile
 		}
 
 		_generateButton.checkProjectStatus();
+	}
+
+
+	public void loadConfigFile(final File file)
+	{
+		ApplicationLogger.getLogger().info("Loading project configuration from file: " + file.getAbsolutePath());
+		final IProjectConfiguration project = ProjectConfiguration.loadFromXml(file);
+
+		setTitle(project.getTitle());
+		setSource(project.getSource());
+		setOutput(project.getOutput());
+		setStylesheet(project.getStylesheet());
+	}
+
+
+	public void saveConfigFile(final File file)
+	{
+		ApplicationLogger.getLogger().info("Saving project configuration to file: " + file.getAbsolutePath());
+		ProjectConfiguration.saveToXmlFile(this, file);
 	}
 }

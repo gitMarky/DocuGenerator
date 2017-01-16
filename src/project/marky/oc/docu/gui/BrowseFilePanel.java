@@ -55,7 +55,7 @@ public class BrowseFilePanel extends JPanel implements ActionListener
 		}
 	}
 
-	private void setFile(final File file)
+	public void setFile(final File file)
 	{
 		_file = file == null ? new File("") : file;
 		_text.setText(getFile().getAbsolutePath());

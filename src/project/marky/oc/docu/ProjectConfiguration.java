@@ -2,6 +2,9 @@ package project.marky.oc.docu;
 
 import java.io.File;
 
+import org.jdom2.Document;
+import org.jdom2.Element;
+
 import project.marky.library.xml.BasicXmlFile;
 
 
@@ -10,6 +13,13 @@ import project.marky.library.xml.BasicXmlFile;
  */
 public class ProjectConfiguration implements IProjectConfiguration
 {
+	private static final String XML_ROOT_ELEMENT = "docuProject";
+	private static final String XML_ELEMENT_SOURCE = "source";
+	private static final String XML_ELEMENT_OUTPUT = "output";
+	private static final String XML_ELEMENT_STYLESHEET = "stylesheet";
+	private static final String XML_ELEMENT_TITLE = "title";
+
+
 	private final File _workspace;
 	private final File _outputFolder;
 	private final File _stylesheet;
@@ -62,24 +72,56 @@ public class ProjectConfiguration implements IProjectConfiguration
 	}
 
 
-	public static ProjectConfiguration loadFromXml(final File xml)
+	public static IProjectConfiguration loadFromXml(final File xml)
 	{
 		final BasicXmlFile content = new BasicXmlFile(xml);
 
-		if (!content.getRoot().getName().equals("docuProject"))
+		if (!content.getRoot().getName().equals(XML_ROOT_ELEMENT))
 		{
 			throw new IllegalArgumentException("Invalid input file: " + xml.getAbsolutePath());
 		}
 
-		final String source = content.getRoot().getChildText("source");
-		final String output = content.getRoot().getChildText("output");
-		final String sheet = content.getRoot().getChildText("stylesheet");
-		final String title = content.getRoot().getChildText("title");
+		final String source = content.getRoot().getChildText(XML_ELEMENT_SOURCE);
+		final String output = content.getRoot().getChildText(XML_ELEMENT_OUTPUT);
+		final String sheet = content.getRoot().getChildText(XML_ELEMENT_STYLESHEET);
+		final String title = content.getRoot().getChildText(XML_ELEMENT_TITLE);
 
 		final File docuSource = new File(source);
 		final File docuOutput = new File(output);
 		final File stylesheet = new File(sheet);
 		return new ProjectConfiguration(title, docuSource, docuOutput, stylesheet);
+	}
+
+
+	public static void saveToXmlFile(final IProjectConfiguration config, final File file)
+	{
+		// Setup content
+
+		final Element title = new Element(XML_ELEMENT_TITLE);
+		title.setText(config.getTitle());
+
+		final Element source = new Element(XML_ELEMENT_SOURCE);
+		source.setText(config.getSource().getAbsolutePath());
+
+		final Element output = new Element(XML_ELEMENT_OUTPUT);
+		output.setText(config.getOutput().getAbsolutePath());
+
+		final Element style = new Element(XML_ELEMENT_STYLESHEET);
+		style.setText(config.getStylesheet().getAbsolutePath());
+
+		// Create document
+
+		final Element rootElement = new Element(XML_ROOT_ELEMENT);
+
+		rootElement.addContent(title);
+		rootElement.addContent(source);
+		rootElement.addContent(output);
+		rootElement.addContent(style);
+
+		final Document document = new Document(rootElement);
+
+		final BasicXmlFile xml = new BasicXmlFile(document, file);
+		xml.saveToFile();
 	}
 
 
