@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
+import project.marky.oc.docu.DocuGui;
 import project.marky.oc.docu.gui.fileChoosers.FileChooserXmlFile;
 import project.marky.oc.docu.util.Constants;
 
@@ -22,8 +23,9 @@ public class SaveLoadPanel extends JPanel
 	private final JButton _loadButton = new JButton("Load Project");
 	private final JButton _saveButton = new JButton("Save Project");
 	private final FileChooserXmlFile _dir = new FileChooserXmlFile(Constants.PROJECTS);
+	private final DocuGui _gui;
 
-	public SaveLoadPanel()
+	public SaveLoadPanel(final DocuGui gui)
 	{
 		super();
 
@@ -36,6 +38,7 @@ public class SaveLoadPanel extends JPanel
 
 		this.add(_loadButton);
 		this.add(_saveButton);
+		_gui = gui;
 	}
 
 
@@ -71,14 +74,18 @@ public class SaveLoadPanel extends JPanel
 
 		private void saveProject(final File file)
 		{
-			// TODO Auto-generated method stub
-
+			if (_gui != null)
+			{
+				_gui.saveSpecificProject(file);
+			}
 		}
 
 		private void loadProject(final File file)
 		{
-			// TODO Auto-generated method stub
-
+			if (_gui != null)
+			{
+				_gui.loadSpecificProject(file);
+			}
 		}
 	}
 }

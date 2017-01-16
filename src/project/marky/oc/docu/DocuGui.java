@@ -1,7 +1,10 @@
 package project.marky.oc.docu;
 
+import java.io.File;
+
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -113,7 +116,7 @@ public class DocuGui
 
 	private void assembleGui(final JPanel mainPanel)
 	{
-		mainPanel.add(new SaveLoadPanel());
+		mainPanel.add(new SaveLoadPanel(this));
 		mainPanel.add(_project);
 	}
 
@@ -122,9 +125,22 @@ public class DocuGui
 	{
 		ApplicationLogger.getLogger().info("Loading project from previous session");
 
-		if (_project != null && Constants.LAST_SESSION.isFile())
+		loadSpecificProject(Constants.LAST_SESSION);
+	}
+
+
+	public void loadSpecificProject(final File file)
+	{
+		if (_project != null && file != null && file.isFile())
 		{
-			_project.loadConfigFile(Constants.LAST_SESSION);
+			try
+			{
+				_project.loadConfigFile(file);
+			}
+			catch (final IllegalArgumentException e)
+			{
+				JOptionPane.showMessageDialog(_project, e.getMessage(), "Error while loading project", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		else
 		{
@@ -137,9 +153,14 @@ public class DocuGui
 	{
 		ApplicationLogger.getLogger().info("Saving project");
 
-		if (_project != null)
+		saveSpecificProject(Constants.LAST_SESSION);
+	}
+
+	public void saveSpecificProject(final File file)
+	{
+		if (_project != null && file != null)
 		{
-			_project.saveConfigFile(Constants.LAST_SESSION);
+			_project.saveConfigFile(file);
 		}
 		else
 		{
