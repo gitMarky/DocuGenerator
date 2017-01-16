@@ -115,16 +115,9 @@ public class DocuGui
 
 	private void assembleGui(final JPanel mainPanel)
 	{
-		final SaveLoadPanel saveLoadPanel = new SaveLoadPanel(this);
-		//saveLoadPanel.setPreferredSize(_project.getPreferredSize());
-
-		//mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		mainPanel.setLayout(new BorderLayout());
-		//mainPanel.add(saveLoadPanel);
-		mainPanel.add(saveLoadPanel, BorderLayout.PAGE_START);
+		mainPanel.add(new SaveLoadPanel(this), BorderLayout.PAGE_START);
 		mainPanel.add(_project, BorderLayout.PAGE_END);
-		//_frame.pack();
-		//saveLoadPanel.setPreferredSize(_project.getSize());
 	}
 
 
