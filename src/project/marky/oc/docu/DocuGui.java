@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import project.marky.oc.docu.gui.ProjectPanel;
+import project.marky.oc.docu.gui.SaveLoadPanel;
 import project.marky.oc.docu.util.Constants;
 import project.marky.oc.docu.util.StyleConstants;
 
@@ -112,6 +113,7 @@ public class DocuGui
 
 	private void assembleGui(final JPanel mainPanel)
 	{
+		mainPanel.add(new SaveLoadPanel());
 		mainPanel.add(_project);
 	}
 
