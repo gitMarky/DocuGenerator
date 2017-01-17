@@ -1,0 +1,17 @@
+/**
+ * This is a simple docu header.
+ */
+
+#include Blub
+
+/*
+ * This is a comment, it should not appear anywhere.
+ */
+ 
+/**
+ * This is a function comment.
+ */
+public func foo()
+{
+	return bar;
+}
