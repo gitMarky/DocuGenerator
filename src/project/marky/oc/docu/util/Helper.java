@@ -6,8 +6,6 @@ import static project.marky.oc.docu.util.StringConstants.SPACE_STRING;
 import java.io.File;
 import java.io.IOException;
 
-import project.marky.oc.docu.c4script.C4FileTypes;
-
 public class Helper
 {
 	public static String[] splitIdentifierAndDocu(final String content)
@@ -45,19 +43,6 @@ public class Helper
 		returnValue[1] = docu;
 
 		return returnValue;
-	}
-
-
-	public static String removeC4Extensions(final String text)
-	{
-		String transformed = text;
-
-		for (final C4FileTypes type : C4FileTypes.values())
-		{
-			transformed = transformed.replace(type.getExtension(), EMPTY_STRING);
-		}
-
-		return transformed;
 	}
 
 
