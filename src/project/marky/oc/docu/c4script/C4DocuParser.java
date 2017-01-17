@@ -27,7 +27,6 @@ public class C4DocuParser
 
 		PARAM(DOCU_TAG_PARAM, true),
 		RETURNS(DOCU_TAG_RETURNS, false);
-		//FLINK(DOCU_TAG_LINK, false);
 
 		private final String _tag;
 		private final boolean _needsIdentifier;
@@ -203,11 +202,8 @@ public class C4DocuParser
 
 	private void finishParsingCurrentTag()
 	{
-
 		if (_currentTag == null)
 		{
-			// ApplicationLogger.getLogger().info(">>> Cannot finish parsing 'null': "
-			// + _functionDocu);
 			return;
 		}
 
@@ -272,26 +268,6 @@ public class C4DocuParser
 			default:
 				return;
 		}
-	}
-
-
-	public void printText()
-	{
-		// ApplicationLogger.getLogger().info("Function docu:");
-		// ApplicationLogger.getLogger().info("" + _functionDocu);
-		//
-		// ApplicationLogger.getLogger().info("Parameters + Docu:");
-		//
-		// Iterator<String> iter = _parameterMap.keySet().iterator();
-		//
-		// while (iter.hasNext())
-		// {
-		// String name = iter.next();
-		//
-		// String docu = _parameterMap.get(name);
-		//
-		// ApplicationLogger.getLogger().info("" + name + " : " + docu);
-		// }
 	}
 
 

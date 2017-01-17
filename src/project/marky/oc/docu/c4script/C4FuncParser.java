@@ -118,7 +118,7 @@ public class C4FuncParser
 				type = null;
 			}
 
-			if (type != null) // && c4type == null)
+			if (type != null)
 			{
 				c4type = C4TypeDef.fromString(type);
 			}
@@ -177,14 +177,9 @@ public class C4FuncParser
 					case 2:
 					default:
 						_text = divide[0];
-						// _parameterText = divide[1];
 						_parsesParameters = true;
-						// parseLine(EMPTY_STRING);
 						parseFunction(divide[1]);
 						return;
-						// default:
-						// throw new
-						// IllegalStateException("This is not possible/handled");
 				}
 			}
 		}
@@ -201,8 +196,7 @@ public class C4FuncParser
 			String text = line;
 			if (index >= 0) text = line.substring(0, index);
 
-			_parameterText += text; // line.replace(IDENTIFIER_PAR_CLOSE,
-			// EMPTY_STRING);
+			_parameterText += text;
 		}
 
 		if (line.contains(IDENTIFIER_PAR_CLOSE))
@@ -210,26 +204,6 @@ public class C4FuncParser
 			_isParsed = true;
 		}
 	}
-
-
-	public void printText()
-	{
-		// // ApplicationLogger.getLogger().info("\n" + _text + "\n");
-		// //ApplicationLogger.getLogger().info(">>> " + _parameterText + "\n");
-		//
-		// Iterator<String> iter = _parameters.keySet().iterator();
-		//
-		// while (iter.hasNext())
-		// {
-		// String parameter = iter.next();
-		//
-		// C4TypeDef type = _parameters.get(parameter);
-		//
-		// ApplicationLogger.getLogger().info("* " + type.getString() + " " +
-		// parameter);
-		// }
-	}
-
 
 	public boolean isFunctionEnd()
 	{

@@ -19,10 +19,8 @@ public class RelFilePath
 			current = source;
 		}
 		else
-			// if (!source.exists())
 		{
-			if (source.getAbsolutePath().contains(".")) // TODO: file or
-				// directory
+			if (source.getAbsolutePath().contains(".")) // TODO: file or directory
 				current = source.getParentFile();
 			else
 				current = source;
@@ -50,12 +48,10 @@ public class RelFilePath
 		if (!redirection.equals(EMPTY_STRING))
 		{
 			if (destinationPath.length() > 1) destinationPath = destinationPath.substring(1); // .replace("\\",
-			// EMPTY_STRING);
 		}
 		else if (destinationPath.startsWith("\\"))
 		{
 			if (destinationPath.length() > 1) destinationPath = destinationPath.substring(1); // .replace("\\",
-			// EMPTY_STRING);
 		}
 
 		return redirection + destinationPath;

@@ -60,10 +60,6 @@ public class HtmlHelpContents extends StdHtmlFile
 
 	private void writeEntries(final File outputFolder, final File defaultFile)
 	{
-		// final String script_namespace =
-		// _parser.getNameSpaces().getNamespaceGlobal().getIdentifier();
-		// final String docu_namespace =
-		// _parser.getNameSpaces().getNamespaceDocu().getIdentifier();
 		final String category_objects = "Objects";
 		final String category_script = "Script";
 
@@ -88,8 +84,6 @@ public class HtmlHelpContents extends StdHtmlFile
 		Collections.sort(spaces);
 
 		for (final String space : spaces)
-			// for (final StdNamespace namespace :
-			// _parser.getNameSpaces().getNamespaces())
 		{
 			final StdNamespace namespace = _parser.getNamespace(space);
 
@@ -107,8 +101,6 @@ public class HtmlHelpContents extends StdHtmlFile
 		writeLine(UL, level);
 
 		for (final String space : spaces)
-			// for (final StdNamespace namespace :
-			// _parser.getNameSpaces().getNamespaces())
 		{
 			final StdNamespace namespace = _parser.getNamespace(space);
 

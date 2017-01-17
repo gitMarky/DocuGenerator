@@ -46,36 +46,6 @@ public class Helper
 	}
 
 
-	public static String removeSpecialCharacters(final String text)
-	{
-		final String[] specialCharacters = { "&" };
-
-		String transformed = text;
-
-		for (final String chr : specialCharacters)
-		{
-			transformed = transformed.replace(chr, EMPTY_STRING);
-		}
-
-		return transformed;
-	}
-
-
-	public static String reduceToAlphabet(final String text)
-	{
-		final String[] specialCharacters = { "-", ">" };
-
-		String transformed = text;
-
-		for (final String chr : specialCharacters)
-		{
-			transformed = transformed.replace(chr, EMPTY_STRING);
-		}
-
-		return transformed;
-	}
-
-
 	public static boolean ensureCreateFile(final File file)
 	{
 		if (!file.exists())

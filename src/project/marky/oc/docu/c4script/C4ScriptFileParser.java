@@ -178,7 +178,6 @@ public class C4ScriptFileParser
 		if (line.contains(IDENTIFIER_JDOC_CLOSE))
 		{
 			_mode = ParseMode.INACTIVE;
-			_parserJDoc.printText();
 		}
 	}
 
