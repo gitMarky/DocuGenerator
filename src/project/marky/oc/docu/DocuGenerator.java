@@ -240,14 +240,17 @@ public class DocuGenerator
 	{
 		if (sourceFolder.isFile())
 		{
-			if (sourceFolder.getName().toLowerCase().equals("script.c") || sourceFolder.getParentFile().getName().toLowerCase().contains("system."))
+			// identify script files: either the name is script.c, or it is in a system.c4g/system.ocg file
+			if (sourceFolder.getName().equalsIgnoreCase("script.c") || sourceFolder.getParentFile().getName().toLowerCase().contains("system."))
 			{
 				scriptFiles.add(sourceFolder);
 			}
+			// identify the documentation files: anything else that is named *.c
 			else if (sourceFolder.getName().endsWith(".c"))
 			{
 				docuFiles.add(sourceFolder);
 			}
+			// identify defcore files. This should not be necessary anymore.
 			else if (sourceFolder.getName().toLowerCase().equals("defcore.txt"))
 			{
 				defCoreFiles.add(sourceFolder);
@@ -255,6 +258,7 @@ public class DocuGenerator
 		}
 		else if (sourceFolder.isDirectory())
 		{
+			// skip scenarios. one can argue that this is not necessary, but we do it at the moment.
 			if (sourceFolder.getName().endsWith(".ocs") || sourceFolder.getName().endsWith(".c4s")) return;
 
 			final File[] subFiles = sourceFolder.listFiles();
