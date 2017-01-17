@@ -15,6 +15,12 @@ import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.html.StdHtmlFile;
 import project.marky.oc.docu.html.Styleparser;
 
+
+/**
+ * <p>
+ * Represents a documentation page.
+ * </p>
+ */
 public class DocuPage
 {
 	// for namespace and doculink
@@ -46,6 +52,11 @@ public class DocuPage
 	private final String _visibility;
 
 
+	/**
+	 * Constructor for a page in the documentation.
+	 * 
+	 * @param docu the page reads information from this parser.
+	 */
 	public DocuPage(final C4DocuParser docu)
 	{
 		_identifier = docu.getIdentifier();
@@ -72,6 +83,12 @@ public class DocuPage
 	}
 
 
+	/**
+	 * Constructor for a function documentation.
+	 * 
+	 * @param docu the page reads information from this parser.
+	 * @param function the page reads information from this parser.
+	 */
 	public DocuPage(final C4DocuParser docu, final C4FuncParser function)
 	{
 		_identifier = function.getFunctionName();
@@ -92,13 +109,23 @@ public class DocuPage
 
 		// function-specific stuff
 		_returns = docu.getReturnsDocu();
-		if (docu.getReturnsType() != null) _returnsType = docu.getReturnsType().getString();
+		if (docu.getReturnsType() != null)
+		{
+			_returnsType = docu.getReturnsType().getString();
+		}
 		_parameters = docu.getParameterMap();
 		_visibility = function.getFunctionVisibility();
 		_fparam = function.getFunctionParameters();
 	}
 
 
+	/**
+	 * Builds the description for a function.
+	 * 
+	 * @param filemanager used for reading certain files. Seems to be unnecesary. TODO
+	 * @param root_folder the root folder of the project? Seems to be a bad implementation.
+	 * @param own_location the own file location? Seems to be a bad implementation.
+	 */
 	private void buildFunctionDescription(final DocuGenerator filemanager, final File root_folder, final File own_location)
 	{
 		if (_returns == null && _parameters == null && _visibility == null) return;
@@ -192,10 +219,17 @@ public class DocuPage
 			_html.div(part).write(styleparse(_returns, filemanager, root_folder, own_location));
 			_html._div().newline();
 		}
-
 	}
 
 
+	/**
+	 * Main method for making a html file from the docu page.
+	 * 
+	 * @param filemanager TODO
+	 * @param root_folder TODO
+	 * @param own_location TODO
+	 * @param css_location TODO
+	 */
 	public void convertToHtml(final DocuGenerator filemanager, final File root_folder, final File own_location, final String css_location)
 	{
 		if (_html == null)
@@ -242,7 +276,6 @@ public class DocuPage
 		{
 			_html.h2().write(description)._h2().newline().write(styleparse(content, filemanager, root_folder, own_location)).newline();
 		}
-
 	}
 
 
