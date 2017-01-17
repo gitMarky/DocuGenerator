@@ -1,12 +1,10 @@
 package project.marky.oc.docu;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +17,7 @@ import project.marky.oc.docu.external.htmlHelp.HtmlHelpProject;
 import project.marky.oc.docu.logic.DocuPage;
 import project.marky.oc.docu.logic.StdNamespace;
 import project.marky.oc.docu.logic.StdNamespaceManager;
+import project.marky.oc.docu.util.LoadFile;
 import project.marky.oc.docu.util.RelFilePath;
 
 /**
@@ -109,7 +108,7 @@ public class DocuGenerator
 	 */
 	private void parseDefcore(final File file)
 	{
-		final String content = getFileContent(file);
+		final String content = LoadFile.getFileContent(file);
 
 		final Pattern patternID = Pattern.compile("id=(.+)");
 		final Matcher matcherID = patternID.matcher(content);
@@ -143,20 +142,6 @@ public class DocuGenerator
 		else
 		{
 			ApplicationLogger.getLogger().info(" * > no ID found");
-		}
-	}
-
-
-	private String getFileContent(final File file)
-	{
-		try
-		{
-			return new Scanner(file).useDelimiter("\\Z").next();
-		}
-		catch (final FileNotFoundException e)
-		{
-			ApplicationLogger.getLogger().throwing("File not found", "Will return empty string", e);
-			return "";
 		}
 	}
 
