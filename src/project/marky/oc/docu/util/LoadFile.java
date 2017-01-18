@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import project.marky.oc.docu.ApplicationLogger;
-
 
 /**
  * Helper for loading files.
@@ -32,8 +30,9 @@ public final class LoadFile
 		}
 		catch (final FileNotFoundException e)
 		{
-			ApplicationLogger.getLogger().throwing("File not found", "Will return empty string", e);
-			return "";
+			throw new IllegalArgumentException(e);
+			//ApplicationLogger.getLogger().throwing("File not found", "Will return empty string", e);
+			//return "";
 		}
 	}
 
