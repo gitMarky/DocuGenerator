@@ -19,8 +19,8 @@ public class PageParserTest
 
 		final String match = page.getHeader();
 
-		final String expected = new StringBuilder().append("/**").append(StringConstants.NEWLINE_STRING)
-				.append(" * This is a simple docu header.").append(StringConstants.NEWLINE_STRING)
+		final String expected = new StringBuilder().append("/**").append(StringConstants.NEWLINE_STRING_WIN)
+				.append(" * This is a simple docu header.").append(StringConstants.NEWLINE_STRING_WIN)
 				.append(" */").toString();
 
 		assertEquals(expected, match);

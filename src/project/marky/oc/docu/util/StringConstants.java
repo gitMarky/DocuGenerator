@@ -2,6 +2,7 @@ package project.marky.oc.docu.util;
 
 public class StringConstants
 {
+	public static final String NEWLINE_STRING_WIN = "\r\n";
 	public static final String NEWLINE_STRING = "\n";
 	public static final String EMPTY_STRING = "";
 	public static final String SPACE_STRING = " ";
