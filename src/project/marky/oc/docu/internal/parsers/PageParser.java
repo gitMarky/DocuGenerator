@@ -1,5 +1,9 @@
 package project.marky.oc.docu.internal.parsers;
 
+import java.util.List;
+
+import project.marky.oc.docu.internal.RegexMatcher;
+
 /**
  * Parses file content and returns a page, if possible.
  */
@@ -17,8 +21,12 @@ public class PageParser
 		_content = content;
 	}
 
+
 	String getHeader()
 	{
-		return null;
+		// search for /\*\*([^\*]|\*(?!/))*\*/
+		final String expression = "/\\*\\*([^\\*]|\\*(?!/))*\\*/";  //"/\\\\*\\\\*.*";// "\\\\*/";
+		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
+		return matches.iterator().next();
 	}
 }
