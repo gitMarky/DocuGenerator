@@ -143,10 +143,10 @@ public class PageParserTest
 
 		final List<String> matches = page.getFunctions();
 
-		for (final String match : matches)
-		{
-			System.out.println(match);
-		};
+		//		for (final String match : matches)
+		//		{
+		//			System.out.println(match);
+		//		};
 
 		final String[] expected =
 			{
@@ -158,7 +158,10 @@ public class PageParserTest
 				"public func blub()",
 				"public func withParameter(int number)",
 				"public func withParameters(int number, string two)",
-				"public func noDocu(object ok)"
+				"public func noDocu(object ok)",
+				"func noDocu1()",
+				"func noDocu2()",
+				"func noDocu3()"
 			};
 
 		for (int i = 0; i < matches.size(); ++i)
@@ -166,6 +169,36 @@ public class PageParserTest
 			assertEquals(expected[i], matches.get(i));
 		}
 	}
+
+	/**
+	 * The class can find undocumented functions.
+	 */
+	@Test
+	public void testUndocumentedFunctions()
+	{
+		final String content = LoadFile.getFileContent(new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\DocuFunctions.txt"));
+		final PageParser page = new PageParser(content);
+
+		final List<String> matches = page.getUndocumentedFunctions();
+
+		for (final String match : matches)
+		{
+			System.out.println(match);
+		};
+
+		final String[] expected = {
+				"public func noDocu(object ok)",
+				"func noDocu1()",
+				"func noDocu2()",
+				"func noDocu3()"
+		};
+
+		for (int i = 0; i < matches.size(); ++i)
+		{
+			assertEquals(expected[i], matches.get(i));
+		}
+	}
+
 
 	/**
 	 * The class can find functions and add docu if possible.

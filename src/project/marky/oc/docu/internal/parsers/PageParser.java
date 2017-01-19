@@ -22,12 +22,13 @@ public class PageParser
 	 * Regex that finds function declarations, without the function body.
 	 */
 	//private static final String REGEX_FUNCTION = "^(public|protected|private)*.*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
-	private static final String REGEX_FUNCTION = "(?m)^(public|protected|private)*\\s*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
+	//private static final String REGEX_FUNCTION = "(?m)^(public|protected|private)*\\s*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
+	private static final String REGEX_FUNCTION = "(?m)^(public|protected|private)*[ ]*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
 
 	/**
 	 * Regex that finds line breaks.
 	 */
-	private static final String REGEX_ANY_LINEBREAK = "[\\r\\n]*";
+	private static final String REGEX_ANY_LINEBREAK = "[\\r\\n]";
 
 	private final String _content;
 
@@ -52,7 +53,7 @@ public class PageParser
 
 	List<String> getDocumentedFunctions()
 	{
-		final String expression = REGEX_DOCU + REGEX_ANY_LINEBREAK + REGEX_FUNCTION;
+		final String expression = REGEX_DOCU + REGEX_ANY_LINEBREAK + "*" + REGEX_FUNCTION;
 		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
 		return matches;
 	}
@@ -60,7 +61,7 @@ public class PageParser
 
 	List<String> getFunctionsWithDocuIfPossible()
 	{
-		final String expression = "[REGEX_DOCU]*" + REGEX_ANY_LINEBREAK + REGEX_FUNCTION;
+		final String expression = "[" + REGEX_DOCU + "]*" + REGEX_ANY_LINEBREAK + REGEX_FUNCTION;
 		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
 		return matches;
 	}
@@ -69,6 +70,14 @@ public class PageParser
 	List<String> getFunctions()
 	{
 		final String expression = REGEX_FUNCTION;
+		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
+		return matches;
+	}
+
+
+	List<String> getUndocumentedFunctions()
+	{
+		final String expression = "(?m)^(?<=" + REGEX_ANY_LINEBREAK + "+)" + REGEX_ANY_LINEBREAK + REGEX_FUNCTION;
 		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
 		return matches;
 	}
