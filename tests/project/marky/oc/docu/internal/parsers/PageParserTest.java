@@ -157,7 +157,8 @@ public class PageParserTest
 				"func test()",
 				"public func blub()",
 				"public func withParameter(int number)",
-				"public func withParameters(int number, string two)"
+				"public func withParameters(int number, string two)",
+				"public func noDocu(object ok)"
 			};
 
 		for (int i = 0; i < matches.size(); ++i)

@@ -67,3 +67,5 @@ public func withParameter(int number)
 public func withParameters(int number, string two)
 {
 }
+
+public func noDocu(object ok){}
