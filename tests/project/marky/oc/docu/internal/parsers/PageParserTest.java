@@ -265,8 +265,12 @@ public class PageParserTest
 																				" *",
 																				" * @return proplist the number and description.",
 																				" */",
-																				"public func withParameters(int number, string two)")
+																				"public func withParameters(int number, string two)"),
 
+																				"public func noDocu(object ok)",
+																				"func noDocu1()",
+																				"func noDocu2()",
+																				"func noDocu3()"
 			};
 
 		//for (final String match : matches)

@@ -34,7 +34,7 @@ public class PageParser
 
 	private static final String REGEX_DOCUMENTED_FUNCTIONS = REGEX_DOCU + REGEX_ANY_LINEBREAK + "*" + REGEX_FUNCTION;
 
-	private static final String REGEX_UNDOCUMENTED_FUNCTIONS = "(?m)^(?<=" + REGEX_ANY_LINEBREAK + ")" + REGEX_FUNCTION;
+	private static final String REGEX_UNDOCUMENTED_FUNCTIONS = "(?m)^" + REGEX_ANY_LINEBREAK + REGEX_FUNCTION;
 
 	private final String _content;
 
@@ -65,6 +65,20 @@ public class PageParser
 	}
 
 
+	List<String> getDocumentedFunctionsDeclarations()
+	{
+		final String expression = REGEX_DOCUMENTED_FUNCTIONS;
+		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
+
+		final List<String> results = new ArrayList<String>();
+		for (final String match : matches)
+		{
+			results.addAll(RegexMatcher.getAllMatches(match, REGEX_FUNCTION));
+		}
+		return results;
+	}
+
+
 	List<String> getFunctionsWithDocuIfPossible()
 	{
 		final List<String> results = new ArrayList<String>();
@@ -85,8 +99,17 @@ public class PageParser
 
 	List<String> getUndocumentedFunctions()
 	{
-		final String expression = REGEX_UNDOCUMENTED_FUNCTIONS;
-		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
-		return matches;
+		final List<String> functions = getFunctions();
+		final List<String> documented = getDocumentedFunctionsDeclarations();
+
+		final List<String> results = new ArrayList<String>();
+		for (final String function : functions)
+		{
+			if (!documented.contains(function))
+			{
+				results.add(function);
+			}
+		}
+		return results;
 	}
 }
