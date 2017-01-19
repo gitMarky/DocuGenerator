@@ -21,7 +21,8 @@ public class PageParser
 	/**
 	 * Regex that finds function declarations, without the function body.
 	 */
-	private static final String REGEX_FUNCTION = "^(public|protected|private)*.*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
+	//private static final String REGEX_FUNCTION = "^(public|protected|private)*.*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
+	private static final String REGEX_FUNCTION = "(public|protected|private)*\\s*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
 
 	/**
 	 * Regex that finds line breaks.
@@ -46,5 +47,21 @@ public class PageParser
 		final String expression = REGEX_DOCU;
 		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
 		return matches.iterator().next();
+	}
+
+
+	List<String> getDocumentedFunctions()
+	{
+		final String expression = REGEX_DOCU + REGEX_ANY_LINEBREAK + REGEX_FUNCTION;
+		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
+		return matches;
+	}
+
+
+	List<String> getFunctions()
+	{
+		final String expression = REGEX_FUNCTION;
+		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
+		return matches;
 	}
 }
