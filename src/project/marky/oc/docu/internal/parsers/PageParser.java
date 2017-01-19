@@ -9,6 +9,19 @@ import project.marky.oc.docu.internal.RegexMatcher;
  */
 public class PageParser
 {
+	/**
+	 * Regex that finds JavaDoc comments.
+	 */
+	private static final String REGEX_DOCU = "/\\*\\*([^\\*]|\\*(?!/))*\\*/";
+
+	// function "prefix": ^(public|protected|private)*.*func\s+
+	// function prefix + declaration: ^(public|protected|private)*.*func\s+(\w+)\(\)
+	// function prefix + declaration and parameters: ^(public|protected|private)*.*func\s+(\w+)\(([\w\s,]+)*\)
+	/**
+	 * Regex that finds function declarations, without the function body.
+	 */
+	private static final String REGEX_FUNCTION = "^(public|protected|private)*.*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
+
 	private final String _content;
 
 	public PageParser(final String content)
@@ -24,8 +37,7 @@ public class PageParser
 
 	String getHeader()
 	{
-		// search for /\*\*([^\*]|\*(?!/))*\*/
-		final String expression = "/\\*\\*([^\\*]|\\*(?!/))*\\*/";  //"/\\\\*\\\\*.*";// "\\\\*/";
+		final String expression = REGEX_DOCU;
 		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
 		return matches.iterator().next();
 	}

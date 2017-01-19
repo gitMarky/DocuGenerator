@@ -1,0 +1,69 @@
+/**
+ * This is not a function docu
+ */
+#include func_helper
+
+
+/**
+ * This is a function comment for a public function.
+ */
+public func foo()
+{
+	return bar;
+}
+
+/**
+ * This is a function comment for a protected function.
+ */
+protected func safe()
+{
+	return money;
+}
+
+
+/**
+ * This is a function comment for a private function.
+ */
+private func bar()
+{
+	return alohol;
+}
+
+/**
+ * This is a function comment without access modifier.
+ */
+func noModifier()
+{
+	return 10;
+}
+
+/** This is a one line function comment. */
+func test(){ return false;}
+
+/**
+ This comment has no star.
+ */
+public func blub()
+{
+}
+
+/**
+ * This function has a parameter
+ *
+ * @par number a number.
+ */
+public func withParameter(int number)
+{
+}
+
+/**
+ * This function has several parameters
+ *
+ * @par number a number.
+ * @par two a description.
+ *
+ * @return proplist the number and description.
+ */
+public func withParameters(int number, string two)
+{
+}
