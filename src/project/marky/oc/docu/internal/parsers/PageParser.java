@@ -12,6 +12,7 @@ public class PageParser
 	/**
 	 * Regex that finds JavaDoc comments.
 	 */
+	// header: /\*\*([^\*]|\*(?!/))*\*/
 	private static final String REGEX_DOCU = "/\\*\\*([^\\*]|\\*(?!/))*\\*/";
 
 	// function "prefix": ^(public|protected|private)*.*func\s+
@@ -21,6 +22,11 @@ public class PageParser
 	 * Regex that finds function declarations, without the function body.
 	 */
 	private static final String REGEX_FUNCTION = "^(public|protected|private)*.*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
+
+	/**
+	 * Regex that finds line breaks.
+	 */
+	private static final String REGEX_ANY_LINEBREAK = "[\\r\\n]*";
 
 	private final String _content;
 
