@@ -22,7 +22,7 @@ public class PageParser
 	 * Regex that finds function declarations, without the function body.
 	 */
 	//private static final String REGEX_FUNCTION = "^(public|protected|private)*.*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
-	private static final String REGEX_FUNCTION = "(public|protected|private)*\\s*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
+	private static final String REGEX_FUNCTION = "(?m)^(public|protected|private)*\\s*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
 
 	/**
 	 * Regex that finds line breaks.
