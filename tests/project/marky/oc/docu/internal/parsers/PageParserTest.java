@@ -23,9 +23,9 @@ public class PageParserTest
 
 		final String match = page.getHeader();
 
-		final String expected = new StringBuilder().append("/**").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * This is a simple docu header.").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" */").toString();
+		final String expected = build("/**",
+				" * This is a simple docu header.",
+				" */");
 
 		assertEquals(expected, match);
 	}
@@ -42,10 +42,10 @@ public class PageParserTest
 
 		final String match = page.getHeader();
 
-		final String expected = new StringBuilder()
-		.append("/**").append(StringConstants.NEWLINE_STRING_WIN)
-		.append(" * This is a simple docu header.").append(StringConstants.NEWLINE_STRING_WIN)
-		.append(" */").toString();
+		final String expected = build(
+				"/**",
+				" * This is a simple docu header.",
+				" */");
 
 		assertEquals(expected, match);
 	}
@@ -64,59 +64,59 @@ public class PageParserTest
 
 		final String[] expected =
 			{
-				new StringBuilder()
-				.append("/**").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * This is a function comment for a public function.").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" */").append(StringConstants.NEWLINE_STRING_WIN)
-				.append("public func foo()").toString(),
+				build(
+						"/**",
+						" * This is a function comment for a public function.",
+						" */",
+						"public func foo()"),
 
-				new StringBuilder()
-				.append("/**").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * This is a function comment for a protected function.").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" */").append(StringConstants.NEWLINE_STRING_WIN)
-				.append("protected func safe()").toString(),
+						build(
+								"/**",
+								" * This is a function comment for a protected function.",
+								" */",
+								"protected func safe()"),
 
 
-				new StringBuilder()
-				.append("/**").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * This is a function comment for a private function.").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" */").append(StringConstants.NEWLINE_STRING_WIN)
-				.append("private func bar()").toString(),
+								build(
+										"/**",
+										" * This is a function comment for a private function.",
+										" */",
+										"private func bar()"),
 
-				new StringBuilder()
-				.append("/**").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * This is a function comment without access modifier.").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" */").append(StringConstants.NEWLINE_STRING_WIN)
-				.append("func noModifier()").toString(),
+										build(
+												"/**",
+												" * This is a function comment without access modifier.",
+												" */",
+												"func noModifier()"),
 
-				new StringBuilder()
-				.append("/** This is a one line function comment. */").append(StringConstants.NEWLINE_STRING_WIN)
-				.append("func test()").toString(),
+												build(
+														"/** This is a one line function comment. */",
+														"func test()"),
 
-				new StringBuilder()
-				.append("/**").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" This comment has no star.").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" */").append(StringConstants.NEWLINE_STRING_WIN)
-				.append("public func blub()").toString(),
+														build(
+																"/**",
+																" This comment has no star.",
+																" */",
+																"public func blub()"),
 
-				new StringBuilder()
-				.append("/**").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * This function has a parameter").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" *").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * @par number a number.").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" */").append(StringConstants.NEWLINE_STRING_WIN)
-				.append("public func withParameter(int number)").toString(),
+																build(
+																		"/**",
+																		" * This function has a parameter",
+																		" *",
+																		" * @par number a number.",
+																		" */",
+																		"public func withParameter(int number)"),
 
-				new StringBuilder()
-				.append("/**").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * This function has several parameters").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" *").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * @par number a number.").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * @par two a description.").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" *").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" * @return proplist the number and description.").append(StringConstants.NEWLINE_STRING_WIN)
-				.append(" */").append(StringConstants.NEWLINE_STRING_WIN)
-				.append("public func withParameters(int number, string two)").toString()
+																		build(
+																				"/**",
+																				" * This function has several parameters",
+																				" *",
+																				" * @par number a number.",
+																				" * @par two a description.",
+																				" *",
+																				" * @return proplist the number and description.",
+																				" */",
+																				"public func withParameters(int number, string two)")
 
 			};
 
@@ -147,5 +147,20 @@ public class PageParserTest
 		{
 			System.out.println(match);
 		};
+	}
+
+
+	private String build(final String... parts)
+	{
+		final StringBuilder builder = new StringBuilder();
+
+		final int last = parts.length - 1;
+
+		for (int i = 0; i < last; ++i)
+		{
+			builder.append(parts[i]).append(StringConstants.NEWLINE_STRING_WIN);
+		}
+
+		return builder.append(parts[last]).toString();
 	}
 }
