@@ -147,6 +147,103 @@ public class PageParserTest
 		{
 			System.out.println(match);
 		};
+
+		final String[] expected =
+			{
+				"public func foo()",
+				"protected func safe()",
+				"private func bar()",
+				"func noModifier()",
+				"func test()",
+				"public func blub()",
+				"public func withParameter(int number)",
+				"public func withParameters(int number, string two)"
+			};
+
+		for (int i = 0; i < matches.size(); ++i)
+		{
+			assertEquals(expected[i], matches.get(i));
+		}
+	}
+
+	/**
+	 * The class can find functions and add docu if possible.
+	 */
+	@Test
+	public void testFunctionsWithOrWithoutDocu()
+	{
+		final String content = LoadFile.getFileContent(new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\DocuFunctions.txt"));
+		final PageParser page = new PageParser(content);
+
+		final List<String> matches = page.getFunctionsWithDocuIfPossible();
+
+		final String[] expected =
+			{
+				build(
+						"/**",
+						" * This is a function comment for a public function.",
+						" */",
+						"public func foo()"),
+
+						build(
+								"/**",
+								" * This is a function comment for a protected function.",
+								" */",
+								"protected func safe()"),
+
+
+								build(
+										"/**",
+										" * This is a function comment for a private function.",
+										" */",
+										"private func bar()"),
+
+										build(
+												"/**",
+												" * This is a function comment without access modifier.",
+												" */",
+												"func noModifier()"),
+
+												build(
+														"/** This is a one line function comment. */",
+														"func test()"),
+
+														build(
+																"/**",
+																" This comment has no star.",
+																" */",
+																"public func blub()"),
+
+																build(
+																		"/**",
+																		" * This function has a parameter",
+																		" *",
+																		" * @par number a number.",
+																		" */",
+																		"public func withParameter(int number)"),
+
+																		build(
+																				"/**",
+																				" * This function has several parameters",
+																				" *",
+																				" * @par number a number.",
+																				" * @par two a description.",
+																				" *",
+																				" * @return proplist the number and description.",
+																				" */",
+																				"public func withParameters(int number, string two)")
+
+			};
+
+		//for (final String match : matches)
+		//{
+		//	System.out.println(match);
+		//};
+
+		for (int i = 0; i < matches.size(); ++i)
+		{
+			assertEquals(expected[i], matches.get(i));
+		}
 	}
 
 

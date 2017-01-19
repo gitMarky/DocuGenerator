@@ -58,6 +58,14 @@ public class PageParser
 	}
 
 
+	List<String> getFunctionsWithDocuIfPossible()
+	{
+		final String expression = "[REGEX_DOCU]*" + REGEX_ANY_LINEBREAK + REGEX_FUNCTION;
+		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
+		return matches;
+	}
+
+
 	List<String> getFunctions()
 	{
 		final String expression = REGEX_FUNCTION;
