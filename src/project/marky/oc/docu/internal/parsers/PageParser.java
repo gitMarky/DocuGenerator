@@ -1,5 +1,6 @@
 package project.marky.oc.docu.internal.parsers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import project.marky.oc.docu.internal.RegexMatcher;
@@ -18,6 +19,7 @@ public class PageParser
 	// function "prefix": ^(public|protected|private)*.*func\s+
 	// function prefix + declaration: ^(public|protected|private)*.*func\s+(\w+)\(\)
 	// function prefix + declaration and parameters: ^(public|protected|private)*.*func\s+(\w+)\(([\w\s,]+)*\)
+	// function prefix + declaration and parameters: ^(public|protected|private)*[ ]*func\s+(\w+)\(([\w\s,]+)*\)
 	/**
 	 * Regex that finds function declarations, without the function body.
 	 */
@@ -29,6 +31,10 @@ public class PageParser
 	 * Regex that finds line breaks.
 	 */
 	private static final String REGEX_ANY_LINEBREAK = "[\\r\\n]";
+
+	private static final String REGEX_DOCUMENTED_FUNCTIONS = REGEX_DOCU + REGEX_ANY_LINEBREAK + "*" + REGEX_FUNCTION;
+
+	private static final String REGEX_UNDOCUMENTED_FUNCTIONS = "(?m)^(?<=" + REGEX_ANY_LINEBREAK + ")" + REGEX_FUNCTION;
 
 	private final String _content;
 
@@ -53,7 +59,7 @@ public class PageParser
 
 	List<String> getDocumentedFunctions()
 	{
-		final String expression = REGEX_DOCU + REGEX_ANY_LINEBREAK + "*" + REGEX_FUNCTION;
+		final String expression = REGEX_DOCUMENTED_FUNCTIONS;
 		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
 		return matches;
 	}
@@ -61,9 +67,11 @@ public class PageParser
 
 	List<String> getFunctionsWithDocuIfPossible()
 	{
-		final String expression = "[" + REGEX_DOCU + "]*" + REGEX_ANY_LINEBREAK + REGEX_FUNCTION;
-		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
-		return matches;
+		final List<String> results = new ArrayList<String>();
+
+		results.addAll(getDocumentedFunctions());
+		results.addAll(getUndocumentedFunctions());
+		return results;
 	}
 
 
@@ -77,7 +85,7 @@ public class PageParser
 
 	List<String> getUndocumentedFunctions()
 	{
-		final String expression = "(?m)^(?<=" + REGEX_ANY_LINEBREAK + "+)" + REGEX_ANY_LINEBREAK + REGEX_FUNCTION;
+		final String expression = REGEX_UNDOCUMENTED_FUNCTIONS;
 		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
 		return matches;
 	}

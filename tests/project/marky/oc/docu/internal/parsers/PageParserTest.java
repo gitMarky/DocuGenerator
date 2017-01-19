@@ -193,7 +193,7 @@ public class PageParserTest
 				"func noDocu3()"
 		};
 
-		for (int i = 0; i < matches.size(); ++i)
+		for (int i = 0; i < expected.length; ++i)
 		{
 			assertEquals(expected[i], matches.get(i));
 		}
