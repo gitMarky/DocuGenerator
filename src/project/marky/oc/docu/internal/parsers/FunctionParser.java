@@ -1,7 +1,8 @@
 package project.marky.oc.docu.internal.parsers;
 
-import project.marky.oc.docu.internal.RegexMatcher;
+import java.util.List;
 
+import project.marky.oc.docu.internal.RegexMatcher;
 import static project.marky.oc.docu.internal.parsers.Regex.*;
 
 /**
@@ -34,5 +35,13 @@ public class FunctionParser
 	String getFunctionName()
 	{
 		return _declaration.replaceAll(".*func\\s(\\w+)\\(.*\\)", "$1");
+	}
+
+
+	List<String> getParameters()
+	{
+		final String parameters = _declaration.replaceAll(".*func\\s\\w+\\((.*)\\)", "$1");
+
+		return RegexMatcher.getAllMatches(parameters, "\\w[\\w\\s]+");
 	}
 }
