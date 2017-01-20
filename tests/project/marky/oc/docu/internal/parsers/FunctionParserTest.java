@@ -38,4 +38,17 @@ public class FunctionParserTest
 			assertEquals(expected[i], accessModifier);
 		}
 	}
+
+	@Test
+	public void testFunctionName()
+	{
+		final String[] expected = {"foo", "safe", "bar", "noModifier", "test", "blub", "withParameter", "withParameters", "noDocu", "noDocu1", "noDocu2", "noDocu3"};
+
+		for (int i = 0; i < Math.max(expected.length, _parsers.length); ++i)
+		{
+			final String accessModifier = _parsers[i].getFunctionName();
+
+			assertEquals(expected[i], accessModifier);
+		}
+	}
 }

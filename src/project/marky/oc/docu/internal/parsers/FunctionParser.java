@@ -28,8 +28,11 @@ public class FunctionParser
 		else
 		{
 			return _declaration.replaceAll("(public|protected|private).*", "$1");
-			// this works, but it should be done with a match, imo.
-			// return _declaration.split("\\s")[0];
 		}
+	}
+
+	String getFunctionName()
+	{
+		return _declaration.replaceAll(".*func\\s(\\w+)\\(.*\\)", "$1");
 	}
 }
