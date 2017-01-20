@@ -2,7 +2,6 @@ package project.marky.oc.docu.internal.parsers;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,7 +17,7 @@ public class PageParserTest
 	@Test
 	public void testCorrectHeader()
 	{
-		final String content = LoadFile.getFileContent(new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\DocuHeader.txt"));
+		final String content = LoadFile.getFileContent(Files.FILE_WITH_HEADER);
 		final PageParser page = new PageParser(content);
 
 		final String match = page.getHeader();
@@ -37,7 +36,7 @@ public class PageParserTest
 	@Test
 	public void testNoHeader()
 	{
-		final String content = LoadFile.getFileContent(new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\DocuNoHeader.txt"));
+		final String content = LoadFile.getFileContent(Files.FILE_NO_HEADER);
 		final PageParser page = new PageParser(content);
 
 		final String match = page.getHeader();
@@ -57,7 +56,7 @@ public class PageParserTest
 	@Test
 	public void testDocumentedFunctions()
 	{
-		final String content = LoadFile.getFileContent(new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\DocuFunctions.txt"));
+		final String content = LoadFile.getFileContent(Files.FILE_FUNCTIONS);
 		final PageParser page = new PageParser(content);
 
 		final List<String> matches = page.getDocumentedFunctions();
@@ -138,7 +137,7 @@ public class PageParserTest
 	@Test
 	public void testFunctions()
 	{
-		final String content = LoadFile.getFileContent(new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\DocuFunctions.txt"));
+		final String content = LoadFile.getFileContent(Files.FILE_FUNCTIONS);
 		final PageParser page = new PageParser(content);
 
 		final List<String> matches = page.getFunctions();
@@ -176,7 +175,7 @@ public class PageParserTest
 	@Test
 	public void testUndocumentedFunctions()
 	{
-		final String content = LoadFile.getFileContent(new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\DocuFunctions.txt"));
+		final String content = LoadFile.getFileContent(Files.FILE_FUNCTIONS);
 		final PageParser page = new PageParser(content);
 
 		final List<String> matches = page.getUndocumentedFunctions();
@@ -206,7 +205,7 @@ public class PageParserTest
 	@Test
 	public void testFunctionsWithOrWithoutDocu()
 	{
-		final String content = LoadFile.getFileContent(new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\DocuFunctions.txt"));
+		final String content = LoadFile.getFileContent(Files.FILE_FUNCTIONS);
 		final PageParser page = new PageParser(content);
 
 		final List<String> matches = page.getFunctionsWithDocuIfPossible();
