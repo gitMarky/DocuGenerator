@@ -29,57 +29,49 @@ public class DocuParser
 
 	public String getAuthor()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return getTagContent("@author");
 	}
 
 
 	public String getCredits()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return getTagContent("@credits");
 	}
 
 
 	public String getVersion()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return getTagContent("@version");
 	}
 
 
 	public String getEngine()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return getTagContent("@engine");
 	}
 
 
 	public String getNote()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return getTagContent("@note");
 	}
 
 
 	public String getExample()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return getTagContent("@example");
 	}
 
 
 	public String getCategory()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return getTagContent("@category");
 	}
 
 
 	public String getDescription()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return _docu.replaceAll("(?m)^(.+)[.\\n]+", "$1");
 	}
 
 
