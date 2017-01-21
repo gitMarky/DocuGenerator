@@ -1,12 +1,16 @@
 package project.marky.oc.docu.internal.parsers;
 
+import project.marky.oc.docu.util.StringConstants;
+
 public class DocuParser
 {
 	final String _docu;
 
 	DocuParser(final String content)
 	{
-		_docu = content;
+		// ^\s*\**\s*(.+)\r*\n
+		//_docu = content.replace("/**", "").replaceAll("\\s*\\*/", "").replaceAll("(?m)^\\s*\\**\\s*(.+)\\r*\\n","$1" + StringConstants.NEWLINE_STRING);
+		_docu = content.replace("/**", "").replaceAll("\\s*\\*/", "").replaceAll("(?m)^[\\s\\*]*(.+)\\r*\\n","$1" + StringConstants.NEWLINE_STRING);
 	}
 
 

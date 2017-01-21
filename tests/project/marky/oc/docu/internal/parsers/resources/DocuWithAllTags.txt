@@ -10,6 +10,9 @@
  *
  * May also contain {@code code stuff} or {@link link stuff}.
  *
+
+Stuff that starts at the beginning of the line is not ignored.
+ 
  * @title The title
  
  also supports multiline
