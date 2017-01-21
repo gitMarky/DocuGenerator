@@ -23,15 +23,7 @@ public class DocuParser
 
 	public String getTitle()
 	{
-		try
-		{
-			final String match = RegexMatcher.getAllMatches(_docu, "(?m)^@title(.+)\\n").get(0);
-			return match.replaceAll("@title\\s*(.*)\\n", "$1");
-		}
-		catch (final IndexOutOfBoundsException e)
-		{
-			return null;
-		}
+		return getTagContent("@title");
 	}
 
 
@@ -90,4 +82,17 @@ public class DocuParser
 		return null;
 	}
 
+
+	private String getTagContent(final String tag)
+	{
+		try
+		{
+			final String match = RegexMatcher.getAllMatches(_docu, "(?m)^" + tag + "(.+)\\n").get(0);
+			return match.replaceAll(tag + "\\s*(.*)\\n", "$1");
+		}
+		catch (final IndexOutOfBoundsException e)
+		{
+			return null;
+		}
+	}
 }
