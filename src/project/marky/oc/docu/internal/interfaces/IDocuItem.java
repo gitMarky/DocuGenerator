@@ -1,6 +1,5 @@
 package project.marky.oc.docu.internal.interfaces;
 
-
 /**
  * Interface for a documentation item.
  */
@@ -68,4 +67,12 @@ public interface IDocuItem
 	 * @return {@code null} if the value is not defined.
 	 */
 	String getCategory();
+
+
+	/**
+	 * The description, as in the main body of the documentation.
+	 * 
+	 * @return {@code null} if the value is not defined.
+	 */
+	String getDescription();
 }

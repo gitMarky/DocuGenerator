@@ -2,7 +2,11 @@ package project.marky.oc.docu.internal.parsers;
 
 import java.util.List;
 
+
+
+import project.marky.oc.docu.internal.Function;
 import project.marky.oc.docu.internal.RegexMatcher;
+import project.marky.oc.docu.internal.interfaces.IFunction;
 import static project.marky.oc.docu.internal.parsers.Regex.*;
 
 /**
@@ -61,5 +65,18 @@ public class FunctionParser
 	String getDocu()
 	{
 		return _docu;
+	}
+
+
+	public static IFunction parse(final String content)
+	{
+		final Function function = new Function();
+		final FunctionParser parser = new FunctionParser(content);
+
+		function.setAccessModifier(parser.getAccessModifier());
+		function.setTitle(parser.getFunctionName());
+		function.getParameters().addAll(parser.getParameters());
+
+		return function;
 	}
 }

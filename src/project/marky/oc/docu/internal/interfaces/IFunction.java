@@ -18,4 +18,12 @@ public interface IFunction extends IDocuItem
 	 * @return {@code null} if the value is not defined.
 	 */
 	String getReturnValue();
+
+
+	/**
+	 * The access modifier, as denoted by TODO.
+	 * 
+	 * @return {@code null} if the value is not defined.
+	 */
+	String getAccessModifier();
 }
