@@ -1,7 +1,5 @@
 package project.marky.oc.docu.internal.interfaces;
 
-import java.util.List;
-
 
 /**
  * Interface for a documentation item.
@@ -70,20 +68,4 @@ public interface IDocuItem
 	 * @return {@code null} if the value is not defined.
 	 */
 	String getCategory();
-
-
-	/**
-	 * The parameters, as denoted by TODO.
-	 * 
-	 * @return {@code null} if the value is not defined.
-	 */
-	List<String> getParameters();
-
-
-	/**
-	 * The return value, as denoted by TODO.
-	 * 
-	 * @return {@code null} if the value is not defined.
-	 */
-	String getReturnValue();
 }
