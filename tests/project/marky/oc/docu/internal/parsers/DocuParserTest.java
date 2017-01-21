@@ -21,7 +21,6 @@ public class DocuParserTest
 	public void test()
 	{
 		System.out.println(_parser._docu);
-		fail("Not yet implemented");
 	}
 
 

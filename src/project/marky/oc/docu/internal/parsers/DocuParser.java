@@ -71,7 +71,7 @@ public class DocuParser
 
 	public String getDescription()
 	{
-		return _docu.replaceAll("(?m)^@(.+)\\n", "");//.replaceAll("(.+)\\n[.\\n]+", "$1");
+		return _docu.replaceAll("(?m)^@(.+)", "").replaceAll("\\n", "");//.replaceAll("(.+)\\n[.\\n]+", "$1");
 	}
 
 
