@@ -1,5 +1,6 @@
 package project.marky.oc.docu.internal.parsers;
 
+import project.marky.oc.docu.internal.RegexMatcher;
 import project.marky.oc.docu.util.StringConstants;
 
 public class DocuParser
@@ -22,8 +23,15 @@ public class DocuParser
 
 	public String getTitle()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		try
+		{
+			final String match = RegexMatcher.getAllMatches(_docu, "(?m)^@title(.+)\\n").get(0);
+			return match.replaceAll("@title\\s*(.*)\\n", "$1");
+		}
+		catch (final IndexOutOfBoundsException e)
+		{
+			return null;
+		}
 	}
 
 
