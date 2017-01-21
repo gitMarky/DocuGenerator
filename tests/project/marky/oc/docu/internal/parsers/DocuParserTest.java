@@ -77,7 +77,7 @@ public class DocuParserTest
 	@Test
 	public void testCategory()
 	{
-		assertEquals("The category" + APPENDIX, _parser.getCategory());
+		assertEquals("The category." + APPENDIX, _parser.getCategory());
 	}
 
 

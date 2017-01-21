@@ -17,7 +17,7 @@ public class DocuParser
 				.replaceAll("\\n", " ")
 				.replaceAll("\\s+", " ")
 				// put tags in a new line
-				.replaceAll(" @", StringConstants.NEWLINE_STRING + "@");
+				.replaceAll(" @", StringConstants.NEWLINE_STRING + "@") + StringConstants.NEWLINE_STRING;
 	}
 
 
@@ -71,7 +71,7 @@ public class DocuParser
 
 	public String getDescription()
 	{
-		return _docu.replaceAll("(?m)^(.+)[.\\n]+", "$1");
+		return _docu.replaceAll("(?m)^@(.+)\\n", "");//.replaceAll("(.+)\\n[.\\n]+", "$1");
 	}
 
 
