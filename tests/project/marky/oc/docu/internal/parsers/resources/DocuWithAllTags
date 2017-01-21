@@ -1,0 +1,46 @@
+/**
+ * <p>
+ * This is a multi-line
+ * docu description.</p>
+ * <p>It contains some text.</p>
+ *
+ * Even blank lines are recognized.
+   Lines that start without the star are also recognized.
+         Multiple spaces are skipped.
+ *
+ * May also contain {@code code stuff} or {@link link stuff}.
+ *
+ * @title The title
+ 
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+ 
+  @author The author
+ 
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+ @credits The credits
+ 
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+@version The version
+ 
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+@engine The engine
+ 
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+ @note The notes.
+ 
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+ * @example The example
+ 
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+ @category The category.
+ 
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+ */

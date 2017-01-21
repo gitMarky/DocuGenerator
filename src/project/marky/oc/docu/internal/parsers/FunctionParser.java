@@ -17,7 +17,7 @@ public class FunctionParser
 	private final String _docu;
 	private final String _declaration;
 
-	public FunctionParser(final String content)
+	FunctionParser(final String content)
 	{
 		_declaration = RegexMatcher.getAllMatches(content, REGEX_FUNCTION).get(0);
 
