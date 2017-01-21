@@ -68,6 +68,12 @@ public class FunctionParser
 	}
 
 
+	/**
+	 * Parses a function and converts it to a {@link IFunction}.
+	 * 
+	 * @param content the function string that was parsed.
+	 * @return an {@link Function} object.
+	 */
 	public static IFunction parse(final String content)
 	{
 		final Function function = new Function();
@@ -76,6 +82,7 @@ public class FunctionParser
 		function.setAccessModifier(parser.getAccessModifier());
 		function.setTitle(parser.getFunctionName());
 		function.getParameters().addAll(parser.getParameters());
+		function.setDescription(parser.getDocu()); // TODO: replace this with an actual docu item browser
 
 		return function;
 	}
