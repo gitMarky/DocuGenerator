@@ -10,13 +10,24 @@ import static project.marky.oc.docu.internal.parsers.Regex.*;
  */
 public class FunctionParser
 {
-	private final String _content;
+	private final String _docu;
 	private final String _declaration;
 
 	public FunctionParser(final String content)
 	{
-		_content = content;
 		_declaration = RegexMatcher.getAllMatches(content, REGEX_FUNCTION).get(0);
+
+		String docu = "";
+		try
+		{
+			docu = RegexMatcher.getAllMatches(content, REGEX_DOCU).get(0);
+		}
+		catch (final IndexOutOfBoundsException e)
+		{
+			// do nothing
+		}
+
+		_docu = docu;
 	}
 
 
@@ -32,6 +43,7 @@ public class FunctionParser
 		}
 	}
 
+
 	String getFunctionName()
 	{
 		return _declaration.replaceAll(".*func\\s(\\w+)\\(.*\\)", "$1");
@@ -43,5 +55,11 @@ public class FunctionParser
 		final String parameters = _declaration.replaceAll(".*func\\s\\w+\\((.*)\\)", "$1");
 
 		return RegexMatcher.getAllMatches(parameters, "\\w[\\w\\s]+");
+	}
+
+
+	String getDocu()
+	{
+		return _docu;
 	}
 }

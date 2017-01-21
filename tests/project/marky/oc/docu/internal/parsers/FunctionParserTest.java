@@ -90,4 +90,17 @@ public class FunctionParserTest
 
 		assertEquals(rest, new FunctionParser("public func function(int number, string name, object rock, proplist properties, array values, any whatever, unknown_type)").getParameters());
 	}
+
+	@Test
+	public void testDocu()
+	{
+		final String[] expected = {"", "", "", "", "", "", "", "", "", "", "", ""};
+
+		for (int i = 0; i < Math.max(expected.length, _parsers.length); ++i)
+		{
+			final String docu = _parsers[i].getDocu();
+
+			assertEquals(expected[i], docu);
+		}
+	}
 }
