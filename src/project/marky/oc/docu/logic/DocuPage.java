@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import project.marky.oc.docu.DocuGenerator;
-import project.marky.oc.docu.c4script.C4DocuParser;
 import project.marky.oc.docu.c4script.C4FuncParser;
 import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.html.StdHtmlFile;
 import project.marky.oc.docu.html.Styleparser;
+import project.marky.oc.docu.internal.interfaces.IDocuItem;
 
 
 /**
@@ -31,18 +31,6 @@ public class DocuPage
 	// identification
 	@SuppressWarnings("unused")
 	private final String _htmlID;
-	private final String _title;
-
-	// contents
-	private final String _engine;
-	private final String _version;
-	private final String _author;
-	private final String _credits;
-	private final String _description;
-
-	private final String _example;
-	private final String _note;
-	private final String _related;
 
 	// function specific stuff
 	private String _returnsType;
@@ -51,29 +39,20 @@ public class DocuPage
 	private final HashMap<String, C4TypeDef> _fparam;
 	private final String _visibility;
 
+	private final IDocuItem _docu;
+
 
 	/**
 	 * Constructor for a page in the documentation.
 	 * 
 	 * @param docu the page reads information from this parser.
 	 */
-	public DocuPage(final C4DocuParser docu)
+	public DocuPage(final IDocuItem docu)
 	{
-		_identifier = docu.getIdentifier();
+		_identifier = null; //docu.getIdentifier();
+		_htmlID = null;
 
-		_htmlID = docu.getIdentifier();
-		_title = docu.getTitle();
-
-		_engine = docu.getEngineDocu();
-		_version = docu.getVersionDocu();
-		_author = docu.getAuthorDocu();
-		_credits = docu.getCredits();
-
-		_description = docu.getDescriptionDocu();
-
-		_example = docu.getExampleDocu();
-		_note = docu.getNoteDocu();
-		_related = docu.getRelatedDocu();
+		_docu = docu;
 
 		// function-specific stuff
 		_returns = null;
@@ -89,33 +68,27 @@ public class DocuPage
 	 * @param docu the page reads information from this parser.
 	 * @param function the page reads information from this parser.
 	 */
-	public DocuPage(final C4DocuParser docu, final C4FuncParser function)
+	public DocuPage(final IDocuItem docu, final C4FuncParser function)
 	{
 		_identifier = function.getFunctionName();
 
 		_htmlID = function.getFunctionName();
-		_title = function.getFunctionName();
 
-		_engine = docu.getEngineDocu();
-		_version = docu.getVersionDocu();
-		_author = docu.getAuthorDocu();
-		_credits = docu.getCredits();
-
-		_description = docu.getDescriptionDocu();
-
-		_example = docu.getExampleDocu();
-		_note = docu.getNoteDocu();
-		_related = docu.getRelatedDocu();
+		_docu = docu;
 
 		// function-specific stuff
-		_returns = docu.getReturnsDocu();
-		if (docu.getReturnsType() != null)
-		{
-			_returnsType = docu.getReturnsType().getString();
-		}
-		_parameters = docu.getParameterMap();
-		_visibility = function.getFunctionVisibility();
-		_fparam = function.getFunctionParameters();
+		//		_returns = docu.getReturnsDocu();
+		//		if (docu.getReturnsType() != null)
+		//		{
+		//			_returnsType = docu.getReturnsType().getString();
+		//		}
+		//		_parameters = docu.getParameterMap();
+		//		_visibility = function.getFunctionVisibility();
+		//		_fparam = function.getFunctionParameters();
+		_returns = null;
+		_parameters = null;
+		_visibility = null;
+		_fparam = null;
 	}
 
 
@@ -158,7 +131,7 @@ public class DocuPage
 		}
 		_html._span();
 
-		_html.write(SPACE_STRING + _title + IDENTIFIER_PAR_OPEN);
+		_html.write(SPACE_STRING + _docu.getTitle() + IDENTIFIER_PAR_OPEN);
 
 		// write parameters into parenthesis
 		final Iterator<String> parameterIterator = _fparam.keySet().iterator();
@@ -244,21 +217,21 @@ public class DocuPage
 		_html.head().link("rel=\"stylesheet\" type=\"text/css\" href=\"" + css_location + "\"").title().write(_identifier)._title()._head();
 		// heading
 
-		_html.h1("id=\" + _htmlID + \"").write(_title)._h1();
+		_html.h1("id=\" + _htmlID + \"").write(_docu.getTitle())._h1();
 
 		// stuff
-		docuHeaderParagraph("Engine version", _engine);
-		docuHeaderParagraph("Project version", _version);
-		docuHeaderParagraph("Author", _author);
-		docuHeaderParagraph("Credits", _credits);
+		docuHeaderParagraph("Engine version", _docu.getEngine());
+		docuHeaderParagraph("Project version", _docu.getVersion());
+		docuHeaderParagraph("Author", _docu.getAuthor());
+		docuHeaderParagraph("Credits", _docu.getCredits());
 
-		docuBodyParagraph("Description", _description, filemanager, root_folder, own_location);
+		docuBodyParagraph("Description", _docu.getDescription(), filemanager, root_folder, own_location);
 
 		buildFunctionDescription(filemanager, root_folder, own_location);
 
-		docuBodyParagraph("Example", _example, filemanager, root_folder, own_location);
-		docuBodyParagraph("Note", _note, filemanager, root_folder, own_location);
-		docuBodyParagraph("See Also", _related, filemanager, root_folder, own_location);
+		docuBodyParagraph("Example", _docu.getExample(), filemanager, root_folder, own_location);
+		docuBodyParagraph("Note", _docu.getNote(), filemanager, root_folder, own_location);
+		// TODOdocuBodyParagraph("See Also", _related, filemanager, root_folder, own_location);
 
 		_html._body()._html();
 	}
