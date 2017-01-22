@@ -101,20 +101,43 @@ public class DocuParser
 	}
 
 
+	private String[] getIdentifierAndDocu(final String line, final String tag)
+	{
+		if (line == null)
+		{
+			return new String[]{null, null};
+		}
+		else
+		{
+			final String name = line.replaceAll(tag, "").replaceAll("\\s*(\\w+)\\s+.*", "$1").replaceAll("\\n", "");
+			final String docu = line.replaceAll(tag, "").replaceAll("\\s*\\w+\\s+(.*)", "$1").replaceAll("\\n", "");
+			return new String[]{name, docu};
+		}
+	}
+
+
 	Map<String, String> getParameters()
 	{
 		final Map<String, String> parameters = new HashMap<String, String>();
 
-		final List<String> parameterLines = getTags("@par");
+		final String tag = "@par";
+
+		final List<String> parameterLines = getTags(tag);
 
 		for (final String line : parameterLines)
 		{
-			final String name = line.replaceAll("@par\\s+(\\w+)\\s+.*\\n", "$1");
-			final String docu = line.replaceAll("@par\\s+\\w+\\s+(.*)\\n", "$1");
-			parameters.put(name, docu);
+			final String[] nameAndDocu = getIdentifierAndDocu(line, tag);
+			parameters.put(nameAndDocu[0], nameAndDocu[1]);
 		}
 
 		return parameters;
+	}
+
+
+	String[] getReturnValue()
+	{
+		final String tag = "@return";
+		return getIdentifierAndDocu(getTagContent(tag), tag);
 	}
 
 

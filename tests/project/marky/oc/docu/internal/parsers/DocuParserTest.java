@@ -94,4 +94,13 @@ public class DocuParserTest
 		assertEquals("this is a parameter" + APPENDIX, _parser.getParameters().get("input"));
 		assertEquals("parameter" + APPENDIX, _parser.getParameters().get("second"));
 	}
+
+
+	@Test
+	public void testReturnValue()
+	{
+		final String[] value = _parser.getReturnValue();
+		assertEquals("string", value[0]);
+		assertEquals("the return value" + APPENDIX, value[1]);
+	}
 }
