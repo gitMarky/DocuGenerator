@@ -3,18 +3,6 @@ package project.marky.oc.docu.internal.parsers;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
-
-
-
-
-
-
-
 import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.internal.Function;
 import project.marky.oc.docu.internal.Parameter;
@@ -30,6 +18,7 @@ public class FunctionParser
 {
 	private final String _docu;
 	private final String _declaration;
+
 
 	FunctionParser(final String content)
 	{
@@ -102,7 +91,8 @@ public class FunctionParser
 	/**
 	 * Parses a function and converts it to a {@link IFunction}.
 	 * 
-	 * @param content the function string that was parsed.
+	 * @param content
+	 *            the function string that was parsed.
 	 * @return an {@link Function} object.
 	 */
 	public static IFunction parse(final String content)
@@ -134,6 +124,10 @@ public class FunctionParser
 
 			function.getParameters().add(parameter);
 		}
+
+		final String[] typeAndDocu = parserDocu.getReturnValue();
+
+		function.setReturnValue(new Parameter("return value", typeAndDocu[1], C4TypeDef.fromString(typeAndDocu[0])));
 
 		return function;
 	}

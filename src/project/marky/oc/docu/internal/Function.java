@@ -10,7 +10,7 @@ import project.marky.oc.docu.internal.interfaces.IParameter;
 public class Function extends DocuItem implements IFunction
 {
 	private final List<IParameter> _parameters = new ArrayList<IParameter>();
-	private String _returnValue = null;
+	private IParameter _returnValue = null;
 	private String _accessModifier = null;
 
 	////////////////////////////////////////////////////////////////
@@ -41,7 +41,7 @@ public class Function extends DocuItem implements IFunction
 	}
 
 	@Override
-	public String getReturnValue()
+	public IParameter getReturnValue()
 	{
 		return _returnValue;
 	}
@@ -56,7 +56,7 @@ public class Function extends DocuItem implements IFunction
 	//
 	// setters
 
-	public void setReturnValue(final String returnValue)
+	public void setReturnValue(final IParameter returnValue)
 	{
 		_returnValue = returnValue;
 	}

@@ -17,7 +17,7 @@ public interface IFunction extends IDocuItem
 	 * 
 	 * @return {@code null} if the value is not defined.
 	 */
-	String getReturnValue();
+	IParameter getReturnValue();
 
 
 	/**
