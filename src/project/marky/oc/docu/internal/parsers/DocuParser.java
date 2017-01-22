@@ -1,6 +1,8 @@
 package project.marky.oc.docu.internal.parsers;
 
+import project.marky.oc.docu.internal.DocuItem;
 import project.marky.oc.docu.internal.RegexMatcher;
+import project.marky.oc.docu.internal.interfaces.IDocuItem;
 import project.marky.oc.docu.util.StringConstants;
 
 public class DocuParser
@@ -21,55 +23,55 @@ public class DocuParser
 	}
 
 
-	public String getTitle()
+	String getTitle()
 	{
 		return getTagContent("@title");
 	}
 
 
-	public String getAuthor()
+	String getAuthor()
 	{
 		return getTagContent("@author");
 	}
 
 
-	public String getCredits()
+	String getCredits()
 	{
 		return getTagContent("@credits");
 	}
 
 
-	public String getVersion()
+	String getVersion()
 	{
 		return getTagContent("@version");
 	}
 
 
-	public String getEngine()
+	String getEngine()
 	{
 		return getTagContent("@engine");
 	}
 
 
-	public String getNote()
+	String getNote()
 	{
 		return getTagContent("@note");
 	}
 
 
-	public String getExample()
+	String getExample()
 	{
 		return getTagContent("@example");
 	}
 
 
-	public String getCategory()
+	String getCategory()
 	{
 		return getTagContent("@category");
 	}
 
 
-	public String getDescription()
+	String getDescription()
 	{
 		return _docu.replaceAll("(?m)^@(.+)", "").replaceAll("\\n", "");//.replaceAll("(.+)\\n[.\\n]+", "$1");
 	}
@@ -86,5 +88,30 @@ public class DocuParser
 		{
 			return null;
 		}
+	}
+
+
+	/**
+	 * Parses a documentation and converts it to a {@link IDocuItem}.
+	 * 
+	 * @param content the docu string that was parsed.
+	 * @return a {@link DocuItem} object.
+	 */
+	public static IDocuItem parse(final String content)
+	{
+		final DocuItem docu = new DocuItem();
+		final DocuParser parser = new DocuParser(content);
+
+		docu.setAuthor(parser.getAuthor());
+		docu.setCategory(parser.getCategory());
+		docu.setCredits(parser.getCredits());
+		docu.setDescription(parser.getDescription());
+		docu.setEngine(parser.getEngine());
+		docu.setExample(parser.getExample());
+		docu.setNote(parser.getNote());
+		docu.setTitle(parser.getTitle());
+		docu.setVersion(parser.getVersion());
+
+		return docu;
 	}
 }
