@@ -9,7 +9,7 @@ public interface IFunction extends IDocuItem
 	 * 
 	 * @return {@code null} if the value is not defined.
 	 */
-	List<String> getParameters();
+	List<IParameter> getParameters();
 
 
 	/**

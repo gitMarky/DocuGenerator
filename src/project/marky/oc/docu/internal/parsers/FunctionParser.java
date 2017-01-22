@@ -1,12 +1,26 @@
 package project.marky.oc.docu.internal.parsers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 
+
+
+
+
+
+
+
+
+
+
+import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.internal.Function;
+import project.marky.oc.docu.internal.Parameter;
 import project.marky.oc.docu.internal.RegexMatcher;
 import project.marky.oc.docu.internal.interfaces.IFunction;
+import project.marky.oc.docu.internal.interfaces.IParameter;
 import static project.marky.oc.docu.internal.parsers.Regex.*;
 
 /**
@@ -62,6 +76,23 @@ public class FunctionParser
 	}
 
 
+	List<IParameter> getParameterDefinitions()
+	{
+		final List<IParameter> parameters = new ArrayList<IParameter>();
+
+		for (final String line : getParameters())
+		{
+			final String type = line.replaceAll("\\s*(\\w+)\\s+.*", "$1");
+			final String name = line.replaceAll("\\s*\\w+\\s+(.*)", "$1");
+
+			final Parameter parameter = new Parameter(name, null, C4TypeDef.fromString(type));
+			parameters.add(parameter);
+		}
+
+		return parameters;
+	}
+
+
 	String getDocu()
 	{
 		return _docu;
@@ -76,13 +107,33 @@ public class FunctionParser
 	 */
 	public static IFunction parse(final String content)
 	{
-		final Function function = new Function();
+		// parsers
 		final FunctionParser parser = new FunctionParser(content);
+		final DocuParser parserDocu = new DocuParser(content);
 
+		// the object
+		final Function function = new Function();
+
+		// basic docu stuff
+		function.setAuthor(parserDocu.getAuthor());
+		function.setCategory(parserDocu.getCategory());
+		function.setCredits(parserDocu.getCredits());
+		function.setDescription(parserDocu.getDescription());
+		function.setEngine(parserDocu.getEngine());
+		function.setExample(parserDocu.getExample());
+		function.setNote(parserDocu.getNote());
+		function.setTitle(parserDocu.getTitle());
+		function.setVersion(parserDocu.getVersion());
+
+		// function stuff
 		function.setAccessModifier(parser.getAccessModifier());
-		function.setTitle(parser.getFunctionName());
-		function.getParameters().addAll(parser.getParameters());
-		function.setDescription(parser.getDocu()); // TODO: replace this with an actual docu item browser
+
+		for (final IParameter parameter : parser.getParameterDefinitions())
+		{
+			((Parameter) parameter).setDocu(parserDocu.getParameters().get(parameter.getName()));
+
+			function.getParameters().add(parameter);
+		}
 
 		return function;
 	}

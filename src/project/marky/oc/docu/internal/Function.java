@@ -3,11 +3,13 @@ package project.marky.oc.docu.internal;
 import java.util.ArrayList;
 import java.util.List;
 
+import project.marky.oc.docu.internal.interfaces.IDocuItem;
 import project.marky.oc.docu.internal.interfaces.IFunction;
+import project.marky.oc.docu.internal.interfaces.IParameter;
 
 public class Function extends DocuItem implements IFunction
 {
-	private final List<String> _parameters = new ArrayList<String>();
+	private final List<IParameter> _parameters = new ArrayList<IParameter>();
 	private String _returnValue = null;
 	private String _accessModifier = null;
 
@@ -15,8 +17,25 @@ public class Function extends DocuItem implements IFunction
 	//
 	// from interface
 
+	public Function(final IDocuItem docu)
+	{
+		setAuthor(docu.getAuthor());
+		setCategory(docu.getCategory());
+		setCredits(docu.getCredits());
+		setDescription(docu.getDescription());
+		setEngine(docu.getEngine());
+		setExample(docu.getExample());
+		setNote(docu.getNote());
+		setTitle(docu.getTitle());
+		setVersion(docu.getVersion());
+	}
+
+	public Function()
+	{
+	}
+
 	@Override
-	public List<String> getParameters()
+	public List<IParameter> getParameters()
 	{
 		return _parameters;
 	}

@@ -6,7 +6,7 @@ import project.marky.oc.docu.internal.interfaces.IParameter;
 public class Parameter implements IParameter
 {
 	private final C4TypeDef _type;
-	private final String _docu;
+	private String _docu;
 	private final String _name;
 
 
@@ -15,6 +15,12 @@ public class Parameter implements IParameter
 		_name = name;
 		_docu = docu;
 		_type = type;
+	}
+
+
+	public void setDocu(final String docu)
+	{
+		_docu = docu;
 	}
 
 
