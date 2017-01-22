@@ -8,6 +8,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import project.marky.oc.docu.c4script.C4TypeDef;
+import project.marky.oc.docu.internal.interfaces.IFunction;
+
 public class FunctionParserTest
 {
 	private List<String> _functions;
@@ -102,5 +105,33 @@ public class FunctionParserTest
 
 			assertEquals(expected[i], docu);
 		}
+	}
+
+
+	@Test
+	public void testParse()
+	{
+		final IFunction parsed = FunctionParser.parse(_functions.get(7));
+
+
+		assertEquals("public", parsed.getAccessModifier());
+		assertEquals("This function has several parameters", parsed.getDescription());
+
+		// parameter 0
+		assertEquals(C4TypeDef.C4V_Int, parsed.getParameters().get(0).getType());
+		assertEquals("number", parsed.getParameters().get(0).getName());
+		assertEquals("a number.", parsed.getParameters().get(0).getDocu());
+
+		// parameter 1
+		assertEquals(C4TypeDef.C4V_String, parsed.getParameters().get(1).getType());
+		assertEquals("two", parsed.getParameters().get(1).getName());
+		assertEquals("a description.", parsed.getParameters().get(1).getDocu());
+
+		// return value
+		assertEquals(C4TypeDef.C4V_PropList, parsed.getReturnValue().getType());
+		assertEquals("the number and description.", parsed.getReturnValue().getDocu());
+
+		// general stuff
+		assertEquals("withParameters", parsed.getTitle());
 	}
 }
