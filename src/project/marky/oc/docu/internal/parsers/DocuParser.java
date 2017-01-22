@@ -18,6 +18,9 @@ public class DocuParser
 		// ^\s*\**\s*(.+)\r*\n
 		//_docu = content.replace("/**", "").replaceAll("\\s*\\*/", "").replaceAll("(?m)^\\s*\\**\\s*(.+)\\r*\\n","$1" + StringConstants.NEWLINE_STRING);
 		_docu = content.replace("/**", "").replaceAll("\\s*\\*/", "")
+				// remove any function declarations
+				.replaceAll("\\r*\\n*(?m)^.*func\\s+\\w+\\(.*\\)\\r*\\n*", "")
+				// remove any windows line endings
 				.replaceAll("(?m)^[\\s\\*]*(.+)\\r*\\n","$1" + StringConstants.NEWLINE_STRING)
 				// put everything in one line, with spaces separating the stuff
 				.replaceAll("\\n", " ")

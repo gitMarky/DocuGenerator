@@ -61,3 +61,4 @@ Stuff that starts at the beginning of the line is not ignored.
  also supports multiline
  may also contain {@code code stuff} or {@link link stuff}.
  */
+ public func declaration()
