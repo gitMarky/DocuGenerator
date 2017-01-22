@@ -1,5 +1,9 @@
 package project.marky.oc.docu.internal.parsers;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import project.marky.oc.docu.internal.DocuItem;
 import project.marky.oc.docu.internal.RegexMatcher;
 import project.marky.oc.docu.internal.interfaces.IDocuItem;
@@ -81,13 +85,36 @@ public class DocuParser
 	{
 		try
 		{
-			final String match = RegexMatcher.getAllMatches(_docu, "(?m)^" + tag + "(.+)\\n").get(0);
+			final String match = getTags(tag).get(0);
 			return match.replaceAll(tag + "\\s*(.*)\\n", "$1");
 		}
 		catch (final IndexOutOfBoundsException e)
 		{
 			return null;
 		}
+	}
+
+
+	private List<String> getTags(final String tag)
+	{
+		return RegexMatcher.getAllMatches(_docu, "(?m)^" + tag + "(.+)\\n");
+	}
+
+
+	Map<String, String> getParameters()
+	{
+		final Map<String, String> parameters = new HashMap<String, String>();
+
+		final List<String> parameterLines = getTags("@par");
+
+		for (final String line : parameterLines)
+		{
+			final String name = line.replaceAll("@par\\s+(\\w+)\\s+.*\\n", "$1");
+			final String docu = line.replaceAll("@par\\s+\\w+\\s+(.*)\\n", "$1");
+			parameters.put(name, docu);
+		}
+
+		return parameters;
 	}
 
 
@@ -114,4 +141,6 @@ public class DocuParser
 
 		return docu;
 	}
+
+
 }

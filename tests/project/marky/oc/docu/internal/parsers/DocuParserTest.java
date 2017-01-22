@@ -85,4 +85,13 @@ public class DocuParserTest
 	{
 		assertEquals("<p> This is a multi-line docu description.</p> <p>It contains some text.</p> Even blank lines are recognized. Lines that start without the star are also recognized. Multiple spaces are skipped. May also contain {@code code stuff} or {@link link stuff}. Stuff that starts at the beginning of the line is not ignored.", _parser.getDescription());
 	}
+
+
+	@Test
+	public void testParameters()
+	{
+		assertEquals(2, _parser.getParameters().size());
+		assertEquals("this is a parameter" + APPENDIX, _parser.getParameters().get("input"));
+		assertEquals("parameter" + APPENDIX, _parser.getParameters().get("second"));
+	}
 }

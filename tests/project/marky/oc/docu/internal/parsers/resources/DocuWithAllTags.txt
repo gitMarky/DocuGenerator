@@ -42,7 +42,21 @@ Stuff that starts at the beginning of the line is not ignored.
  
  also supports multiline
  may also contain {@code code stuff} or {@link link stuff}.
+ 
+ @par input this is a parameter
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+ 
  @category The category.
+ 
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+
+@par second parameter 
+ 
+ also supports multiline
+ may also contain {@code code stuff} or {@link link stuff}.
+ *   @return string the return value
  
  also supports multiline
  may also contain {@code code stuff} or {@link link stuff}.
