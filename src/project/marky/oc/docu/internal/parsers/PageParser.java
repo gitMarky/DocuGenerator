@@ -1,9 +1,14 @@
 package project.marky.oc.docu.internal.parsers;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import project.marky.oc.docu.internal.RegexMatcher;
+import project.marky.oc.docu.internal.interfaces.IDocuItem;
+import project.marky.oc.docu.util.LoadFile;
 import static project.marky.oc.docu.internal.parsers.Regex.*;
 
 /**
@@ -12,6 +17,8 @@ import static project.marky.oc.docu.internal.parsers.Regex.*;
 public class PageParser
 {
 	private final String _content;
+
+	private static final Map<File, PageParser> _contents = new HashMap<File, PageParser>();
 
 	public PageParser(final String content)
 	{
@@ -24,11 +31,43 @@ public class PageParser
 	}
 
 
+	public static IDocuItem getHeaderDocu(final File file)
+	{
+		final PageParser parser = getParser(file);
+
+		return DocuParser.parse(parser.getHeader());
+	}
+
+
+	private static PageParser getParser(final File file)
+	{
+		final PageParser parser = _contents.get(file);
+		if (parser != null)
+		{
+			return parser;
+		}
+		else
+		{
+			final PageParser newParser = new PageParser(LoadFile.getFileContent(file));
+			_contents.put(file, newParser);
+			return newParser;
+		}
+	}
+
+
 	String getHeader()
 	{
 		final String expression = REGEX_DOCU;
 		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
-		return matches.iterator().next();
+
+		try
+		{
+			return matches.get(0);
+		}
+		catch (final IndexOutOfBoundsException e)
+		{
+			return "";
+		}
 	}
 
 
