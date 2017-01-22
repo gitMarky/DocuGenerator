@@ -112,7 +112,7 @@ public class FunctionParser
 		function.setEngine(parserDocu.getEngine());
 		function.setExample(parserDocu.getExample());
 		function.setNote(parserDocu.getNote());
-		function.setTitle(parserDocu.getTitle());
+		function.setTitle(parser.getFunctionName());
 		function.setVersion(parserDocu.getVersion());
 
 		// function stuff

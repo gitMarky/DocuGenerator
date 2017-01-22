@@ -48,9 +48,9 @@ Stuff that starts at the beginning of the line is not ignored.
  may also contain {@code code stuff} or {@link link stuff}.
  
  @category The category.
- 
- also supports multiline
- may also contain {@code code stuff} or {@link link stuff}.
+ * 
+ * also supports multiline
+ * may also contain {@code code stuff} or {@link link stuff}.
 
 @par second parameter 
  

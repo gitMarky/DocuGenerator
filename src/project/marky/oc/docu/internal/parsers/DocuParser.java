@@ -21,7 +21,8 @@ public class DocuParser
 				// remove any function declarations
 				.replaceAll("\\r*\\n*(?m)^.*func\\s+\\w+\\(.*\\)\\r*\\n*", "")
 				// remove any windows line endings
-				.replaceAll("(?m)^[\\s\\*]*(.+)\\r*\\n","$1" + StringConstants.NEWLINE_STRING)
+				.replaceAll("(?m)^[\\s\\*]+", "")
+				.replaceAll("(?m)^(.*)\\r*\\n","$1" + StringConstants.NEWLINE_STRING)
 				// put everything in one line, with spaces separating the stuff
 				.replaceAll("\\n", " ")
 				.replaceAll("\\s+", " ")
