@@ -168,14 +168,12 @@ public class DocuGenerator
 
 	private void parseScriptFile(final File file, final boolean addDocuToDocuNamespace)
 	{
-		//final StdNamespace space = _namespaces.getNamespace(parsedScript.getOrigin());
+		final StdNamespace space = _namespaces.getNamespace(file.getParentFile());
 
-		//if (space == null)
-		//{
-		//	ApplicationLogger.getLogger().warning(" * > cannot add to namespace with origin '" + parsedScript.getOrigin() + "'");
-		//}
-
-		final StdNamespace space =null;
+		if (space == null)
+		{
+			ApplicationLogger.getLogger().warning(" * > cannot add to namespace with origin '" + file + "'");
+		}
 
 		for (final IDocuItem docu : PageParser.getHeaderList(file))
 		{
@@ -262,9 +260,9 @@ public class DocuGenerator
 
 			for (final DocuPage page : namespace.getPages())
 			{
-				ApplicationLogger.getLogger().info("##### " + page.getIdentifier());
-
 				final File outputFolderFile = getOutputFile(outputFolderProject, namespace.getIdentifier(), page.getIdentifier());
+				ApplicationLogger.getLogger().info("##### " + page.getIdentifier() + ": " + outputFolderFile.getAbsolutePath());
+
 
 				final String css_location = RelFilePath.fromTo(outputFolderFile, cssStyleSheet);
 

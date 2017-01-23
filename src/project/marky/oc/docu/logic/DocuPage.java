@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import project.marky.oc.docu.DocuGenerator;
-import project.marky.oc.docu.c4script.C4FuncParser;
 import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.html.StdHtmlFile;
 import project.marky.oc.docu.html.Styleparser;
 import project.marky.oc.docu.internal.interfaces.IDocuItem;
+import project.marky.oc.docu.internal.interfaces.IFunction;
 
 
 /**
@@ -68,13 +68,13 @@ public class DocuPage
 	 * @param docu the page reads information from this parser.
 	 * @param function the page reads information from this parser.
 	 */
-	public DocuPage(final IDocuItem docu, final C4FuncParser function)
+	public DocuPage(final IFunction function)
 	{
-		_identifier = function.getFunctionName();
+		_identifier = function.getTitle();
 
-		_htmlID = function.getFunctionName();
+		_htmlID = function.getTitle();
 
-		_docu = docu;
+		_docu = function;
 
 		// function-specific stuff
 		//		_returns = docu.getReturnsDocu();
