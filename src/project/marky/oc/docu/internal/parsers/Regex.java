@@ -12,6 +12,8 @@ class Regex
 	// header: /\*\*([^\*]|\*(?!/))*\*/
 	static final String REGEX_DOCU = "/\\*\\*([^\\*]|\\*(?!/))*\\*/";
 
+	static final String REGEX_ACCESS_MODIFIER = "(public|protected|private|global)";
+
 	// function "prefix": ^(public|protected|private)*.*func\s+
 	// function prefix + declaration: ^(public|protected|private)*.*func\s+(\w+)\(\)
 	// function prefix + declaration and parameters: ^(public|protected|private)*.*func\s+(\w+)\(([\w\s,]+)*\)
@@ -21,7 +23,7 @@ class Regex
 	 */
 	//private static final String REGEX_FUNCTION = "^(public|protected|private)*.*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
 	//private static final String REGEX_FUNCTION = "(?m)^(public|protected|private)*\\s*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
-	static final String REGEX_FUNCTION = "(?m)^(public|protected|private)*[ ]*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
+	static final String REGEX_FUNCTION = "(?m)^" + REGEX_ACCESS_MODIFIER + "*[ ]*func\\s+(\\w+)\\(([\\w\\s,]+)*\\)";
 
 	/**
 	 * Regex that finds line breaks.

@@ -46,7 +46,7 @@ public class FunctionParser
 		}
 		else
 		{
-			return _declaration.replaceAll("(public|protected|private).*", "$1");
+			return _declaration.replaceAll(REGEX_ACCESS_MODIFIER + ".*", "$1");
 		}
 	}
 
