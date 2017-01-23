@@ -6,6 +6,11 @@ import java.util.HashMap;
 
 import project.marky.oc.docu.util.Helper;
 
+/**
+ * Obsolete class.
+ * @deprecated this should be obsolete now.
+ */
+@Deprecated
 public class C4DocuParser
 {
 	private final HashMap<String, String> _parameterMap;

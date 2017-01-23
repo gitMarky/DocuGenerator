@@ -6,6 +6,11 @@ import java.util.HashMap;
 
 import project.marky.oc.docu.ApplicationLogger;
 
+/**
+ * Obsolete class.
+ * @deprecated this should be obsolete now.
+ */
+@Deprecated
 public class C4FuncParser
 {
 	public static final String VISIBILITY_PRIVATE = "private";

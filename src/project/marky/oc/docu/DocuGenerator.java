@@ -4,16 +4,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import project.marky.oc.docu.c4script.C4DocuParser;
-import project.marky.oc.docu.c4script.C4FuncParser;
-import project.marky.oc.docu.c4script.C4ScriptFileParser;
 import project.marky.oc.docu.external.htmlHelp.HtmlHelpContents;
 import project.marky.oc.docu.external.htmlHelp.HtmlHelpIndex;
 import project.marky.oc.docu.external.htmlHelp.HtmlHelpProject;
+import project.marky.oc.docu.internal.interfaces.IDocuItem;
+import project.marky.oc.docu.internal.interfaces.IFunction;
+import project.marky.oc.docu.internal.parsers.PageParser;
 import project.marky.oc.docu.logic.DocuPage;
 import project.marky.oc.docu.logic.StdNamespace;
 import project.marky.oc.docu.logic.StdNamespaceManager;
@@ -169,16 +168,16 @@ public class DocuGenerator
 
 	private void parseScriptFile(final File file, final boolean addDocuToDocuNamespace)
 	{
-		final C4ScriptFileParser parsedScript = C4ScriptFileParser.parseFile(file);
+		//final StdNamespace space = _namespaces.getNamespace(parsedScript.getOrigin());
 
-		final StdNamespace space = _namespaces.getNamespace(parsedScript.getOrigin());
+		//if (space == null)
+		//{
+		//	ApplicationLogger.getLogger().warning(" * > cannot add to namespace with origin '" + parsedScript.getOrigin() + "'");
+		//}
 
-		if (space == null)
-		{
-			ApplicationLogger.getLogger().warning(" * > cannot add to namespace with origin '" + parsedScript.getOrigin() + "'");
-		}
+		final StdNamespace space =null;
 
-		for (final C4DocuParser docu : parsedScript.getHeaderList())
+		for (final IDocuItem docu : PageParser.getHeaderList(file))
 		{
 			final DocuPage page = new DocuPage(docu);
 
@@ -194,20 +193,19 @@ public class DocuGenerator
 			}
 		}
 
-		for (final Entry<C4DocuParser, C4FuncParser> entry : parsedScript.getFunctionList().entrySet())
+		for (final IFunction function : PageParser.getFunctionList(file, false))
 		{
-			final C4FuncParser function = entry.getValue();
-			final DocuPage page = new DocuPage(entry.getKey(), function);
+			final DocuPage page = new DocuPage(function);
 
-			if (function.getFunctionVisibility() != null && function.getFunctionVisibility().equals(StdNamespace.NAMESPACE_GLOBAL))
+			if (function.getAccessModifier() != null && function.getAccessModifier().equals(StdNamespace.NAMESPACE_GLOBAL))
 			{
-				addPageToNamespace(page, _namespaces.getNamespaceGlobal(), function.getFunctionName());
+				addPageToNamespace(page, _namespaces.getNamespaceGlobal(), function.getTitle());
 			}
 			else
 			{
 				if (space != null)
 				{
-					addPageToNamespace(page, space, function.getFunctionName());
+					addPageToNamespace(page, space, function.getTitle());
 				}
 			}
 		}

@@ -11,6 +11,11 @@ import java.util.stream.Stream;
 
 import static project.marky.oc.docu.util.StringConstants.*;
 
+/**
+ * Obsolete class.
+ * @deprecated this should be obsolete now.
+ */
+@Deprecated
 public class C4ScriptFileParser
 {
 
