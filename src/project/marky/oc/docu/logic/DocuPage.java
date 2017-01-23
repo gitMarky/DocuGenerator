@@ -173,7 +173,7 @@ public class DocuPage
 		//
 		// return value
 
-		if (_returns != null)
+		if (_returns != null && _returns.getDocu() != null)
 		{
 			_html.h2().write("Return Value")._h2().newline();
 			_html.div(part).write(styleparse(_returns.getDocu(), filemanager, root_folder, own_location));
