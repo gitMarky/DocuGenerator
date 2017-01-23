@@ -39,6 +39,24 @@ public class PageParser
 	}
 
 
+	public static List<IDocuItem> getHeaderList(final File file)
+	{
+		final PageParser parser = getParser(file);
+
+		final List<IDocuItem> headers = new ArrayList<IDocuItem>();
+
+		for (final String header : parser.getHeaders())
+		{
+			if (!"".equals(header))
+			{
+				headers.add(DocuParser.parse(header));
+			}
+		}
+		return headers;
+	}
+
+
+
 	private static PageParser getParser(final File file)
 	{
 		final PageParser parser = _contents.get(file);
@@ -57,17 +75,21 @@ public class PageParser
 
 	String getHeader()
 	{
-		final String expression = REGEX_DOCU_ONLY;
-		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
-
 		try
 		{
-			return matches.get(0);
+			return getHeaders().get(0);
 		}
 		catch (final IndexOutOfBoundsException e)
 		{
 			return "";
 		}
+	}
+
+
+	List<String> getHeaders()
+	{
+		final String expression = REGEX_DOCU_ONLY;
+		return RegexMatcher.getAllMatches(_content, expression);
 	}
 
 
