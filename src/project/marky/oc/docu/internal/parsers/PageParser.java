@@ -57,7 +57,7 @@ public class PageParser
 
 	String getHeader()
 	{
-		final String expression = REGEX_DOCU;
+		final String expression = REGEX_DOCU_ONLY;
 		final List<String> matches = RegexMatcher.getAllMatches(_content, expression);
 
 		try

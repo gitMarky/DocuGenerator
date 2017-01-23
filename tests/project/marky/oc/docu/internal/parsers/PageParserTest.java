@@ -40,7 +40,7 @@ public class PageParserTest
 
 		final String expected = build(
 				"/**",
-				" * This is a simple docu header.",
+				" This is the actual hidden header.",
 				" */");
 
 		assertEquals(expected, match);
