@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import project.marky.oc.docu.ApplicationLogger;
 import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.html.StdHtmlFile;
 import project.marky.oc.docu.logic.DocuPage;
@@ -144,6 +145,13 @@ public class HtmlHelpContents extends StdHtmlFile
 		for (int i = 0; i < namespace.getPages().size(); i++)
 		{
 			final String page = namespace.getPages().get(i).getIdentifier();
+
+			if (page == null)
+			{
+				ApplicationLogger.getLogger().warning("Page namespace is incomplete: " + namespaceFolder);
+				continue;
+			}
+
 			map.put(page, i);
 			pages.add(page);
 		}
@@ -153,7 +161,7 @@ public class HtmlHelpContents extends StdHtmlFile
 		for (final String page : pages)
 		{
 			final DocuPage docuPage = namespace.getPages().get(map.get(page));
-			if (docuPage.getIdentifier().equals("index")) continue;
+			if ("index".equals(docuPage.getIdentifier())) continue;
 
 			writePageEntries(outputFolder, namespace, docuPage);
 		}

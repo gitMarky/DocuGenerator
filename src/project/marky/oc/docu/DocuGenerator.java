@@ -291,6 +291,12 @@ public class DocuGenerator
 				final File outputFolderFile = getOutputFile(outputFolderProject, namespace.getIdentifier(), page.getIdentifier());
 				final String identifier = page.getIdentifier();
 
+				if (identifier == null)
+				{
+					ApplicationLogger.getLogger().warning("Page is incomplete: " + outputFolderFile);
+					continue;
+				}
+
 				String name = identifier;
 
 				for (int i = 2; map.keySet().contains(name); i++)

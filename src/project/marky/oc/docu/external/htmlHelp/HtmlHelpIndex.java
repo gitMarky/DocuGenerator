@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import project.marky.oc.docu.ApplicationLogger;
 import project.marky.oc.docu.html.StdHtmlFile;
 import project.marky.oc.docu.util.RelFilePath;
 
@@ -51,6 +52,9 @@ public class HtmlHelpIndex extends StdHtmlFile
 		writeHeader();
 
 		final ArrayList<String> names = new ArrayList<String>(_map.keySet());
+
+		ApplicationLogger.getLogger().info("Index names: " + names);
+
 		Collections.sort(names);
 
 		for (final String name : names)

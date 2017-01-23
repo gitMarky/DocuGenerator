@@ -11,7 +11,6 @@ import java.util.List;
 import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.html.StdHtmlFile;
-import project.marky.oc.docu.html.Styleparser;
 import project.marky.oc.docu.internal.interfaces.IDocuItem;
 import project.marky.oc.docu.internal.interfaces.IFunction;
 import project.marky.oc.docu.internal.interfaces.IParameter;
@@ -247,7 +246,8 @@ public class DocuPage
 
 	private String styleparse(final String content, final DocuGenerator filemanager, final File root_folder, final File own_location)
 	{
-		return Styleparser.parse(content, filemanager, root_folder, own_location);
+		return content;
+		//TODO was: return Styleparser.parse(content, filemanager, root_folder, own_location);
 	}
 
 
