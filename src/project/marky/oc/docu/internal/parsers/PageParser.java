@@ -8,6 +8,7 @@ import java.util.Map;
 
 import project.marky.oc.docu.internal.RegexMatcher;
 import project.marky.oc.docu.internal.interfaces.IDocuItem;
+import project.marky.oc.docu.internal.interfaces.IFunction;
 import project.marky.oc.docu.util.LoadFile;
 import static project.marky.oc.docu.internal.parsers.Regex.*;
 
@@ -55,6 +56,30 @@ public class PageParser
 		return headers;
 	}
 
+
+	public static List<IFunction> getFunctionList(final File file, final boolean ignoreUndocumented)
+	{
+		final PageParser parser = getParser(file);
+
+		final List<IFunction> functions = new ArrayList<IFunction>();
+
+		final List<String> list;
+		if (ignoreUndocumented)
+		{
+			list = parser.getDocumentedFunctions();
+		}
+		else
+		{
+			list = parser.getFunctionsWithDocuIfPossible();
+		}
+
+		for (final String function : list)
+		{
+			functions.add(FunctionParser.parse(function));
+		}
+
+		return functions;
+	}
 
 
 	private static PageParser getParser(final File file)

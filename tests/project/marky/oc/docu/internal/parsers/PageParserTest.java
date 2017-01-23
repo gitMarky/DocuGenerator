@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import project.marky.oc.docu.c4script.C4TypeDef;
+import project.marky.oc.docu.internal.interfaces.IDocuItem;
+import project.marky.oc.docu.internal.interfaces.IFunction;
 import project.marky.oc.docu.util.StringConstants;
 
 public class PageParserTest
@@ -289,5 +292,28 @@ public class PageParserTest
 		}
 
 		return builder.append(parts[last]).toString();
+	}
+
+
+	@Test
+	public void testHeaderParser()
+	{
+		final List<IDocuItem> headers = PageParser.getHeaderList(Files.FILE_WITH_HEADER);
+
+		assertEquals(1, headers.size());
+		assertEquals("This is a simple docu header.", headers.get(0).getDescription());
+	}
+
+
+	@Test
+	public void testFunctionParser()
+	{
+		final List<IFunction> functions = PageParser.getFunctionList(Files.FILE_WITH_HEADER, false);
+
+		assertEquals(1, functions.size());
+		assertEquals("This is a function comment.", functions.get(0).getDescription());
+		assertEquals("foo", functions.get(0).getTitle());
+		assertEquals("public", functions.get(0).getAccessModifier());
+		assertEquals(C4TypeDef.C4V_Any, functions.get(0).getReturnValue().getType());
 	}
 }
