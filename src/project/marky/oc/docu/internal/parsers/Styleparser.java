@@ -8,7 +8,7 @@ import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.internal.StdNamespace;
 import project.marky.oc.docu.util.RelFilePath;
 
-public class Styleparser
+public class StyleParser
 {
 	public static String parse(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
