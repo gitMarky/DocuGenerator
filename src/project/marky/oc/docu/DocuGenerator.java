@@ -16,6 +16,7 @@ import project.marky.oc.docu.internal.parsers.PageParser;
 import project.marky.oc.docu.logic.DocuPage;
 import project.marky.oc.docu.logic.StdNamespace;
 import project.marky.oc.docu.logic.StdNamespaceManager;
+import project.marky.oc.docu.util.Constants;
 import project.marky.oc.docu.util.LoadFile;
 import project.marky.oc.docu.util.RelFilePath;
 
@@ -24,6 +25,7 @@ import project.marky.oc.docu.util.RelFilePath;
  */
 public class DocuGenerator
 {
+	private static final String LIST_PARSING = " * Parsing: ";
 	private final StdNamespaceManager _namespaces;
 
 
@@ -63,12 +65,24 @@ public class DocuGenerator
 		final List<File> scriptFiles = new ArrayList<File>();
 		final List<File> docuFiles = new ArrayList<File>();
 
+		ApplicationLogger.getLogger().info(Constants.HLINE);
+		ApplicationLogger.getLogger().info("Read all relevant files in the input folder");
+		ApplicationLogger.getLogger().info(Constants.HLINE);
+
 		// Read all relevant files in the input folder
 		parseFolder(inputFolderProject, defCoreFiles, docuFiles, scriptFiles);
+
+		ApplicationLogger.getLogger().info(Constants.HLINE);
+		ApplicationLogger.getLogger().info("Parse the individual files for docu");
+		ApplicationLogger.getLogger().info(Constants.HLINE);
 
 		// Parse the individual files for docu
 		parseDefcoreFiles(defCoreFiles);
 		parseScriptFiles(scriptFiles, docuFiles, includeUndocumentedFunctions);
+
+		ApplicationLogger.getLogger().info(Constants.HLINE);
+		ApplicationLogger.getLogger().info("Create the docu project");
+		ApplicationLogger.getLogger().info(Constants.HLINE);
 
 		// Create the HtmlHelpProject
 		createHtmlHelpProject(outputFolderProject, cssStyleSheet, title);
@@ -89,11 +103,13 @@ public class DocuGenerator
 
 	private void parseDefcoreFiles(final List<File> defCoreFiles)
 	{
+		ApplicationLogger.getLogger().info(Constants.HLINE_THIN);
 		ApplicationLogger.getLogger().info("DefCore Files:");
+		ApplicationLogger.getLogger().info(Constants.HLINE_THIN);
 
 		for (final File file : defCoreFiles)
 		{
-			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
+			ApplicationLogger.getLogger().info(LIST_PARSING + file.getAbsolutePath());
 			parseDefcore(file);
 		}
 	}
@@ -133,34 +149,37 @@ public class DocuGenerator
 				name = name.substring(0, name.lastIndexOf("."));
 			}
 
-			ApplicationLogger.getLogger().info(" * > adding namespace '" + definition + "'");
+			ApplicationLogger.getLogger().info(" * --> Adding namespace '" + definition + "'");
 
 			final StdNamespace namespace = new StdNamespace(definition, name, file.getParentFile());
 			_namespaces.addNamespace(namespace);
 		}
 		else
 		{
-			ApplicationLogger.getLogger().info(" * > no ID found");
+			ApplicationLogger.getLogger().warning("# Found no ID in " + file.getAbsolutePath());
 		}
 	}
 
 
 	private void parseScriptFiles(final List<File> scriptFiles, final List<File> docuFiles, final boolean includeUndocumentedFunctions)
 	{
-
-		ApplicationLogger.getLogger().info("Docu Files:");
+		ApplicationLogger.getLogger().info(Constants.HLINE_THIN);
+		ApplicationLogger.getLogger().info("Docu Files");
+		ApplicationLogger.getLogger().info(Constants.HLINE_THIN);
 
 		for (final File file : docuFiles)
 		{
-			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
+			ApplicationLogger.getLogger().info(LIST_PARSING + file.getAbsolutePath());
 			parseScriptFile(file, true, includeUndocumentedFunctions);
 		}
 
-		ApplicationLogger.getLogger().info("Script Files:");
+		ApplicationLogger.getLogger().info(Constants.HLINE_THIN);
+		ApplicationLogger.getLogger().info("Script Files");
+		ApplicationLogger.getLogger().info(Constants.HLINE_THIN);
 
 		for (final File file : scriptFiles)
 		{
-			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
+			ApplicationLogger.getLogger().info(LIST_PARSING + file.getAbsolutePath());
 			parseScriptFile(file, false, includeUndocumentedFunctions);
 		}
 	}
@@ -172,7 +191,7 @@ public class DocuGenerator
 
 		if (space == null)
 		{
-			ApplicationLogger.getLogger().warning(" * > cannot add to namespace with origin '" + file + "'");
+			ApplicationLogger.getLogger().warning("# Cannot add to namespace with origin '" + file + "'");
 		}
 
 		for (final IDocuItem docu : PageParser.getHeaderList(file))
@@ -214,7 +233,7 @@ public class DocuGenerator
 	private void addPageToNamespace(final DocuPage page, final StdNamespace space)
 	{
 		space.add(page);
-		ApplicationLogger.getLogger().info(" * > added " + space.getIdentifier() + "#" + page.getIdentifier());
+		ApplicationLogger.getLogger().info(" * --> Found function " + space.getIdentifier() + "#" + page.getIdentifier());
 	}
 
 
