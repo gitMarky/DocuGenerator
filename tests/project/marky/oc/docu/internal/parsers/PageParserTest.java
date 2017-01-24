@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import project.marky.oc.docu.c4script.C4TypeDef;
+import project.marky.oc.docu.internal.C4TypeDef;
 import project.marky.oc.docu.internal.interfaces.IDocuItem;
 import project.marky.oc.docu.internal.interfaces.IFunction;
 import project.marky.oc.docu.util.StringConstants;

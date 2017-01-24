@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import project.marky.oc.docu.c4script.C4TypeDef;
+import project.marky.oc.docu.internal.C4TypeDef;
 import project.marky.oc.docu.internal.interfaces.IFunction;
 
 public class FunctionParserTest

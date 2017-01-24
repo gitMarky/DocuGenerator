@@ -1,4 +1,4 @@
-package project.marky.oc.docu.c4script;
+package project.marky.oc.docu.internal;
 
 public enum C4TypeDef
 {

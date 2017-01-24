@@ -11,10 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import project.marky.oc.docu.ApplicationLogger;
-import project.marky.oc.docu.IProjectConfiguration;
-import project.marky.oc.docu.ProjectConfiguration;
 import project.marky.oc.docu.gui.fileChoosers.FileChooserCssFile;
 import project.marky.oc.docu.gui.fileChoosers.FileChooserDirectory;
+import project.marky.oc.docu.internal.ProjectConfiguration;
+import project.marky.oc.docu.internal.interfaces.IProjectConfiguration;
 import project.marky.oc.docu.util.StyleConstants;
 
 /**

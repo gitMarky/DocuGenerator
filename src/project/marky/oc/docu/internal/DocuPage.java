@@ -1,4 +1,4 @@
-package project.marky.oc.docu.logic;
+package project.marky.oc.docu.internal;
 
 import static project.marky.oc.docu.util.StringConstants.IDENTIFIER_PAR_CLOSE;
 import static project.marky.oc.docu.util.StringConstants.IDENTIFIER_PAR_OPEN;
@@ -9,7 +9,6 @@ import java.util.Iterator;
 
 import project.marky.oc.docu.ApplicationLogger;
 import project.marky.oc.docu.DocuGenerator;
-import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.html.StdHtmlFile;
 import project.marky.oc.docu.internal.interfaces.IDocuItem;
 import project.marky.oc.docu.internal.interfaces.IFunction;

@@ -1,6 +1,5 @@
 package project.marky.oc.docu.internal;
 
-import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.internal.interfaces.IParameter;
 
 public class Parameter implements IParameter

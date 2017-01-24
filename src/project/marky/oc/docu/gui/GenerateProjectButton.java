@@ -8,7 +8,7 @@ import javax.swing.JButton;
 
 import project.marky.oc.docu.ApplicationLogger;
 import project.marky.oc.docu.DocuGenerator;
-import project.marky.oc.docu.IProjectConfiguration;
+import project.marky.oc.docu.internal.interfaces.IProjectConfiguration;
 
 
 @SuppressWarnings("serial") // No serialization intended

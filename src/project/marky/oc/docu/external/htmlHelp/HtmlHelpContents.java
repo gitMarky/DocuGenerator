@@ -8,8 +8,8 @@ import java.util.HashMap;
 import project.marky.oc.docu.ApplicationLogger;
 import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.html.StdHtmlFile;
-import project.marky.oc.docu.logic.DocuPage;
-import project.marky.oc.docu.logic.StdNamespace;
+import project.marky.oc.docu.internal.DocuPage;
+import project.marky.oc.docu.internal.StdNamespace;
 import project.marky.oc.docu.util.StringConstants;
 
 /**

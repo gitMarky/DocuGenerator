@@ -1,6 +1,6 @@
 package project.marky.oc.docu.internal.interfaces;
 
-import project.marky.oc.docu.c4script.C4TypeDef;
+import project.marky.oc.docu.internal.C4TypeDef;
 
 public interface IParameter
 {

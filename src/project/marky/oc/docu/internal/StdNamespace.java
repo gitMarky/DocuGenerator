@@ -1,4 +1,4 @@
-package project.marky.oc.docu.logic;
+package project.marky.oc.docu.internal;
 
 import java.io.File;
 import java.util.ArrayList;

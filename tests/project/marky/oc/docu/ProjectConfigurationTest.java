@@ -6,6 +6,9 @@ import java.io.File;
 
 import org.junit.Test;
 
+import project.marky.oc.docu.internal.ProjectConfiguration;
+import project.marky.oc.docu.internal.interfaces.IProjectConfiguration;
+
 public class ProjectConfigurationTest
 {
 

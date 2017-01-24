@@ -3,7 +3,7 @@ package project.marky.oc.docu.internal.parsers;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.marky.oc.docu.c4script.C4TypeDef;
+import project.marky.oc.docu.internal.C4TypeDef;
 import project.marky.oc.docu.internal.Function;
 import project.marky.oc.docu.internal.Parameter;
 import project.marky.oc.docu.internal.RegexMatcher;

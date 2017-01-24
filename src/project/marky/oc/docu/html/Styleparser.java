@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import project.marky.oc.docu.DocuGenerator;
-import project.marky.oc.docu.logic.StdNamespace;
+import project.marky.oc.docu.internal.StdNamespace;
 import project.marky.oc.docu.util.RelFilePath;
 
 public class Styleparser

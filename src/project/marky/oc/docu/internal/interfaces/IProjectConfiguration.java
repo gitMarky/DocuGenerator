@@ -1,4 +1,4 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.internal.interfaces;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package project.marky.oc.docu;
+package project.marky.oc.docu.internal;
 
 import java.io.File;
 
@@ -6,6 +6,8 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 
 import project.marky.library.xml.BasicXmlFile;
+import project.marky.oc.docu.ApplicationLogger;
+import project.marky.oc.docu.internal.interfaces.IProjectConfiguration;
 
 
 /**
