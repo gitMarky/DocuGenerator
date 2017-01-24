@@ -163,11 +163,18 @@ public class DocuPage
 		//
 		// return value
 
-		if (_function.getReturnValue() != null && _function.getReturnValue().getDocu() != null)
+		if (_function.getReturnValue() != null)
 		{
-			_html.h2().write("Return Value")._h2().newline();
-			_html.div(part).write(styleparse(_function.getReturnValue().getDocu(), filemanager, root_folder, own_location));
-			_html._div().newline();
+			if (_function.getReturnValue().getDocu() == null)
+			{
+				ApplicationLogger.getLogger().warning("Return value without documentation");
+			}
+			else
+			{
+				_html.h2().write("Return Value")._h2().newline();
+				_html.div(part).write(styleparse(_function.getReturnValue().getDocu(), filemanager, root_folder, own_location));
+				_html._div().newline();
+			}
 		}
 	}
 
