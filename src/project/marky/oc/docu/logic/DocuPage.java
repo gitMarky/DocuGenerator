@@ -44,7 +44,7 @@ public class DocuPage
 
 		if (_identifier == null)
 		{
-			ApplicationLogger.getLogger().warning("Docu without title");
+			ApplicationLogger.getLogger().warning("# Docu without title");
 		}
 
 		_docu = docu;
@@ -64,7 +64,7 @@ public class DocuPage
 
 		if (_identifier == null)
 		{
-			ApplicationLogger.getLogger().warning("Function without name/title");
+			ApplicationLogger.getLogger().warning("# Function without name/title");
 		}
 
 		_docu = function;
@@ -153,7 +153,7 @@ public class DocuPage
 
 				if (docu == null)
 				{
-					ApplicationLogger.getLogger().warning("Parameter without documentation: " + _function.getTitle() + ", " + parameter.getName());
+					ApplicationLogger.getLogger().warning("# Parameter without documentation: " + _function.getTitle() + ", " + parameter.getName());
 				}
 				else
 				{
@@ -171,7 +171,7 @@ public class DocuPage
 		{
 			if (_function.getReturnValue().getDocu() == null)
 			{
-				ApplicationLogger.getLogger().warning("Return value without documentation");
+				ApplicationLogger.getLogger().warning("# Return value without documentation");
 			}
 			else
 			{

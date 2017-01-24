@@ -148,7 +148,7 @@ public class HtmlHelpContents extends StdHtmlFile
 
 			if (page == null)
 			{
-				ApplicationLogger.getLogger().warning("Page namespace is incomplete: " + namespaceFolder);
+				ApplicationLogger.getLogger().warning("# Page namespace is incomplete: " + namespaceFolder);
 				continue;
 			}
 

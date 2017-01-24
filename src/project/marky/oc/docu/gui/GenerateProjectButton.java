@@ -95,7 +95,7 @@ public class GenerateProjectButton extends JButton
 		{
 			if (_thread != null)
 			{
-				ApplicationLogger.getLogger().warning("Thread was unintentionally still alive");
+				ApplicationLogger.getLogger().warning("# Thread was unintentionally still alive");
 				_thread.interrupt();
 				_thread = null;
 			}

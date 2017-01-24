@@ -144,7 +144,7 @@ public class DocuGui
 		}
 		else
 		{
-			ApplicationLogger.getLogger().warning("Skip loading the previous session, because the file is missing");
+			ApplicationLogger.getLogger().warning("# Skip loading the previous session, because the file is missing");
 		}
 	}
 

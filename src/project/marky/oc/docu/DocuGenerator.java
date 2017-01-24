@@ -313,7 +313,7 @@ public class DocuGenerator
 
 				if (identifier == null)
 				{
-					ApplicationLogger.getLogger().warning("Page is incomplete: " + outputFolderFile);
+					ApplicationLogger.getLogger().warning("# Page is incomplete: " + outputFolderFile);
 					continue;
 				}
 
