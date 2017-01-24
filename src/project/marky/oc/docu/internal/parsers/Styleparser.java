@@ -10,7 +10,7 @@ import project.marky.oc.docu.util.RelFilePath;
 
 public class StyleParser
 {
-	public static String parse(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
+	public static String resolve(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
 		return content;
 		//TODO: was: final String text = parseBlock(content, filemanager, root_folder, origin);

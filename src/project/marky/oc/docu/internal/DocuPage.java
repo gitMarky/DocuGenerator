@@ -13,6 +13,7 @@ import project.marky.oc.docu.html.StdHtmlFile;
 import project.marky.oc.docu.internal.interfaces.IDocuItem;
 import project.marky.oc.docu.internal.interfaces.IFunction;
 import project.marky.oc.docu.internal.interfaces.IParameter;
+import project.marky.oc.docu.internal.parsers.StyleParser;
 
 
 /**
@@ -250,8 +251,7 @@ public class DocuPage
 
 	private String styleparse(final String content, final DocuGenerator filemanager, final File root_folder, final File own_location)
 	{
-		return content;
-		//TODO was: return Styleparser.parse(content, filemanager, root_folder, own_location);
+		return StyleParser.resolve(content, filemanager, root_folder, own_location);
 	}
 
 
