@@ -28,9 +28,6 @@ public class DocuPage
 
 	private StdHtmlFile _html;
 
-	// identification
-	@SuppressWarnings("unused")
-	private final String _htmlID;
 
 	private final IDocuItem _docu;
 	private final IFunction _function;
@@ -44,7 +41,6 @@ public class DocuPage
 	public DocuPage(final IDocuItem docu)
 	{
 		_identifier = docu.getIdentifier();
-		_htmlID = docu.getIdentifier();
 
 		if (_identifier == null)
 		{
@@ -65,7 +61,6 @@ public class DocuPage
 	public DocuPage(final IFunction function)
 	{
 		_identifier = function.getIdentifier();
-		_htmlID = function.getIdentifier();
 
 		if (_identifier == null)
 		{
