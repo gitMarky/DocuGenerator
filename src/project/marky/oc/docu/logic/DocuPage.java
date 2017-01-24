@@ -235,7 +235,10 @@ public class DocuPage
 	{
 		if (content != null)
 		{
-			_html.h2().write(description)._h2().newline().write(styleparse(content, filemanager, root_folder, own_location)).newline();
+			final String part = "class=\"part\"";
+
+			_html.h2().write(description)._h2().newline();
+			_html.div(part).write(styleparse(content, filemanager, root_folder, own_location))._div().newline();
 		}
 	}
 
