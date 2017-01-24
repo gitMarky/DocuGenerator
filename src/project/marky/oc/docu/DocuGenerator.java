@@ -179,15 +179,16 @@ public class DocuGenerator
 		{
 			final DocuPage page = new DocuPage(docu);
 
-			final String identifier = "temp"; // TODO
+			//final String identifier = "temp"; // TODO
+
 
 			if (space == null || addDocuToDocuNamespace)
 			{
-				addPageToNamespace(page, _namespaces.getNamespaceDocu(), identifier);
+				addPageToNamespace(page, _namespaces.getNamespaceDocu(), page.getIdentifier());
 			}
 			else
 			{
-				addPageToNamespace(page, space, identifier);
+				addPageToNamespace(page, space, page.getIdentifier());
 			}
 		}
 
@@ -197,13 +198,13 @@ public class DocuGenerator
 
 			if (function.getAccessModifier() != null && function.getAccessModifier().equals(StdNamespace.NAMESPACE_GLOBAL))
 			{
-				addPageToNamespace(page, _namespaces.getNamespaceGlobal(), function.getTitle());
+				addPageToNamespace(page, _namespaces.getNamespaceGlobal(), page.getIdentifier()); // , function.getTitle());
 			}
 			else
 			{
 				if (space != null)
 				{
-					addPageToNamespace(page, space, function.getTitle());
+					addPageToNamespace(page, space, page.getIdentifier()); //, function.getTitle());
 				}
 			}
 		}
