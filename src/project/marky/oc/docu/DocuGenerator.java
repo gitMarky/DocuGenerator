@@ -25,7 +25,7 @@ import project.marky.oc.docu.util.RelFilePath;
  */
 public class DocuGenerator
 {
-	private static final String LIST_PARSING = " * Parsing: ";
+	private static final String LIST_PARSING = "Parsing: ";
 	private final StdNamespaceManager _namespaces;
 
 
@@ -149,7 +149,7 @@ public class DocuGenerator
 				name = name.substring(0, name.lastIndexOf("."));
 			}
 
-			ApplicationLogger.getLogger().info(" * --> Adding namespace '" + definition + "'");
+			ApplicationLogger.getLogger().info("--> Adding namespace '" + definition + "'");
 
 			final StdNamespace namespace = new StdNamespace(definition, name, file.getParentFile());
 			_namespaces.addNamespace(namespace);
@@ -233,7 +233,7 @@ public class DocuGenerator
 	private void addPageToNamespace(final DocuPage page, final StdNamespace space)
 	{
 		space.add(page);
-		ApplicationLogger.getLogger().info(" * --> Found function " + space.getIdentifier() + "#" + page.getIdentifier());
+		ApplicationLogger.getLogger().info("--> Found function " + space.getIdentifier() + "#" + page.getIdentifier());
 	}
 
 
@@ -276,12 +276,12 @@ public class DocuGenerator
 	{
 		for (final StdNamespace namespace : _namespaces.getNamespaces())
 		{
-			ApplicationLogger.getLogger().info("## " + namespace.getIdentifier());
+			ApplicationLogger.getLogger().info("Creating functions in namespace '" + namespace.getIdentifier() + "'");
 
 			for (final DocuPage page : namespace.getPages())
 			{
 				final File outputFolderFile = getOutputFile(outputFolderProject, namespace.getIdentifier(), page.getIdentifier());
-				ApplicationLogger.getLogger().info("##### " + page.getIdentifier() + ": " + outputFolderFile.getAbsolutePath());
+				ApplicationLogger.getLogger().info("--> Page '" + page.getIdentifier() + "': " + outputFolderFile.getAbsolutePath());
 
 
 				final String css_location = RelFilePath.fromTo(outputFolderFile, cssStyleSheet);
