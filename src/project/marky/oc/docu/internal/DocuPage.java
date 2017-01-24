@@ -158,7 +158,7 @@ public class DocuPage
 				else
 				{
 					// parameter description
-					_html.div(part).write(styleparse(docu, filemanager, root_folder, own_location))._div().newline();
+					_html.div(part).write(resolve(docu, filemanager, root_folder, own_location))._div().newline();
 				}
 			}
 		}
@@ -176,7 +176,7 @@ public class DocuPage
 			else
 			{
 				_html.h2().write("Return Value")._h2().newline();
-				_html.div(part).write(styleparse(_function.getReturnValue().getDocu(), filemanager, root_folder, own_location));
+				_html.div(part).write(resolve(_function.getReturnValue().getDocu(), filemanager, root_folder, own_location));
 				_html._div().newline();
 			}
 		}
@@ -238,7 +238,7 @@ public class DocuPage
 			final String part = "class=\"part\"";
 
 			_html.h2().write(description)._h2().newline();
-			_html.div(part).write(styleparse(content, filemanager, root_folder, own_location))._div().newline();
+			_html.div(part).write(resolve(content, filemanager, root_folder, own_location))._div().newline();
 		}
 	}
 
@@ -249,7 +249,17 @@ public class DocuPage
 	}
 
 
-	private String styleparse(final String content, final DocuGenerator filemanager, final File root_folder, final File own_location)
+	/**
+	 * Resolves any links and style tags in the input string.
+	 * 
+	 * @param content the input string.
+	 * @param filemanager the docu generator.
+	 * @param root_folder the root folder.
+	 * @param own_location the location of this file, for resolving relative paths in links.
+
+	 * @return the resolved string.
+	 */
+	private String resolve(final String content, final DocuGenerator filemanager, final File root_folder, final File own_location)
 	{
 		return StyleParser.resolve(content, filemanager, root_folder, own_location);
 	}
