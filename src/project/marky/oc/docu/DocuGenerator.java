@@ -21,6 +21,13 @@ import project.marky.oc.docu.util.Constants;
 import project.marky.oc.docu.util.LoadFile;
 import project.marky.oc.docu.util.RelFilePath;
 
+
+// TODO: clean code a little more
+// TODO: the html creation script should be cleaned thouroughly
+// TODO: the style parser should be tested methodically
+// TODO: document functions if necessary
+// TODO: remove unnecessary stuff
+
 /**
  * The class that generates the html files and the project files for html help.
  */
