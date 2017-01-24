@@ -6,6 +6,8 @@ import static project.marky.oc.docu.util.StringConstants.SPACE_STRING;
 
 import java.io.File;
 import java.util.Iterator;
+
+import project.marky.oc.docu.ApplicationLogger;
 import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.html.StdHtmlFile;
@@ -131,9 +133,13 @@ public class DocuPage
 
 			for (final IParameter parameter : _function.getParameters())
 			{
-
 				final String docu = parameter.getDocu();
 				final C4TypeDef type = parameter.getType();
+
+				if (docu == null)
+				{
+					ApplicationLogger.getLogger().warning("Parameter without documentation: " + _function.getTitle() + ", " + parameter.getName());
+				}
 
 				// parameter name
 				_html.div(parn).write(parameter.getName());

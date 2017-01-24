@@ -3,7 +3,6 @@ package project.marky.oc.docu.internal.parsers;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.marky.oc.docu.ApplicationLogger;
 import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.internal.Function;
 import project.marky.oc.docu.internal.Parameter;
@@ -75,8 +74,6 @@ public class FunctionParser
 			final String type = line.replaceAll("\\s*(\\w+)\\s+.*", "$1");
 			final String name = line.replaceAll("\\s*\\w+\\s+(.*)", "$1");
 
-			ApplicationLogger.getLogger().info("TypeDef: Entire line is " + line);
-
 			final Parameter parameter = new Parameter(name, null, C4TypeDef.fromString(type));
 			parameters.add(parameter);
 		}
@@ -129,8 +126,6 @@ public class FunctionParser
 		}
 
 		final String[] typeAndDocu = parserDocu.getReturnValue();
-
-		ApplicationLogger.getLogger().info("TypeDef: Return value " + typeAndDocu[0] + ", " + typeAndDocu[1]);
 
 		function.setReturnValue(new Parameter("return value", typeAndDocu[1], C4TypeDef.fromString(typeAndDocu[0])));
 
