@@ -43,8 +43,13 @@ public class DocuPage
 	 */
 	public DocuPage(final IDocuItem docu)
 	{
-		_identifier = docu.getTitle(); //docu.getIdentifier();
+		_identifier = docu.getTitle();
 		_htmlID = docu.getTitle();
+
+		if (_identifier == null)
+		{
+			ApplicationLogger.getLogger().warning("Docu without title");
+		}
 
 		_docu = docu;
 		_function = null;
@@ -60,8 +65,12 @@ public class DocuPage
 	public DocuPage(final IFunction function)
 	{
 		_identifier = function.getTitle();
-
 		_htmlID = function.getTitle();
+
+		if (_identifier == null)
+		{
+			ApplicationLogger.getLogger().warning("Function without name/title");
+		}
 
 		_docu = function;
 		_function = function;
