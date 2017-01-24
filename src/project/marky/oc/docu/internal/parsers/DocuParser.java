@@ -178,10 +178,20 @@ public class DocuParser
 
 		if (docu.getTitle() == null)
 		{
-			docu.setTitle(createTitle(file.getName()));
+			docu.setTitle(createTitle(file.getParentFile().getName()));
 		}
 
-		docu.setIdentifier(Helper.removeSpecialCharacters(docu.getTitle().toLowerCase()).replace(" ", "_"));
+		if (docu.getIdentifier() == null)
+		{
+			if (file.getName().equalsIgnoreCase("script.c"))
+			{
+				docu.setIdentifier("index");
+			}
+			else
+			{
+				docu.setIdentifier(Helper.removeSpecialCharacters(docu.getTitle().toLowerCase()).replace(" ", "_"));
+			}
+		}
 
 		return docu;
 	}
