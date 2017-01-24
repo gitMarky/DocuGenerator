@@ -1,5 +1,7 @@
 package project.marky.oc.docu.c4script;
 
+import project.marky.oc.docu.ApplicationLogger;
+
 public enum C4TypeDef
 {
 	C4V_Any("any"),
@@ -26,10 +28,15 @@ public enum C4TypeDef
 
 	public static C4TypeDef fromString(final String string)
 	{
+		ApplicationLogger.getLogger().info("TypeDef: Parsing " + string);
+
 		for (final C4TypeDef def : values())
 		{
 			if (def.getString().equals(string))
+			{
+				ApplicationLogger.getLogger().info("TypeDef: Parsed " + def.getString());
 				return def;
+			}
 		}
 
 		return C4V_Any;
