@@ -57,20 +57,20 @@ public class PageParser
 	}
 
 
-	public static List<IFunction> getFunctionList(final File file, final boolean ignoreUndocumented)
+	public static List<IFunction> getFunctionList(final File file, final boolean includeUndocumentedFunctions)
 	{
 		final PageParser parser = getParser(file);
 
 		final List<IFunction> functions = new ArrayList<IFunction>();
 
 		final List<String> list;
-		if (ignoreUndocumented)
+		if (includeUndocumentedFunctions)
 		{
-			list = parser.getDocumentedFunctions();
+			list = parser.getFunctionsWithDocuIfPossible();
 		}
 		else
 		{
-			list = parser.getFunctionsWithDocuIfPossible();
+			list = parser.getDocumentedFunctions();
 		}
 
 		for (final String function : list)

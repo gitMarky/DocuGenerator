@@ -40,7 +40,7 @@ public class DocuGenerator
 	 */
 	public void run(final IProjectConfiguration configuration)
 	{
-		run(configuration.getSource(), configuration.getOutput(), configuration.getStylesheet(), configuration.getTitle());
+		run(configuration.getSource(), configuration.getOutput(), configuration.getStylesheet(), configuration.getTitle(), false);
 	}
 
 
@@ -57,7 +57,7 @@ public class DocuGenerator
 	 * @param title
 	 *            this is the title of the documentation project in html help.
 	 */
-	private void run(final File inputFolderProject, final File outputFolderProject, final File cssStyleSheet, final String title)
+	private void run(final File inputFolderProject, final File outputFolderProject, final File cssStyleSheet, final String title, final boolean includeUndocumentedFunctions)
 	{
 		final List<File> defCoreFiles = new ArrayList<File>();
 		final List<File> scriptFiles = new ArrayList<File>();
@@ -68,7 +68,7 @@ public class DocuGenerator
 
 		// Parse the individual files for docu
 		parseDefcoreFiles(defCoreFiles);
-		parseScriptFiles(scriptFiles, docuFiles);
+		parseScriptFiles(scriptFiles, docuFiles, includeUndocumentedFunctions);
 
 		// Create the HtmlHelpProject
 		createHtmlHelpProject(outputFolderProject, cssStyleSheet, title);
@@ -145,7 +145,7 @@ public class DocuGenerator
 	}
 
 
-	private void parseScriptFiles(final List<File> scriptFiles, final List<File> docuFiles)
+	private void parseScriptFiles(final List<File> scriptFiles, final List<File> docuFiles, final boolean includeUndocumentedFunctions)
 	{
 
 		ApplicationLogger.getLogger().info("Docu Files:");
@@ -153,7 +153,7 @@ public class DocuGenerator
 		for (final File file : docuFiles)
 		{
 			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
-			parseScriptFile(file, true);
+			parseScriptFile(file, true, includeUndocumentedFunctions);
 		}
 
 		ApplicationLogger.getLogger().info("Script Files:");
@@ -161,12 +161,12 @@ public class DocuGenerator
 		for (final File file : scriptFiles)
 		{
 			ApplicationLogger.getLogger().info(" * " + file.getAbsolutePath());
-			parseScriptFile(file, false);
+			parseScriptFile(file, false, includeUndocumentedFunctions);
 		}
 	}
 
 
-	private void parseScriptFile(final File file, final boolean addDocuToDocuNamespace)
+	private void parseScriptFile(final File file, final boolean addDocuToDocuNamespace, final boolean includeUndocumentedFunctions)
 	{
 		final StdNamespace space = _namespaces.getNamespace(file.getParentFile());
 
@@ -191,7 +191,7 @@ public class DocuGenerator
 			}
 		}
 
-		for (final IFunction function : PageParser.getFunctionList(file, false))
+		for (final IFunction function : PageParser.getFunctionList(file, includeUndocumentedFunctions))
 		{
 			final DocuPage page = new DocuPage(function);
 
