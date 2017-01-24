@@ -50,7 +50,7 @@ public class PageParser
 		{
 			if (!"".equals(header))
 			{
-				headers.add(DocuParser.parse(header));
+				headers.add(DocuParser.parse(header, file));
 			}
 		}
 		return headers;

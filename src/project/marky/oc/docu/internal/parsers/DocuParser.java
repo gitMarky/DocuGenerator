@@ -1,5 +1,6 @@
 package project.marky.oc.docu.internal.parsers;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -170,4 +171,59 @@ public class DocuParser
 	}
 
 
+	public static IDocuItem parse(final String header, final File file)
+	{
+		final DocuItem docu = (DocuItem) parse(header);
+
+		if (docu.getTitle() == null)
+		{
+			docu.setTitle(createTitle(file.getName()));
+		}
+
+		return docu;
+	}
+
+	private static String createTitle(final String filename)
+	{
+		final StringBuffer title = new StringBuffer("");
+
+		for (int start = 0, end = 0; end < filename.length(); end++)
+		{
+			boolean addWord = false;
+			boolean skipExtension = false;
+
+			if (Character.isUpperCase(filename.charAt(end)) && start != end)
+			{
+				addWord = true;
+			}
+			else if (filename.charAt(end) == '.')
+			{
+				addWord = true;
+				skipExtension = true;
+			}
+			else if (end >= filename.length() - 1)
+			{
+				addWord = true;
+			}
+
+			if (addWord)
+			{
+				if (title.length() > 0)
+				{
+					title.append(" ");
+				}
+
+				final String word = filename.substring(start, end);
+				title.append(word);
+				start = end;
+			}
+
+			if (skipExtension)
+			{
+				break;
+			}
+		}
+
+		return title.toString();
+	}
 }
