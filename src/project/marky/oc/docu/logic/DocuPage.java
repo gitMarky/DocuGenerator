@@ -136,11 +136,6 @@ public class DocuPage
 				final String docu = parameter.getDocu();
 				final C4TypeDef type = parameter.getType();
 
-				if (docu == null)
-				{
-					ApplicationLogger.getLogger().warning("Parameter without documentation: " + _function.getTitle() + ", " + parameter.getName());
-				}
-
 				// parameter name
 				_html.div(parn).write(parameter.getName());
 
@@ -152,8 +147,15 @@ public class DocuPage
 
 				_html.write(": ")._div().newline();
 
-				// parameter description
-				_html.div(part).write(styleparse(docu, filemanager, root_folder, own_location))._div().newline();
+				if (docu == null)
+				{
+					ApplicationLogger.getLogger().warning("Parameter without documentation: " + _function.getTitle() + ", " + parameter.getName());
+				}
+				else
+				{
+					// parameter description
+					_html.div(part).write(styleparse(docu, filemanager, root_folder, own_location))._div().newline();
+				}
 			}
 		}
 
