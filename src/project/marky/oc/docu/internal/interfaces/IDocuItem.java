@@ -6,6 +6,13 @@ package project.marky.oc.docu.internal.interfaces;
 public interface IDocuItem
 {
 	/**
+	 * A identifier for the item.
+	 * 
+	 * @return a directory-unique string
+	 */
+	String getIdentifier();
+
+	/**
 	 * The title, as denoted by TODO.
 	 * 
 	 * @return {@code null} if the value is not defined.

@@ -17,10 +17,17 @@ public class DocuItem implements IDocuItem
 	private String _credits = null;
 	private String _author = null;
 	private String _title = null;
+	private String _identifier;
 
 	////////////////////////////////////////////////////////////////
 	//
 	// from interface
+
+	@Override
+	public String getIdentifier()
+	{
+		return _identifier;
+	}
 
 	@Override
 	public String getTitle()
@@ -79,6 +86,12 @@ public class DocuItem implements IDocuItem
 	/////////////////////////////////////////////////////////////////
 	//
 	// setters
+
+	public void setIdentifier(final String identifier)
+	{
+		_identifier = identifier;
+	}
+
 
 	public void setTitle(final String title)
 	{

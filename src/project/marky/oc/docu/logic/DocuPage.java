@@ -43,8 +43,8 @@ public class DocuPage
 	 */
 	public DocuPage(final IDocuItem docu)
 	{
-		_identifier = docu.getTitle();
-		_htmlID = docu.getTitle();
+		_identifier = docu.getIdentifier();
+		_htmlID = docu.getIdentifier();
 
 		if (_identifier == null)
 		{
@@ -64,8 +64,8 @@ public class DocuPage
 	 */
 	public DocuPage(final IFunction function)
 	{
-		_identifier = function.getTitle();
-		_htmlID = function.getTitle();
+		_identifier = function.getIdentifier();
+		_htmlID = function.getIdentifier();
 
 		if (_identifier == null)
 		{

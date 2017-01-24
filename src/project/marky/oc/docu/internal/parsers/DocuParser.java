@@ -8,6 +8,7 @@ import java.util.Map;
 import project.marky.oc.docu.internal.DocuItem;
 import project.marky.oc.docu.internal.RegexMatcher;
 import project.marky.oc.docu.internal.interfaces.IDocuItem;
+import project.marky.oc.docu.util.Helper;
 import project.marky.oc.docu.util.StringConstants;
 
 public class DocuParser
@@ -179,6 +180,8 @@ public class DocuParser
 		{
 			docu.setTitle(createTitle(file.getName()));
 		}
+
+		docu.setIdentifier(Helper.removeSpecialCharacters(docu.getTitle().toLowerCase()).replace(" ", "_"));
 
 		return docu;
 	}

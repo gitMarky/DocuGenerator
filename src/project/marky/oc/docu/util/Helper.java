@@ -67,4 +67,19 @@ public class Helper
 
 		return false;
 	}
+
+
+	public static String removeSpecialCharacters(final String text)
+	{
+		final String[] specialCharacters = {"&", ":", "<", ">", ".", "#", "+", "-", "*", "\"", "'", "§", "@", "%"};
+
+		String transformed = text;
+
+		for (final String chr : specialCharacters)
+		{
+			transformed = transformed.replace(chr, EMPTY_STRING);
+		}
+
+		return transformed;
+	}
 }

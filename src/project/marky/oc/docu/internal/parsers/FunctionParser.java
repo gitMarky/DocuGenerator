@@ -105,6 +105,7 @@ public class FunctionParser
 		final Function function = new Function();
 
 		// basic docu stuff
+		function.setIdentifier(parser.getFunctionName());
 		function.setAuthor(parserDocu.getAuthor());
 		function.setCategory(parserDocu.getCategory());
 		function.setCredits(parserDocu.getCredits());
