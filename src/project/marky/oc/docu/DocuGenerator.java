@@ -184,11 +184,11 @@ public class DocuGenerator
 
 			if (space == null || addDocuToDocuNamespace)
 			{
-				addPageToNamespace(page, _namespaces.getNamespaceDocu(), page.getIdentifier());
+				addPageToNamespace(page, _namespaces.getNamespaceDocu());
 			}
 			else
 			{
-				addPageToNamespace(page, space, page.getIdentifier());
+				addPageToNamespace(page, space);
 			}
 		}
 
@@ -198,23 +198,23 @@ public class DocuGenerator
 
 			if (function.getAccessModifier() != null && function.getAccessModifier().equals(StdNamespace.NAMESPACE_GLOBAL))
 			{
-				addPageToNamespace(page, _namespaces.getNamespaceGlobal(), page.getIdentifier()); // , function.getTitle());
+				addPageToNamespace(page, _namespaces.getNamespaceGlobal());
 			}
 			else
 			{
 				if (space != null)
 				{
-					addPageToNamespace(page, space, page.getIdentifier()); //, function.getTitle());
+					addPageToNamespace(page, space);
 				}
 			}
 		}
 	}
 
 
-	private void addPageToNamespace(final DocuPage page, final StdNamespace space, final String identifier)
+	private void addPageToNamespace(final DocuPage page, final StdNamespace space)
 	{
 		space.add(page);
-		ApplicationLogger.getLogger().info(" * > added " + space.getIdentifier() + "#" + identifier);
+		ApplicationLogger.getLogger().info(" * > added " + space.getIdentifier() + "#" + page.getIdentifier());
 	}
 
 
