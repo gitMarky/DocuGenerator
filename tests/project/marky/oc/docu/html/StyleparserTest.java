@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import project.marky.oc.docu.internal.parsers.Styleparser;
+
 public class StyleparserTest
 {
 	@Test

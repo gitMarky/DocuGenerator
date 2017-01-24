@@ -1,4 +1,4 @@
-package project.marky.oc.docu.html;
+package project.marky.oc.docu.internal.parsers;
 
 import java.io.File;
 import java.util.regex.Matcher;
