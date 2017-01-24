@@ -6,8 +6,6 @@ import static project.marky.oc.docu.util.StringConstants.SPACE_STRING;
 
 import java.io.File;
 import java.util.Iterator;
-import java.util.List;
-
 import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.c4script.C4TypeDef;
 import project.marky.oc.docu.html.StdHtmlFile;
@@ -32,13 +30,8 @@ public class DocuPage
 	@SuppressWarnings("unused")
 	private final String _htmlID;
 
-	// function specific stuff
-	private String _returnsType;
-	private final IParameter _returns;
-	private final List<IParameter> _parameters;
-	private final String _visibility;
-
 	private final IDocuItem _docu;
+	private final IFunction _function;
 
 
 	/**
@@ -52,11 +45,7 @@ public class DocuPage
 		_htmlID = docu.getTitle();
 
 		_docu = docu;
-
-		// function-specific stuff
-		_returns = null;
-		_parameters = null;
-		_visibility = null;
+		_function = null;
 	}
 
 
@@ -73,11 +62,7 @@ public class DocuPage
 		_htmlID = function.getTitle();
 
 		_docu = function;
-
-		// function-specific stuff
-		_returns = function.getReturnValue();
-		_parameters = function.getParameters();
-		_visibility = function.getAccessModifier();
+		_function = function;
 	}
 
 
@@ -90,7 +75,7 @@ public class DocuPage
 	 */
 	private void buildFunctionDescription(final DocuGenerator filemanager, final File root_folder, final File own_location)
 	{
-		if (_returns == null && _parameters == null && _visibility == null) return;
+		if (_function == null) return;
 
 		// --------------------------------------------------------------------
 		//
@@ -105,14 +90,14 @@ public class DocuPage
 
 		_html.div(fnxsyntax).span(typespan);
 
-		if (_visibility != null)
+		if (_function.getAccessModifier() != null)
 		{
-			_html.write(_visibility + SPACE_STRING);
+			_html.write(_function.getAccessModifier() + SPACE_STRING);
 		}
 
-		if (_returnsType != null)
+		if (_function.getReturnValue().getType() != null)
 		{
-			_html.write(_returnsType);
+			_html.write(_function.getReturnValue().getType().getString());
 		}
 		else
 		{
@@ -123,14 +108,12 @@ public class DocuPage
 		_html.write(SPACE_STRING + _docu.getTitle() + IDENTIFIER_PAR_OPEN);
 
 		// write parameters into parenthesis
-		final Iterator<IParameter> parameterIterator = _parameters.iterator();
+		final Iterator<IParameter> parameterIterator = _function.getParameters().iterator();
 		while (parameterIterator.hasNext())
 		{
 			final IParameter parameter = parameterIterator.next();
 
-			//			final C4TypeDef type = parameter;
-
-			/*if (type != null)*/ _html.span(typespan).write(parameter.getType().getString())._span();
+			_html.span(typespan).write(parameter.getType().getString())._span();
 			_html.write(SPACE_STRING + parameter.getName());
 
 			if (parameterIterator.hasNext()) _html.write(", ");
@@ -142,11 +125,11 @@ public class DocuPage
 		//
 		// parameter docu
 
-		if (_parameters.size() > 0)
+		if (_function.getParameters().size() > 0)
 		{
 			_html.h2().write("Parameters")._h2().newline();
 
-			for (final IParameter parameter : _parameters)
+			for (final IParameter parameter : _function.getParameters())
 			{
 
 				final String docu = parameter.getDocu();
@@ -172,10 +155,10 @@ public class DocuPage
 		//
 		// return value
 
-		if (_returns != null && _returns.getDocu() != null)
+		if (_function.getReturnValue() != null && _function.getReturnValue().getDocu() != null)
 		{
 			_html.h2().write("Return Value")._h2().newline();
-			_html.div(part).write(styleparse(_returns.getDocu(), filemanager, root_folder, own_location));
+			_html.div(part).write(styleparse(_function.getReturnValue().getDocu(), filemanager, root_folder, own_location));
 			_html._div().newline();
 		}
 	}
