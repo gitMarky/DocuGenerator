@@ -18,7 +18,7 @@ public class StyleParserTest
 	@Test
 	public void testQuotes()
 	{
-		assertEquals("text1 \"text2\" text3 \"text4", StyleParser.resolve("text1 @qtest2@q text3 @qtext4", null, null, null));
+		assertEquals("text1 \"text2\" text3 \"text4", StyleParser.resolve("text1 @qtext2@q text3 @qtext4", null, null, null));
 	}
 
 
@@ -30,7 +30,7 @@ public class StyleParserTest
 
 
 	@Test
-	public void testCursive()
+	public void testItalic()
 	{
 		assertEquals("text1 <i>italic</i> text2", StyleParser.resolve("text1 {@i italic} text2", null, null, null));
 	}
@@ -86,6 +86,17 @@ public class StyleParserTest
 	public void testItalicBold()
 	{
 		assertEquals("<i>italic here <b>and bold</b></i>", StyleParser.resolve("{@i italic here {@b and bold}}", null, null, null));
+	}
+
+
+	/**
+	 * This can be tricky if implemented poorly, because @br and {@b} share the same starting letter
+	 */
+	@Test
+	public void testBoldLinebreak()
+	{
+		assertEquals("{@br this is not an actual block}", StyleParser.resolve("{@br this is not an actual block}", null, null, null));
+		assertEquals("<b><br>this is resolved</b>", StyleParser.resolve("{@b @br this is resolved}", null, null, null));
 	}
 
 

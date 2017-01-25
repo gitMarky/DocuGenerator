@@ -35,21 +35,28 @@ public class StyleParser
 	}
 
 
-	private enum StyleSingleKeywords
+	enum StyleSingleKeywords
 	{
-		tag_linebreak("@br"),
-		char_string_escaped("@q");
+		tag_linebreak("@br", "<br>"),
+		char_string_escaped("@q", "\"");
 
 		private final String _word;
+		private final String _replace;
 
-		StyleSingleKeywords(final String word)
+		StyleSingleKeywords(final String word, final String replace)
 		{
 			_word = word;
+			_replace = replace;
 		}
 
 		private String get()
 		{
 			return _word;
+		}
+
+		private String replace()
+		{
+			return _replace;
 		}
 	}
 
@@ -187,7 +194,19 @@ public class StyleParser
 			default:
 				throw new IllegalArgumentException("Not implemented yet: " + key.get());
 		}
+	}
 
+
+	static String resolveSingleKeywords(final String content)
+	{
+		String resolved = content;
+
+		for (final StyleSingleKeywords keyword : StyleSingleKeywords.values())
+		{
+			resolved = resolved.replaceAll(keyword.get(), keyword.replace());
+		}
+
+		return resolved;
 	}
 
 
