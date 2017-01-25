@@ -27,6 +27,7 @@ import project.marky.oc.docu.util.RelFilePath;
 // TODO: the style parser should be tested methodically
 // TODO: document functions if necessary
 // TODO: remove unnecessary stuff
+// TODO: warnings for unsupported tags?
 
 /**
  * The class that generates the html files and the project files for html help.
