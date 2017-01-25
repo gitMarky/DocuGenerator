@@ -168,8 +168,8 @@ public class StyleParser
 
 	static String resolveInnerBlock(final String match)
 	{
-		final String keyword = match.replaceAll("\\{(\\@\\w+)\\s(.*)\\}", "$1");
-		final String text = match.replaceAll("\\{\\@\\w\\s(.*)\\}", "$1");
+		final String keyword = match.replaceAll("\\{(\\@\\w+)\\s+(.*)\\}", "$1");
+		final String text = match.replaceAll("\\{\\@\\w+\\s+(.*)\\}", "$1");
 
 		final StyleBlockKeywords key = StyleBlockKeywords.fromString(keyword);
 
