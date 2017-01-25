@@ -269,7 +269,15 @@ public class DocuPage
 	 */
 	private String resolve(final String content, final DocuGenerator filemanager, final File root_folder, final File own_location)
 	{
-		return StyleParser.resolve(content, filemanager, root_folder, own_location);
+		try
+		{
+			return StyleParser.resolve(content, filemanager, root_folder, own_location);
+		}
+		catch (final IllegalArgumentException e)
+		{
+			ApplicationLogger.getLogger().warning("# " + e.getMessage());
+			return "# Invalid content";
+		}
 	}
 
 
