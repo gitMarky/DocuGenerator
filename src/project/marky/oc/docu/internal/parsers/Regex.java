@@ -36,4 +36,7 @@ class Regex
 
 
 	static final String REGEX_DOCU_ONLY = REGEX_DOCU + "(?!" + REGEX_ANY_LINEBREAK + "\\s" + REGEX_FUNCTION + ")";
+
+	static final String REGEX_TEXT = "\\w\\d\\s#";
+
 }

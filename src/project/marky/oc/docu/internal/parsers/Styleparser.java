@@ -142,9 +142,8 @@ public class StyleParser
 
 	static String resolveInnerBlocks(final String content)
 	{
-		final String text = "\\w\\d\\s#";
 
-		final String regex = "\\{@[" + text + "]+\\}";
+		final String regex = "\\{@[" + Regex.REGEX_TEXT + "]+\\}";
 
 		final List<String> matches = RegexMatcher.getAllMatches(content, regex);
 
@@ -168,8 +167,9 @@ public class StyleParser
 
 	static String resolveInnerBlock(final String match)
 	{
-		final String keyword = match.replaceAll("\\{(\\@\\w+)\\s+(.*)\\}", "$1");
-		final String text = match.replaceAll("\\{\\@\\w+\\s+(.*)\\}", "$1");
+		final String regexBlock = "\\{(\\@\\w+)\\s+(.*)\\}";
+		final String keyword = match.replaceAll(regexBlock, "$1");
+		final String text = match.replaceAll(regexBlock, "$2");
 
 		final StyleBlockKeywords key = StyleBlockKeywords.fromString(keyword);
 
