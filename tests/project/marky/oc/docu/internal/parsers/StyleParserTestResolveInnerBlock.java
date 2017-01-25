@@ -2,8 +2,12 @@ package project.marky.oc.docu.internal.parsers;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.Test;
 
+import project.marky.oc.docu.DocuGenerator;
+import project.marky.oc.docu.internal.StdNamespace;
 import project.marky.oc.docu.internal.parsers.StyleParser;
 import project.marky.oc.docu.internal.parsers.StyleParser.StyleBlockKeywords;
 
@@ -32,7 +36,7 @@ public class StyleParserTestResolveInnerBlock
 	@Test
 	public void testResolveBlockCodestyle()
 	{
-		assertEquals("<code>" + SAMPLE_TEXT + "</code>", StyleParser.resolveInnerBlock(buildBlock(StyleBlockKeywords.tag_codestyle)));
+		assertEquals("<code>" + SAMPLE_TEXT + "</code>", StyleParser.resolveInnerBlock(buildBlock(StyleBlockKeywords.tag_codestyle), null, null, null));
 	}
 
 
@@ -46,14 +50,19 @@ public class StyleParserTestResolveInnerBlock
 	@Test
 	public void testResolveBlockSection()
 	{
-		assertEquals("<div class=\"text\">" + SAMPLE_TEXT + "</div>", StyleParser.resolveInnerBlock(buildBlock(StyleBlockKeywords.tag_section)));
+		assertEquals("<div class=\"text\">" + SAMPLE_TEXT + "</div>", StyleParser.resolveInnerBlock(buildBlock(StyleBlockKeywords.tag_section), null, null, null));
 	}
 
 
 	@Test
 	public void testResolveBlockLink()
 	{
-		fail("Not implemented yet");
+		final DocuGenerator generator = new DocuGenerator();
+		generator.getNameSpaces().addNamespace(new StdNamespace("TestClass", "Unused", new File("path")));
+
+		final String link = StyleParser.resolveInnerBlock("{@link TestClass#testFunction}", generator, new File("root"), new File("root\\class"));
+
+		assertEquals("<a href=\"..\\TestClass\\testFunction.html\">TestClass#testFunction</a>", link);
 	}
 
 
@@ -107,7 +116,7 @@ public class StyleParserTestResolveInnerBlock
 
 	private void testBlock(final StyleBlockKeywords keyword)
 	{
-		assertEquals(buildExpectedBlock(keyword), StyleParser.resolveInnerBlock(buildBlock(keyword)));
+		assertEquals(buildExpectedBlock(keyword), StyleParser.resolveInnerBlock(buildBlock(keyword), null, null, null));
 	}
 
 }

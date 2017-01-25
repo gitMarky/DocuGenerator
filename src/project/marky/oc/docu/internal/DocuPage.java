@@ -33,6 +33,14 @@ public class DocuPage
 	private final IFunction _function;
 
 
+	public DocuPage(final String identifier)
+	{
+		_identifier = identifier;
+		_docu = null;
+		_function = null;
+	}
+
+
 	/**
 	 * Constructor for a page in the documentation.
 	 * 

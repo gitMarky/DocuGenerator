@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import project.marky.oc.docu.ApplicationLogger;
 import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.internal.RegexMatcher;
 import project.marky.oc.docu.internal.StdNamespace;
@@ -22,16 +23,16 @@ public class StyleParser
 {
 	public static String resolve(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
-		return resolveBlock(content);
+		return resolveBlock(content, filemanager, root_folder, origin);
 		//return content;
 		//final String text = parseBlock(content, filemanager, root_folder, origin);
 		//return text;
 	}
 
 
-	private static String resolveBlock(final String content)
+	private static String resolveBlock(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
-		return resolveInnerBlocks(content);
+		return resolveInnerBlocks(content, filemanager, root_folder, origin);
 	}
 
 
@@ -147,7 +148,7 @@ public class StyleParser
 	}
 
 
-	static String resolveInnerBlocks(final String content)
+	static String resolveInnerBlocks(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
 
 		final String regex = "\\{@[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + "]+\\}";
@@ -164,16 +165,16 @@ public class StyleParser
 
 			for (final String match : matches)
 			{
-				resolved = resolved.replace(match, resolveInnerBlock(match));
+				resolved = resolved.replace(match, resolveInnerBlock(match, filemanager, root_folder, origin));
 			}
 
 			// resolve the nextmost layer of nested blocks
-			return resolveInnerBlocks(resolved);
+			return resolveInnerBlocks(resolved, filemanager, root_folder, origin);
 		}
 	}
 
 
-	static String resolveInnerBlock(final String match)
+	static String resolveInnerBlock(final String match, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
 		final String regexBlock = "\\{(\\@\\w+)\\s+([." + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + "]*)\\}";
 		final String keyword = match.replaceAll(regexBlock, "$1");
@@ -194,6 +195,8 @@ public class StyleParser
 				return buildCodestyle(text);
 			case tag_section:
 				return buildSection(text);
+			case tag_link:
+				return buildLink(text, filemanager, root_folder, origin);
 			default:
 				throw new IllegalArgumentException("Not implemented yet: " + key.get());
 		}
@@ -232,6 +235,50 @@ public class StyleParser
 	}
 
 
+	private static String buildLink(final String text, final DocuGenerator filemanager, final File root_folder, final File origin)
+	{
+		final String link;
+		int separator = text.indexOf("#");
+
+		if (separator < 0)
+		{
+			link = "[invalid link: '" + text + "']";
+			ApplicationLogger.getLogger().warning("# Invalid link: " + text);
+		}
+		else
+		{
+			final String namespace = text.substring(0, separator);
+			String function = text.substring(separator + 1, text.length());
+
+			String displayedText = namespace + "#" + function;
+
+			if (function.contains(" "))
+			{
+				separator = function.indexOf(" ");
+				displayedText = function.substring(separator + 1, function.length());
+				function = function.substring(0, separator);
+			}
+
+			final StdNamespace space = filemanager.getNamespace(namespace);
+
+			if (space != null)
+			{
+				final File destination = filemanager.getOutputFile(root_folder, namespace, function);
+
+				final String path = RelFilePath.fromTo(origin, destination);
+				link = "<a href=\"" + path + "\">" + displayedText + "</a>";
+			}
+			else
+			{
+				link = "[invalid link: '" + namespace + "#" + function + "']";
+				ApplicationLogger.getLogger().warning("# Invalid link: " + namespace + "#" + function);
+			}
+		}
+
+		return link;
+	}
+
+
 	private static String parseBlock(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
 		// ApplicationLogger.getLogger().info("parseBlock " + content);
@@ -262,48 +309,6 @@ public class StyleParser
 				// stopDiv(doc, noDivs);
 				// startDiv(doc, noDivs);
 				newcontent = "[missing parser function: image]"; // TODO
-			}
-			else if (newcontent.startsWith("@link "))
-			{
-				newcontent = newcontent.substring(6, newcontent.length());
-
-				int separator = newcontent.indexOf("#");
-
-				if (separator < 0)
-				{
-					newcontent = "[invalid link: '" + newcontent + "']";
-				}
-				else
-				{
-					final String namespace = newcontent.substring(0, separator);
-					String function = newcontent.substring(separator + 1, newcontent.length());
-
-					String displayedText = namespace + "#" + function;
-
-					if (function.contains(" "))
-					{
-						separator = function.indexOf(" ");
-						displayedText = function.substring(separator + 1, function.length());
-						function = function.substring(0, separator);
-					}
-
-					// newcontent = "[link: " + namespace + "::" + function +
-					// "()]"; // TODO
-
-					final StdNamespace space = filemanager.getNamespace(namespace);
-
-					if (space != null)
-					{
-						final File destination = filemanager.getOutputFile(root_folder, namespace, function);
-
-						final String path = RelFilePath.fromTo(origin, destination);
-						newcontent = "<a href=\"" + path + "\">" + displayedText + "</a>";
-					}
-					else
-					{
-						newcontent = "[invalid link: '" + namespace + "#" + function + "']";
-					}
-				}
 			}
 			else
 			{

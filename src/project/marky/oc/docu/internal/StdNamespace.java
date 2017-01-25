@@ -21,7 +21,7 @@ public class StdNamespace
 	}
 
 
-	public StdNamespace(final String definition, final String name, final File path)
+	public StdNamespace(final String definition, final String name, final File path) // TODO: Remove the name-parameter since it is unused
 	{
 		_namespace = definition;
 		_parentfile = path;
