@@ -39,4 +39,6 @@ class Regex
 
 	static final String REGEX_TEXT = "\\w\\d\\s#";
 
+	static final String REGEX_SPECIAL_CHARACTERS = "<>/\\\\";
+
 }

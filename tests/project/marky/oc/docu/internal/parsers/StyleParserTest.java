@@ -83,6 +83,13 @@ public class StyleParserTest
 
 
 	@Test
+	public void testItalicBold()
+	{
+		assertEquals("<i>italic here <b>and bold</b></i>", StyleParser.resolve("{@i italic here {@b and bold}}", null, null, null));
+	}
+
+
+	@Test
 	public void testCombinationOfTags()
 	{
 		assertEquals("<b>this contains <i>{@c a crazy <b>compilation</b> of}</i>multiple</b> tags", StyleParser.resolve("{@b this contains {@i {@c a crazy {@b compilation} of}}multiple} tags", null, null, null));

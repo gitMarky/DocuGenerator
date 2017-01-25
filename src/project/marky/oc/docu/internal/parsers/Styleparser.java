@@ -143,7 +143,7 @@ public class StyleParser
 	static String resolveInnerBlocks(final String content)
 	{
 
-		final String regex = "\\{@[" + Regex.REGEX_TEXT + "]+\\}";
+		final String regex = "\\{@[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + "]+\\}";
 
 		final List<String> matches = RegexMatcher.getAllMatches(content, regex);
 
@@ -160,14 +160,15 @@ public class StyleParser
 				resolved = resolved.replace(match, resolveInnerBlock(match));
 			}
 
-			return resolved;
+			// resolve the nextmost layer of nested blocks
+			return resolveInnerBlocks(resolved);
 		}
 	}
 
 
 	static String resolveInnerBlock(final String match)
 	{
-		final String regexBlock = "\\{(\\@\\w+)\\s+([." + Regex.REGEX_TEXT + "]*)\\}";
+		final String regexBlock = "\\{(\\@\\w+)\\s+([." + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + "]*)\\}";
 		final String keyword = match.replaceAll(regexBlock, "$1");
 		final String text = match.replaceAll(regexBlock, "$2");
 
