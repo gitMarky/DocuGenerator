@@ -8,13 +8,21 @@ import project.marky.oc.docu.DocuGenerator;
 import project.marky.oc.docu.internal.StdNamespace;
 import project.marky.oc.docu.util.RelFilePath;
 
+
+/**
+ * <p>
+ * Style parser. Resolves style tags in the documentation.
+ * </p><p>
+ * For a list of supported enums, see the {@link StyleKeywords} enum.
+ * </p>
+ */
 public class StyleParser
 {
 	public static String resolve(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
-		return content;
-		//TODO: was: final String text = parseBlock(content, filemanager, root_folder, origin);
-		//return text;
+		//return content;
+		final String text = parseBlock(content, filemanager, root_folder, origin);
+		return text;
 	}
 
 
@@ -48,6 +56,85 @@ public class StyleParser
 	// code_var("var");
 	// code_break("break;"),
 	// code_continue("continue;"),
+
+
+	private enum StyleKeywords
+	{
+		tag_linebreak("@br"),
+		tag_image("{@img"),
+		tag_bold("{@b"),
+		tag_italic("{@i"),
+		tag_link("{@link"),
+
+		char_string_escaped("@q"),
+
+		html_table("{@table"),
+		html_th("{@th"),
+		html_td("{@td"),
+		html_tr("{@tr"),
+
+		tag_codeblock("{@code"),
+		tag_codestyle("{@c"),
+		tag_section("{@section");
+
+		private final String _word;
+
+		StyleKeywords(final String word)
+		{
+			_word = word;
+		}
+
+		private String get()
+		{
+			return _word;
+		}
+	}
+
+	private enum CodeKeywords
+	{
+		char_bracket_o("{"),
+		char_bracket_c("}"),
+		char_linebreak("\n"),
+		code_break("break;"),
+		sign_par_o("("),
+		sign_par_c(")"),
+		code_continue("continue;"),
+		char_semicolon(";"),
+		char_string("\""),
+		line_comment("//"),
+		block_comment_o("/bc"),
+		block_comment_c("bc/"),
+		code_func("func"),
+		code_for("for"),
+		code_return("return"),
+		code_if("if"),
+		code_else("else"),
+		code_true("true"),
+		code_false("false"),
+		code_public("public"),
+		code_protected("protected"),
+		code_global("global"),
+		code_private("private"),
+		code_include("#include"),
+		code_appendto("#appendto"),
+		code_strict("#strict"),
+		code_strict2("#strict2"),
+		code_var("var");
+
+		private final String _word;
+
+		CodeKeywords(final String word)
+		{
+			_word = word;
+		}
+
+		private String get()
+		{
+			return _word;
+		}
+	}
+
+
 
 	private static String parseBlock(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
