@@ -32,7 +32,7 @@ public class StyleParserTestResolveInnerBlock
 	@Test
 	public void testResolveBlockCodestyle()
 	{
-		fail("Not implemented yet");
+		assertEquals("<code>" + SAMPLE_TEXT + "</code>", StyleParser.resolveInnerBlock(buildBlock(StyleBlockKeywords.tag_codestyle)));
 	}
 
 
@@ -46,7 +46,7 @@ public class StyleParserTestResolveInnerBlock
 	@Test
 	public void testResolveBlockSection()
 	{
-		fail("Not implemented yet");
+		assertEquals("<div class=\"text\">" + SAMPLE_TEXT + "</div>", StyleParser.resolveInnerBlock(buildBlock(StyleBlockKeywords.tag_section)));
 	}
 
 

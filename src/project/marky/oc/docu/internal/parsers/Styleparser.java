@@ -189,11 +189,26 @@ public class StyleParser
 			case html_th:
 			case html_tr:
 			case html_td:
-
 				return buildHtmlBlock(key, text);
+			case tag_codestyle:
+				return buildCodestyle(text);
+			case tag_section:
+				return buildSection(text);
 			default:
 				throw new IllegalArgumentException("Not implemented yet: " + key.get());
 		}
+	}
+
+
+	private static String buildSection(final String text)
+	{
+		return "<div class=\"text\">" + text + "</div>";
+	}
+
+
+	private static String buildCodestyle(final String text)
+	{
+		return "<code>" + text + "</code>";
 	}
 
 
@@ -235,12 +250,7 @@ public class StyleParser
 			final String subcontent = matcher.group(0);
 			String newcontent = subcontent.substring(1, subcontent.length() - 1);
 
-			if (newcontent.startsWith("@c "))
-			{
-				newcontent = parseBlock(newcontent.substring(3, newcontent.length()), filemanager, root_folder, origin);
-				newcontent = "<code>" + newcontent + "</code>";
-			}
-			else if (newcontent.startsWith("@img "))
+			if (newcontent.startsWith("@img "))
 			{
 				// final File destination = new File(imageFolder,
 				// _imageData._title);
@@ -252,11 +262,6 @@ public class StyleParser
 				// stopDiv(doc, noDivs);
 				// startDiv(doc, noDivs);
 				newcontent = "[missing parser function: image]"; // TODO
-			}
-			else if (newcontent.startsWith("@section "))
-			{
-				newcontent = parseBlock(newcontent.substring(9, newcontent.length()), filemanager, root_folder, origin);
-				newcontent = "<div class=\"text\">" + newcontent + "</div>";
 			}
 			else if (newcontent.startsWith("@link "))
 			{
