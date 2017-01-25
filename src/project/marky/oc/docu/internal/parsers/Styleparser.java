@@ -235,45 +235,11 @@ public class StyleParser
 			final String subcontent = matcher.group(0);
 			String newcontent = subcontent.substring(1, subcontent.length() - 1);
 
-			if (newcontent.startsWith("@b "))
-			{
-				newcontent = parseBlock(newcontent.substring(3, newcontent.length()), filemanager, root_folder, origin);
-				newcontent = "<b>" + newcontent + "</b>";
-			}
-			else if (newcontent.startsWith("@i "))
-			{
-				newcontent = parseBlock(newcontent.substring(3, newcontent.length()), filemanager, root_folder, origin);
-				newcontent = "<i>" + newcontent + "</i>";
-			}
-			else if (newcontent.startsWith("@c "))
+			if (newcontent.startsWith("@c "))
 			{
 				newcontent = parseBlock(newcontent.substring(3, newcontent.length()), filemanager, root_folder, origin);
 				newcontent = "<code>" + newcontent + "</code>";
 			}
-			// else if (newcontent.startsWith("@table "))
-			// {
-			// newcontent = parseBlock(newcontent.substring(7,
-			// newcontent.length()), filemanager, root_folder, origin);
-			// newcontent = "<table>" + newcontent + "</table>";
-			// }
-			// else if (newcontent.startsWith("@th "))
-			// {
-			// newcontent = parseBlock(newcontent.substring(4,
-			// newcontent.length()), filemanager, root_folder, origin);
-			// newcontent = "<th>" + newcontent + "</th>";
-			// }
-			// else if (newcontent.startsWith("@td "))
-			// {
-			// newcontent = parseBlock(newcontent.substring(4,
-			// newcontent.length()), filemanager, root_folder, origin);
-			// newcontent = "<td>" + newcontent + "</td>";
-			// }
-			// else if (newcontent.startsWith("@tr "))
-			// {
-			// newcontent = parseBlock(newcontent.substring(4,
-			// newcontent.length()), filemanager, root_folder, origin);
-			// newcontent = "<tr>" + newcontent + "</tr>";
-			// }
 			else if (newcontent.startsWith("@img "))
 			{
 				// final File destination = new File(imageFolder,
