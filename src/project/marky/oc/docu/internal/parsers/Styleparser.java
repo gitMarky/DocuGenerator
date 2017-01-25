@@ -80,6 +80,19 @@ public class StyleParser
 		{
 			return _word;
 		}
+
+		private static StyleBlockKeywords fromString(final String word)
+		{
+			for (final StyleBlockKeywords value : values())
+			{
+				if (value.get().equals(word))
+				{
+					return value;
+				}
+			}
+
+			throw new IllegalArgumentException("Unknown keyword: " + word);
+		}
 	}
 
 	private enum CodeKeywords
@@ -155,7 +168,32 @@ public class StyleParser
 
 	static String resolveInnerBlock(final String match)
 	{
-		return "";
+		final String keyword = match.replaceAll("\\{(\\@\\w+)\\s(.*)\\}", "$1");
+		final String text = match.replaceAll("\\{\\@\\w\\s(.*)\\}", "$1");
+
+		final StyleBlockKeywords key = StyleBlockKeywords.fromString(keyword);
+
+		switch (key)
+		{
+			case tag_bold:
+			case tag_italic:
+			case html_table:
+			case html_th:
+			case html_tr:
+			case html_td:
+
+				return buildHtmlBlock(key, text);
+			default:
+				throw new IllegalArgumentException("Not implemented yet: " + key.get());
+		}
+
+	}
+
+
+	private static String buildHtmlBlock(final StyleBlockKeywords key, final String text)
+	{
+		final String tag = key.get().replace("@", "");
+		return "<" + tag + ">" + text + "</" + tag + ">";
 	}
 
 
