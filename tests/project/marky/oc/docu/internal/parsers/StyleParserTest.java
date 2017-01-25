@@ -9,16 +9,30 @@ import project.marky.oc.docu.internal.parsers.StyleParser;
 public class StyleParserTest
 {
 	@Test
+	public void testLinebreak()
+	{
+		assertEquals("text1<br>text2", StyleParser.resolve("text1@brtext2", null, null, null));
+	}
+
+
+	@Test
+	public void testQuotes()
+	{
+		assertEquals("text1 \"text2\" text3 \"text4", StyleParser.resolve("text1 @qtest2@q text3 @qtext4", null, null, null));
+	}
+
+
+	@Test
 	public void testBold()
 	{
-		assertEquals("bla <b>this one should be bold</b> blu", StyleParser.resolve("bla {@b this one should be bold} blu", null, null, null));
+		assertEquals("text1 <b>bold</b> text2", StyleParser.resolve("text1 {@b bold} text2", null, null, null));
 	}
 
 
 	@Test
 	public void testCursive()
 	{
-		assertEquals("<i>this one should be cursive</i>", StyleParser.resolve("{@i this one should be cursive}", null, null, null));
+		assertEquals("text1 <i>italic</i> text2", StyleParser.resolve("text1 {@i italic} text2", null, null, null));
 	}
 
 
@@ -26,13 +40,38 @@ public class StyleParserTest
 	public void testLink()
 	{
 		assertEquals("{@link link}", StyleParser.resolve("{@link link}", null, null, null));
+		fail("Functionality not implemented yet");
 	}
 
 
 	@Test
 	public void testCode()
 	{
-		assertEquals("{@code code example}", StyleParser.resolve("{@code code example}", null, null, null));
+		assertEquals("text1 {@code code example} text2", StyleParser.resolve("text1 {@code code example} text2", null, null, null));
+		fail("Functionality not implemented yet");
+	}
+
+
+	@Test
+	public void testCodeShort()
+	{
+		assertEquals("text {@c code example} text2", StyleParser.resolve("text1 {@c code example} text2", null, null, null));
+		fail("Functionality not implemented yet");
+
+	}
+
+
+	@Test
+	public void testImage()
+	{
+		assertEquals("Not implemented yet", StyleParser.resolve("text1 {@img ...}", null, null, null));
+	}
+
+
+	@Test
+	public void testSection()
+	{
+
 	}
 
 
@@ -48,14 +87,6 @@ public class StyleParserTest
 	{
 		assertEquals("<b>this contains <i>{@c a crazy <b>compilation</b> of}</i>multiple</b> tags", StyleParser.resolve("{@b this contains {@i {@c a crazy {@b compilation} of}}multiple} tags", null, null, null));
 	}
-
-
-	@Test
-	public void testLists()
-	{
-		assertEquals("text with list stuff:<br>-blub<br>-bla<i>blu</i> bli", StyleParser.resolve("text with list stuff:@br-blub@br-bla{@i blu} bli", null, null, null));
-	}
-
 
 
 	@Test
