@@ -31,7 +31,7 @@ public class StyleParser
 
 	private static String resolveBlock(final String content)
 	{
-		return content;
+		return resolveInnerBlocks(content);
 	}
 
 
@@ -167,7 +167,7 @@ public class StyleParser
 
 	static String resolveInnerBlock(final String match)
 	{
-		final String regexBlock = "\\{(\\@\\w+)\\s+(.*)\\}";
+		final String regexBlock = "\\{(\\@\\w+)\\s+([." + Regex.REGEX_TEXT + "]*)\\}";
 		final String keyword = match.replaceAll(regexBlock, "$1");
 		final String text = match.replaceAll(regexBlock, "$2");
 
