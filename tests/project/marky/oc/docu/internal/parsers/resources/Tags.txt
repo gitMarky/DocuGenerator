@@ -1,0 +1,8 @@
+This is a {@b big file} with {@i a lot of} tags.@br
+It contains some @qfunny@q stuff, such as direkt links ({@link A#B}),
+or {@link A#B text links}, as well as images {@img B}.
+There is also parsed {@c codestyle} or {@code code blocks}.
+Furthermore, you can have {@section sections that range
+multiple lines, without problems.
+Finally, lets test {@section sections with {@b tags {@i inside
+tags}} that range multiple lines}.

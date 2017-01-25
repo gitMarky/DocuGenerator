@@ -1,10 +1,12 @@
 package project.marky.oc.docu.internal.parsers;
 
 import java.io.File;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import project.marky.oc.docu.DocuGenerator;
+import project.marky.oc.docu.internal.RegexMatcher;
 import project.marky.oc.docu.internal.StdNamespace;
 import project.marky.oc.docu.util.RelFilePath;
 
@@ -20,71 +22,61 @@ public class StyleParser
 {
 	public static String resolve(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
+		return resolveBlock(content);
 		//return content;
-		final String text = parseBlock(content, filemanager, root_folder, origin);
-		return text;
+		//final String text = parseBlock(content, filemanager, root_folder, origin);
+		//return text;
 	}
 
 
-	// // single tags
-	// char_string_escaped("@q"),
-
-	// // block tags
-	// tag_codeblock("{@code"),
-
-	// // code tags
-	// line_comment("//"),
-	// block_comment_o("/bc"),
-	// block_comment_c("bc/"),
-	// char_string("\""),
-	//
-	// code_func("func"),
-	// code_for("for"),
-	// code_return("return"),
-	// code_if("if"),
-	// code_else("else"),
-	// code_true("true"),
-	// code_false("false"),
-	// code_public("public"),
-	// code_protected("protected"),
-	// code_global("global"),
-	// code_private("private"),
-	// code_include("#include"),
-	// code_appendto("#appendto"),
-	// code_strict("#strict"),
-	// code_strict2("#strict2"),
-	// code_var("var");
-	// code_break("break;"),
-	// code_continue("continue;"),
+	private static String resolveBlock(final String content)
+	{
+		return content;
+	}
 
 
-	private enum StyleKeywords
+	private enum StyleSingleKeywords
 	{
 		tag_linebreak("@br"),
-		tag_image("{@img"),
-		tag_bold("{@b"),
-		tag_italic("{@i"),
-		tag_link("{@link"),
-
-		char_string_escaped("@q"),
-
-		html_table("{@table"),
-		html_th("{@th"),
-		html_td("{@td"),
-		html_tr("{@tr"),
-
-		tag_codeblock("{@code"),
-		tag_codestyle("{@c"),
-		tag_section("{@section");
+		char_string_escaped("@q");
 
 		private final String _word;
 
-		StyleKeywords(final String word)
+		StyleSingleKeywords(final String word)
 		{
 			_word = word;
 		}
 
 		private String get()
+		{
+			return _word;
+		}
+	}
+
+
+	enum StyleBlockKeywords
+	{
+		tag_bold("@b"),
+		tag_italic("@i"),
+		tag_codestyle("@c"),
+		tag_codeblock("@code"),
+		tag_section("@section"),
+		tag_link("@link"),
+		tag_image("@img"),
+		html_table("@table"),
+		html_th("@th"),
+		html_td("@td"),
+		html_tr("@tr");
+
+
+		private final String _word;
+
+		StyleBlockKeywords(final String word)
+		{
+			_word = word;
+		}
+
+		String get()
 		{
 			return _word;
 		}
@@ -134,6 +126,37 @@ public class StyleParser
 		}
 	}
 
+
+	static String resolveInnerBlocks(final String content)
+	{
+		final String text = "\\w\\d\\s#";
+
+		final String regex = "\\{@[" + text + "]+\\}";
+
+		final List<String> matches = RegexMatcher.getAllMatches(content, regex);
+
+		if (matches.isEmpty())
+		{
+			return content;
+		}
+		else
+		{
+			String resolved = content;
+
+			for (final String match : matches)
+			{
+				resolved = resolved.replace(match, resolveInnerBlock(match));
+			}
+
+			return resolved;
+		}
+	}
+
+
+	static String resolveInnerBlock(final String match)
+	{
+		return "";
+	}
 
 
 	private static String parseBlock(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
