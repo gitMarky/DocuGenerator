@@ -1,0 +1,11 @@
+This is a docu sentence.
+{@code
+  // this is a code block
+  public func foo()
+  {
+  		return bar;
+  }
+}
+This is some text after the code block.
+{@code this is another code block}
+and more docu

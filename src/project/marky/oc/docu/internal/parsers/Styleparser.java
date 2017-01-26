@@ -67,7 +67,8 @@ public class StyleParser
 		tag_bold("@b"),
 		tag_italic("@i"),
 		tag_codestyle("@c"),
-		tag_codeblock("@code"),
+		// this one needs to be resolved differently
+		//tag_codeblock("@code"),
 		tag_section("@section"),
 		tag_link("@link"),
 		tag_image("@img"),
@@ -148,9 +149,18 @@ public class StyleParser
 	}
 
 
+	/**
+	 * Resolves inner blocks {@keyword ...}. Does not resolve code blocks!
+	 * 
+	 * @param content
+	 * @param filemanager
+	 * @param root_folder
+	 * @param origin
+	 * @return
+	 */
 	static String resolveInnerBlocks(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
-
+		// \{@[\w\d\s#<>/\\]\}
 		final String regex = "\\{@[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + "]+\\}";
 
 		final List<String> matches = RegexMatcher.getAllMatches(content, regex);
@@ -227,6 +237,47 @@ public class StyleParser
 		}
 
 		return resolved;
+	}
+
+
+	/**
+	 * Resolves code blocks {@code ...}, {@c ...}. Does not resolve inner blocks!
+	 * 
+	 * @param content
+	 * @param filemanager
+	 * @param root_folder
+	 * @param origin
+	 * @return
+	 */
+	static String resolveCodeBlocks(final String content)
+	{
+		//\{@code[\w\d\s#<>/\\\(\)\{;\}]+\}
+		final String regex = "\\{@[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + "]+\\}";
+
+		final List<String> matches = RegexMatcher.getAllMatches(content, regex);
+
+		if (matches.isEmpty())
+		{
+			return content;
+		}
+		else
+		{
+			String resolved = content;
+
+			for (final String match : matches)
+			{
+				resolved = resolved.replace(match, resolveCodeBlock(match));
+			}
+
+			// resolve the nextmost layer of nested blocks
+			return resolveCodeBlocks(resolved);
+		}
+	}
+
+
+	static String resolveCodeBlock(final String match)
+	{
+		return "<pre class=\"code\">" + "not resolvable yet" + "</pre>";
 	}
 
 
