@@ -1,0 +1,10 @@
+This is a docu sentence.
+<pre class="code">// this is a code block
+  public func foo()
+  {
+  		return bar;
+  }
+</pre>
+This is some text after the code block.
+<pre class="code">this is another code block</pre>
+and more docu

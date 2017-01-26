@@ -15,9 +15,9 @@ public class StyleParserTestResolveCodeBlock
 	public void testCodeBlock()
 	{
 		final File file = new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\CodeBlock.txt");
-		System.out.println(file.getAbsolutePath());
+		final File expected = new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\CodeBlockParsed.txt");
 		final String content = LoadFile.getFileContent(file);
 		final String resolved = StyleParser.resolveCodeBlocks(content);
-		assertEquals("fail", resolved);
+		assertEquals(LoadFile.getFileContent(expected), resolved);
 	}
 }

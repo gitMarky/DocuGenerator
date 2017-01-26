@@ -251,8 +251,8 @@ public class StyleParser
 	 */
 	static String resolveCodeBlocks(final String content)
 	{
-		//\{@code[\w\d\s#<>/\\\(\)\{;\}]+\}
-		final String regex = "\\{@[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + "]+\\}";
+		// \{@code[\w\d\s#<>/\\\(\)\{;\}]+\}
+		final String regex = "\\{@code\\s+[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+\\}";
 
 		final List<String> matches = RegexMatcher.getAllMatches(content, regex);
 
@@ -277,7 +277,13 @@ public class StyleParser
 
 	static String resolveCodeBlock(final String match)
 	{
-		return "<pre class=\"code\">" + "not resolvable yet" + "</pre>";
+		final String replace = "\\{@code\\s+([" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+)\\}";
+
+		final String content = match.replaceAll(replace, "$1");
+
+		final String resolved = CodeStyleParser.resolve(content);
+
+		return "<pre class=\"code\">" + resolved + "</pre>";
 	}
 
 
