@@ -197,6 +197,8 @@ public class StyleParser
 				return buildSection(text);
 			case tag_link:
 				return buildLink(text, filemanager, root_folder, origin);
+			case tag_image:
+				return buildImageLink(text, root_folder, origin);
 			default:
 				throw new IllegalArgumentException("Not implemented yet: " + key.get());
 		}
@@ -276,6 +278,16 @@ public class StyleParser
 		}
 
 		return link;
+	}
+
+
+	private static String buildImageLink(final String text, final File root_folder, final File origin)
+	{
+		final File imageFolder = new File(root_folder.getParentFile(), "images");
+		final File destination = new File(imageFolder, text);
+		final String path = RelFilePath.fromTo(origin, destination);
+
+		return "<div><img src=\"" + path + "\"></div>";
 	}
 
 

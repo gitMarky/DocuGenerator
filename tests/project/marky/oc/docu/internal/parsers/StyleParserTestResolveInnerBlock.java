@@ -69,7 +69,9 @@ public class StyleParserTestResolveInnerBlock
 	@Test
 	public void testResolveBlockImage()
 	{
-		fail("Not implemented yet");
+		final String link = StyleParser.resolveInnerBlock("{@img picture.jpg}", null, new File("root\\output"), new File("root\\output\\class"));
+
+		assertEquals("<div><img src=\"..\\..\\images\\picture.jpg\"></div>", link);
 	}
 
 
