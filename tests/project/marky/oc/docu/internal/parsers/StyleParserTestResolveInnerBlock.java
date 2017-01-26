@@ -50,7 +50,7 @@ public class StyleParserTestResolveInnerBlock
 	@Test
 	public void testResolveBlockSection()
 	{
-		assertEquals("<div class=\"text\">" + SAMPLE_TEXT + "</div>", StyleParser.resolveInnerBlock(buildBlock(StyleBlockKeywords.tag_section), null, null, null));
+		assertEquals("<h2 class=\"part\">" + SAMPLE_TEXT + "</h2>", StyleParser.resolveInnerBlock(buildBlock(StyleBlockKeywords.tag_section), null, null, null));
 	}
 
 

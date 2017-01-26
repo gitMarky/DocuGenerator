@@ -207,7 +207,7 @@ public class StyleParser
 
 	private static String buildSection(final String text)
 	{
-		return "<div class=\"text\">" + text + "</div>";
+		return "<h2 class=\"part\">" + text + "</h2>";
 	}
 
 
