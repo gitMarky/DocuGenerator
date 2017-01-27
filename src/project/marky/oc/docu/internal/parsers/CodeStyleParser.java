@@ -93,8 +93,13 @@ public final class CodeStyleParser
 	static String resolveComments(final String content)
 	{
 		final String styleClass = "comment";
-		final String regex = buildRegexForItalic(styleClass, "//", ")(?!" + Regex.REGEX_ANY_LINEBREAK);
-		final String replacer = buildReplacerForItalic(styleClass);
+		final String regex = buildRegexForItalic(styleClass, "//", ")(" + Regex.REGEX_ANY_LINEBREAK );
+		final String replacer = buildReplacerForItalic(styleClass) + "\n";
+
+
+		//final String regex = "(//[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+)[\\r\\n]";
+		//final String regex = "(this)";
+		//final String replacer = "a$1a";
 
 		final String resolved = content.replaceAll(regex, replacer);
 		return resolved;
