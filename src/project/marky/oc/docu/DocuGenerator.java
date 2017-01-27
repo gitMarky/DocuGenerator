@@ -28,6 +28,8 @@ import project.marky.oc.docu.util.RelFilePath;
 // TODO: document functions if necessary
 // TODO: remove unnecessary stuff
 // TODO: warnings for unsupported tags?
+// TODO: add @u tag for underline
+// TODO: code parser
 
 /**
  * The class that generates the html files and the project files for html help.

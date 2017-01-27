@@ -104,50 +104,6 @@ public class StyleParser
 		}
 	}
 
-	private enum CodeKeywords
-	{
-		char_bracket_o("{"),
-		char_bracket_c("}"),
-		char_linebreak("\n"),
-		code_break("break;"),
-		sign_par_o("("),
-		sign_par_c(")"),
-		code_continue("continue;"),
-		char_semicolon(";"),
-		char_string("\""),
-		line_comment("//"),
-		block_comment_o("/bc"),
-		block_comment_c("bc/"),
-		code_func("func"),
-		code_for("for"),
-		code_return("return"),
-		code_if("if"),
-		code_else("else"),
-		code_true("true"),
-		code_false("false"),
-		code_public("public"),
-		code_protected("protected"),
-		code_global("global"),
-		code_private("private"),
-		code_include("#include"),
-		code_appendto("#appendto"),
-		code_strict("#strict"),
-		code_strict2("#strict2"),
-		code_var("var");
-
-		private final String _word;
-
-		CodeKeywords(final String word)
-		{
-			_word = word;
-		}
-
-		private String get()
-		{
-			return _word;
-		}
-	}
-
 
 	/**
 	 * Resolves inner blocks {@keyword ...}. Does not resolve code blocks!
