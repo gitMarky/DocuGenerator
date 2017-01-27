@@ -65,9 +65,11 @@ public final class CodeStyleParser
 
 		for (final C4TypeDef def : C4TypeDef.values())
 		{
-			final String wholeWordRegex = "([\\s\\(,]+)(" + def.getString() + ")([,\\s\\)])";
+			final String parameter1 = "([\\s\\(,]+)(" + def.getString() + ")(\\s+\\w+,[\\s\\)])";
+			final String parameter2 = "([\\s\\(,]+)(" + def.getString() + ")(\\s+\\w+\\))";
 
-			resolved = resolved.replaceAll(wholeWordRegex, "$1<b>$2</b>$3");
+			resolved = resolved.replaceAll(parameter1, "$1<b>$2</b>$3");
+			resolved = resolved.replaceAll(parameter2, "$1<b>$2</b>$3");
 		}
 
 		return resolved;
