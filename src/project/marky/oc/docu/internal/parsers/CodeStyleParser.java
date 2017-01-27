@@ -1,5 +1,6 @@
 package project.marky.oc.docu.internal.parsers;
 
+import project.marky.oc.docu.internal.C4TypeDef;
 
 /**
  * Parses code and puts certain keywords in a specific html format.
@@ -9,33 +10,22 @@ public final class CodeStyleParser
 	private enum CodeKeywords
 	{
 		// loop control
-		code_for("for"),
-		code_while("while"),
-		code_break("break;"),
-		code_continue("continue;"),
+		code_for("for"), code_while("while"), code_break("break;"), code_continue("continue;"),
 		// functions
-		code_func("func"),
-		code_public("public"),
-		code_protected("protected"),
-		code_global("global"),
-		code_private("private"),
+		code_func("func"), code_public("public"), code_protected("protected"), code_global("global"), code_private("private"), code_static("static"), code_const("const"),
 		// conditionals
-		code_if("if"),
-		code_else("else"),
-		code_return("return"),
-		code_true("true"),
-		code_false("false"),
+		code_if("if"), code_else("else"), code_return("return"), code_true("true"), code_false("false"),
 		// misc
-		code_include("#include"),
-		code_appendto("#appendto"),
-		code_var("var");
+		code_include("#include"), code_appendto("#appendto"), code_var("var");
 
 		private final String _word;
+
 
 		CodeKeywords(final String word)
 		{
 			_word = word;
 		}
+
 
 		private String get()
 		{
@@ -62,8 +52,24 @@ public final class CodeStyleParser
 		return resolveMultiBold(resolved);
 	}
 
+
 	static String resolveMultiBold(final String content)
 	{
 		return content.replaceAll("</b>(\\s*)<b>", "$1");
+	}
+
+
+	static String resolveTypes(final String content)
+	{
+		String resolved = content;
+
+		for (final C4TypeDef def : C4TypeDef.values())
+		{
+			final String wholeWordRegex = "([\\s\\(,]+)(" + def.getString() + ")([,\\s\\)])";
+
+			resolved = resolved.replaceAll(wholeWordRegex, "$1<b>$2</b>$3");
+		}
+
+		return resolved;
 	}
 }
