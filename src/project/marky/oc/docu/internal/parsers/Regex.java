@@ -41,7 +41,7 @@ class Regex
 
 	static final String REGEX_TEXT2 = "\\w\\d\\t #";
 
-	static final String REGEX_SPECIAL_CHARACTERS = "<>/\\\\%:!;";
+	static final String REGEX_SPECIAL_CHARACTERS = "<>/\\\\%:!,;_\\\"";
 
 	static final String REGEX_CODE_CHARACTERS = "\\(\\)\\{\\}";
 

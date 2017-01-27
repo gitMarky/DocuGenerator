@@ -117,7 +117,7 @@ public class StyleParser
 	static String resolveInnerBlocks(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
 		// \{@[\w\d\s#<>/\\]\}
-		final String regex = "\\{@[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + "]+\\}";
+		final String regex = "\\{@[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+\\}";
 
 		final List<String> matches = RegexMatcher.getAllMatches(content, regex);
 
@@ -142,7 +142,7 @@ public class StyleParser
 
 	static String resolveInnerBlock(final String match, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
-		final String regexBlock = "\\{(\\@\\w+)\\s+([." + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + "]*)\\}";
+		final String regexBlock = "\\{(\\@\\w+)\\s+([." + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]*)\\}";
 		final String keyword = match.replaceAll(regexBlock, "$1");
 		final String text = match.replaceAll(regexBlock, "$2");
 
@@ -179,7 +179,7 @@ public class StyleParser
 
 	private static String buildCodestyle(final String text)
 	{
-		return "<code>" + resolveCodeBlocks(text) + "</code>";
+		return "<code>" + CodeStyleParser.resolve(text) + "</code>";
 	}
 
 
