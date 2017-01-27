@@ -67,9 +67,11 @@ public final class CodeStyleParser
 		{
 			final String parameter1 = "([\\s\\(,]+)(" + def.getString() + ")(\\s+\\w+,[\\s\\)])";
 			final String parameter2 = "([\\s\\(,]+)(" + def.getString() + ")(\\s+\\w+\\))";
+			//			final String word = "(\\w+[\\s,]+)(" + def.getString() + ")([\\s,]+)";
 
 			resolved = resolved.replaceAll(parameter1, "$1<b>$2</b>$3");
 			resolved = resolved.replaceAll(parameter2, "$1<b>$2</b>$3");
+			//			resolved = resolved.replaceAll(word, "$1<b>$2</b>$3");
 		}
 
 		return resolved;
