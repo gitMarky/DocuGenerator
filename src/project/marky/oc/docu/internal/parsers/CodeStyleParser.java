@@ -51,7 +51,7 @@ public final class CodeStyleParser
 
 	public static String resolve(final String content)
 	{
-		return resolveComments(/*resolveStrings(*/resolveTypes(resolveSingleKeywords(content)))/*)*/;
+		return resolveComments(resolveStrings(resolveTypes(resolveSingleKeywords(content))));
 	}
 
 
@@ -123,7 +123,7 @@ public final class CodeStyleParser
 
 	private static String buildRegexForItalic(final String styleClass, final String captureStart, final String captureEnd)
 	{
-		final String text = "[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+";
+		final String text = "[" + Regex.REGEX_TEXT2 + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+";
 		final String pre = "<i class=\"" + styleClass + "\">";
 		final String post = "</i>";
 		final String regex = "(?!" + pre + ")"			// exclude the tag

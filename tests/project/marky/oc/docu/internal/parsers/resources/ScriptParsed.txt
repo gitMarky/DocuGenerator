@@ -4,7 +4,7 @@
 
 <b>global func</b> bar()
 {
-	<b>return</b> <i class="string">"bar"</i>; <i class="comment>// returns cool stuff!!</i>
+	<b>return</b> <i class="string">"bar"</i>; <i class="comment">// returns cool stuff!!</i>
 }
 
 <b>private func</b> foo(<b>string</b> text)
