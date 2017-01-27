@@ -51,7 +51,7 @@ public final class CodeStyleParser
 
 	public static String resolve(final String content)
 	{
-		return resolveComments(resolveStrings(resolveTypes(resolveSingleKeywords(content))));
+		return resolveComments(/*resolveStrings(*/resolveTypes(resolveSingleKeywords(content)))/*)*/;
 	}
 
 
@@ -108,11 +108,11 @@ public final class CodeStyleParser
 	static String resolveComments(final String content)
 	{
 		final String styleClass = "comment";
-		final String regex = buildRegexForItalic(styleClass, "//", ")(" + Regex.REGEX_ANY_LINEBREAK);
+		//final String regex = buildRegexForItalic(styleClass, "//", ")(" + Regex.REGEX_ANY_LINEBREAK);
 		final String replacer = buildReplacerForItalic(styleClass) + "\n";
 
 
-		//final String regex = "(//[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+)[\\r\\n]";
+		final String regex = "(//[" + Regex.REGEX_TEXT2 + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+)([\\r\\n]+)";
 		//final String regex = "(this)";
 		//final String replacer = "a$1a";
 
