@@ -31,7 +31,8 @@ public final class CodeStyleParser
 		// misc
 		code_include("#include"),
 		code_appendto("#appendto"),
-		code_var("var");
+		code_var("var"),
+		code_nil("nil");
 
 		private final String _word;
 

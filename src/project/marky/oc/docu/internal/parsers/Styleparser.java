@@ -32,7 +32,7 @@ public class StyleParser
 
 	private static String resolveBlock(final String content, final DocuGenerator filemanager, final File root_folder, final File origin)
 	{
-		return resolveInnerBlocks(content, filemanager, root_folder, origin);
+		return resolveCodeBlocks(resolveSingleKeywords(resolveInnerBlocks(content, filemanager, root_folder, origin)));
 	}
 
 
@@ -179,7 +179,7 @@ public class StyleParser
 
 	private static String buildCodestyle(final String text)
 	{
-		return "<code>" + text + "</code>";
+		return "<code>" + resolveCodeBlocks(text) + "</code>";
 	}
 
 
