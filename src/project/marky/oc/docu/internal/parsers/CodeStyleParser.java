@@ -80,18 +80,46 @@ public final class CodeStyleParser
 
 	static String resolveStrings(final String content)
 	{
+		final String styleClass = "string";
+		final String captureQuotes = "\\\"";
+		final String regex = buildRegexForItalic(styleClass, captureQuotes, captureQuotes);
+		final String replacer = buildReplacerForItalic(styleClass);
+
+		final String resolved = content.replaceAll(regex, replacer);
+		return resolved;
+	}
+
+
+	static String resolveComments(final String content)
+	{
+		final String styleClass = "comment";
+		final String regex = buildRegexForItalic(styleClass, "//", ")(?!" + Regex.REGEX_ANY_LINEBREAK);
+		final String replacer = buildReplacerForItalic(styleClass);
+
+		final String resolved = content.replaceAll(regex, replacer);
+		return resolved;
+	}
+
+
+	private static String buildRegexForItalic(final String styleClass, final String captureStart, final String captureEnd)
+	{
 		final String text = "[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+";
-		final String pre = "<i class=\"string\">";
+		final String pre = "<i class=\"" + styleClass + "\">";
 		final String post = "</i>";
 		final String regex = "(?!" + pre + ")"			// exclude the tag
 				+ "(?!class=)"				// exclude the "string" thing inside the tag
-				+ "(?!class=\"string)"       // exclude the ">" that appears after the class definition and the resolved string
-				+ "(\\\"" + text + "\\\")"	// capture the actual string
+				+ "(?!class=\"" + styleClass + ")"       // exclude the ">" that appears after the class definition and the resolved string
+				+ "(" + captureStart + text + captureEnd + ")"	// capture the actual string
 				+ "(?!>)"					// exclude the "string" thing again
 				+ "(?!" + text + "\")"       // exclude the ">" thing again
 				+ "(?!" + post + ")";        // exclude the tag
+		return regex;
+	}
 
-		final String resolved = content.replaceAll(regex, pre + "$1" + post);
-		return resolved;
+	private static String buildReplacerForItalic(final String styleClass)
+	{
+		final String pre = "<i class=\"" + styleClass + "\">";
+		final String post = "</i>";
+		return pre + "$1" + post;
 	}
 }

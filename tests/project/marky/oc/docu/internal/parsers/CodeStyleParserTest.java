@@ -42,4 +42,14 @@ public class CodeStyleParserTest
 		assertEquals(expected, CodeStyleParser.resolveStrings(content));
 		assertEquals(expected, CodeStyleParser.resolveStrings(expected));
 	}
+
+
+	@Test
+	public void testResolvedComment()
+	{
+		final String content = "   // this is a comment\n";
+		final String expected = "   <i class=\"comment\">// this is a comment</i>\n";
+		assertEquals(expected, CodeStyleParser.resolveStrings(content));
+		assertEquals(expected, CodeStyleParser.resolveStrings(expected));
+	}
 }
