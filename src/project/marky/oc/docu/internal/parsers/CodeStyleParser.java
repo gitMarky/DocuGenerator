@@ -51,7 +51,7 @@ public final class CodeStyleParser
 
 	public static String resolve(final String content)
 	{
-		return content;
+		return resolveComments(resolveStrings(resolveTypes(resolveSingleKeywords(content))));
 	}
 
 

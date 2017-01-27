@@ -1,14 +1,14 @@
-#include Some_Definition
+<b>#include</b> Some_Definition
 
-static const CONSTANT = "This is a string constant";
+<b>static const</b> CONSTANT = <i class="string">"This is a string constant"</i>;
 
-global func bar()
+<b>global func</b> bar()
 {
-	return "bar"; // returns cool stuff!!
+	<b>return</b> <i class="string">"bar"</i>; <i class="comment>// returns cool stuff!!</i>
 }
 
-private func foo(string text)
+<b>private func</b> foo(<b>string</b> text)
 {
-	// gives you foobar text
-	return Format("foo%s: %s", bar(), text);
+	<i class="comment">// gives you foobar text</i>
+	<b>return</b> Format(<i class="string">"foo%s: %s"</i>, bar(), text);
 }
