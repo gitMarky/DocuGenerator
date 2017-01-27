@@ -83,7 +83,13 @@ public final class CodeStyleParser
 		final String text = "[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+";
 		final String pre = "<i class=\"string\">";
 		final String post = "</i>";
-		final String regex = "(?!" + pre + ")(?!class=)(?!class=\"string)(\\\"" + text + "\\\")(?!>)(?!" + text + "\")(?!" + post + ")";
+		final String regex = "(?!" + pre + ")"			// exclude the tag
+				+ "(?!class=)"				// exclude the "string" thing inside the tag
+				+ "(?!class=\"string)"       // exclude the ">" that appears after the class definition and the resolved string
+				+ "(\\\"" + text + "\\\")"	// capture the actual string
+				+ "(?!>)"					// exclude the "string" thing again
+				+ "(?!" + text + "\")"       // exclude the ">" thing again
+				+ "(?!" + post + ")";        // exclude the tag
 
 		final String resolved = content.replaceAll(regex, pre + "$1" + post);
 		return resolved;
