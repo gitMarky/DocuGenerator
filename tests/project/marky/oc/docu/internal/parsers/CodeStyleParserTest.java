@@ -32,4 +32,14 @@ public class CodeStyleParserTest
 		assertEquals("func blub(int, string)", CodeStyleParser.resolveTypes("func blub(int, string)"));
 		//		assertEquals("consists of <b>int</b>, <b>string</b>, or <b>object</b>", CodeStyleParser.resolveTypes("consists of int, string, or object"));
 	}
+
+
+	@Test
+	public void testResolvedString()
+	{
+		final String content = "normal \"text\" stuff";
+		final String expected = "normal <i class=\"string\">\"text\"</i> stuff";
+		assertEquals(expected, CodeStyleParser.resolveStrings(content));
+		assertEquals(expected, CodeStyleParser.resolveStrings(expected));
+	}
 }

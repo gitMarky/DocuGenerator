@@ -76,4 +76,16 @@ public final class CodeStyleParser
 
 		return resolved;
 	}
+
+
+	static String resolveStrings(final String content)
+	{
+		final String text = "[" + Regex.REGEX_TEXT + Regex.REGEX_SPECIAL_CHARACTERS + Regex.REGEX_CODE_CHARACTERS + "]+";
+		final String pre = "<i class=\"string\">";
+		final String post = "</i>";
+		final String regex = "(?!" + pre + ")(?!class=)(?!class=\"string)(\\\"" + text + "\\\")(?!>)(?!" + text + "\")(?!" + post + ")";
+
+		final String resolved = content.replaceAll(regex, pre + "$1" + post);
+		return resolved;
+	}
 }
