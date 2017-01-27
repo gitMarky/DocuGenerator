@@ -61,7 +61,7 @@ public final class CodeStyleParser
 
 		for (final CodeKeywords keyword : CodeKeywords.values())
 		{
-			resolved = resolved.replaceAll(keyword.get(), "<b>" + keyword.get() + "</b>");
+			resolved = resolved.replaceAll("(\\s*)(" + keyword.get() + ")(\\s)", "$1<b>$2</b>$3");
 		}
 
 		return resolveMultiBold(resolved);
@@ -108,7 +108,7 @@ public final class CodeStyleParser
 	static String resolveComments(final String content)
 	{
 		final String styleClass = "comment";
-		final String regex = buildRegexForItalic(styleClass, "//", ")(" + Regex.REGEX_ANY_LINEBREAK );
+		final String regex = buildRegexForItalic(styleClass, "//", ")(" + Regex.REGEX_ANY_LINEBREAK);
 		final String replacer = buildReplacerForItalic(styleClass) + "\n";
 
 
