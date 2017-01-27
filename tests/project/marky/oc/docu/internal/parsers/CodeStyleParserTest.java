@@ -7,13 +7,6 @@ import org.junit.Test;
 public class CodeStyleParserTest
 {
 	@Test
-	public void testKeywords()
-	{
-		fail("Not implemented");
-	}
-
-
-	@Test
 	public void testResolveMultiBold()
 	{
 		assertEquals("<b>this is bold\tstuff</b>", CodeStyleParser.resolveMultiBold("<b>this</b> <b>is bold</b>\t<b>stuff</b>"));
