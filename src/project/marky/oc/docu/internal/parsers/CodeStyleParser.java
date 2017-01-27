@@ -8,20 +8,24 @@ public final class CodeStyleParser
 {
 	private enum CodeKeywords
 	{
+		// loop control
+		code_for("for"),
+		code_while("while"),
 		code_break("break;"),
 		code_continue("continue;"),
-		line_comment("//"),
+		// functions
 		code_func("func"),
-		code_for("for"),
-		code_return("return"),
-		code_if("if"),
-		code_else("else"),
-		code_true("true"),
-		code_false("false"),
 		code_public("public"),
 		code_protected("protected"),
 		code_global("global"),
 		code_private("private"),
+		// conditionals
+		code_if("if"),
+		code_else("else"),
+		code_return("return"),
+		code_true("true"),
+		code_false("false"),
+		// misc
 		code_include("#include"),
 		code_appendto("#appendto"),
 		code_var("var");
@@ -43,5 +47,23 @@ public final class CodeStyleParser
 	public static String resolve(final String content)
 	{
 		return content;
+	}
+
+
+	static String resolveSingleKeywords(final String content)
+	{
+		String resolved = content;
+
+		for (final CodeKeywords keyword : CodeKeywords.values())
+		{
+			resolved = resolved.replaceAll(keyword.get(), "<b>" + keyword.get() + "</b>");
+		}
+
+		return resolveMultiBold(resolved);
+	}
+
+	static String resolveMultiBold(final String content)
+	{
+		return content.replaceAll("</b>(\\s*)<b>", "$1");
 	}
 }
