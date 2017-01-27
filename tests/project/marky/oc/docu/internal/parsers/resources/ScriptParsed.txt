@@ -1,0 +1,14 @@
+#include Some_Definition
+
+static const CONSTANT = "This is a string constant";
+
+global func bar()
+{
+	return "bar"; // returns cool stuff!!
+}
+
+private func foo(string text)
+{
+	// gives you foobar text
+	return Format("foo%s: %s", bar(), text);
+}

@@ -2,7 +2,11 @@ package project.marky.oc.docu.internal.parsers;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.Test;
+
+import project.marky.oc.docu.util.LoadFile;
 
 public class CodeStyleParserTest
 {
@@ -44,5 +48,17 @@ public class CodeStyleParserTest
 		final String expected = "   <i class=\"comment\">// this is a comment</i>\n";
 		assertEquals(expected, CodeStyleParser.resolveComments(content));
 		assertEquals(expected, CodeStyleParser.resolveStrings(expected));
+	}
+
+
+	@Test
+	public void testScript()
+	{
+		final File file = new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\ScriptUnparsed.txt");
+		final File expected = new File("tests\\project\\marky\\oc\\docu\\internal\\parsers\\resources\\ScriptParsed.txt");
+		final String content = LoadFile.getFileContent(file);
+		final String resolved = CodeStyleParser.resolve(content);
+		System.out.println(resolved);
+		assertEquals(LoadFile.getFileContent(expected), resolved);
 	}
 }

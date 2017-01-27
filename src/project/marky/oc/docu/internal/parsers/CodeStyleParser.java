@@ -10,13 +10,28 @@ public final class CodeStyleParser
 	private enum CodeKeywords
 	{
 		// loop control
-		code_for("for"), code_while("while"), code_break("break;"), code_continue("continue;"),
+		code_for("for"),
+		code_while("while"),
+		code_break("break;"),
+		code_continue("continue;"),
 		// functions
-		code_func("func"), code_public("public"), code_protected("protected"), code_global("global"), code_private("private"), code_static("static"), code_const("const"),
+		code_func("func"),
+		code_public("public"),
+		code_protected("protected"),
+		code_global("global"),
+		code_private("private"),
+		code_static("static"),
+		code_const("const"),
 		// conditionals
-		code_if("if"), code_else("else"), code_return("return"), code_true("true"), code_false("false"),
+		code_if("if"),
+		code_else("else"),
+		code_return("return"),
+		code_true("true"),
+		code_false("false"),
 		// misc
-		code_include("#include"), code_appendto("#appendto"), code_var("var");
+		code_include("#include"),
+		code_appendto("#appendto"),
+		code_var("var");
 
 		private final String _word;
 
