@@ -11,7 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 import project.marky.oc.docu.DocuGui;
-import project.marky.oc.docu.gui.fileChoosers.FileChooserXmlFile;
+import project.marky.java.gui.fileChooser.FileChooserXmlFile;
 import project.marky.oc.docu.util.Constants;
 
 /**
