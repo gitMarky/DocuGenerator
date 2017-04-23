@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import project.marky.oc.docu.ApplicationLogger;
+import project.marky.java.gui.BrowseFilePanel;
+import project.marky.java.gui.IFileSelectionListener;
 import project.marky.java.gui.fileChooser.FileChooserCssFile;
 import project.marky.java.gui.fileChooser.FileChooserDirectory;
 import project.marky.oc.docu.internal.ProjectConfiguration;
